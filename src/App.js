@@ -1,10 +1,13 @@
 import React from 'react';
 import './App.css';
+import StartPage from './containers/StartPage/StartPage';
+import Background from './components/Background/Background';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Hello World</h1>
+    <div className='App'>
+      <Background/>
+      <StartPage/>
     </div>
   );
 }
