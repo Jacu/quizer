@@ -8,5 +8,11 @@
   justify-content: center;
   align-content: center;
   position: absolute;
+  
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+
+  color: #02283B;
+  color: #125271;
 }
 

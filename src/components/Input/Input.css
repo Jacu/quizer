@@ -1,0 +1,18 @@
+.Input {
+    flex: 1;
+}
+
+.Label {
+
+}
+
+select{
+    cursor: pointer;
+    width: 80%;
+    text-align: center;
+    color:inherit;
+}
+
+select option {
+    text-align: center;    
+}

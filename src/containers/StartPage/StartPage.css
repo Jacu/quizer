@@ -1,33 +1,54 @@
-.StartPage{
+.StartPage{    
     position: absolute;
-    background: white;
-    width: 60%;    
-    height: 50%;
+    background: white;    
     display: flex;    
     justify-content: center;    
     align-items: center;
     flex-direction: column;
     align-self: center;    
+    width: 60%;    
+    height: 50%;
     border-radius: 50px;
-    box-shadow: 2px 2px 10px 2px rgba(0,0,0,0.5);
+    box-shadow: 2px 2px 10px 2px rgba(0,0,0,0.25);
 }
 
 .settings {
+    margin: 50px 0;
+    display: flex;
     width: 100%;
 }
 
-.settings ul {
-    margin: 50px 0;
-    display: flex;
-    flex-direction: row;
-    list-style: none;
-    justify-content: space-around;
+h1.Title {    
+    margin: 20px 0;
+    font-size: 6rem;
+    transform: rotate3d(-0.1, -0.5, -0.5, 15deg);
+    transform: rotate3d(50, -15, -2, 35deg) translate(0,-25px) scale(1.15,1.25);
+    background: none;
+    color: #125271;    
 }
 
-h1 {
-    margin: 50px 0;
+.StartButton{
+    color: inherit;
+    position: absolute;
+    bottom: -100px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    background: white;
+    padding: 20px 50px;    
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 2rem;
+    box-shadow: 2px 2px 10px 2px rgba(0,0,0,0.25);
+    transition: transform 0.25s;
 }
 
-li {
-    flex:1;
+.StartButton:hover{
+    transform: scale(1.2,1.2);
+    
+}
+
+.SubTitle{
+    color: #B3D8E9;
+    color: #5B99B7;
 }
