@@ -4,14 +4,28 @@ import { connect } from 'react-redux';
 import Input from '../../components/Input/Input';
 import * as actions from '../../store/actions/quiz';
 import { NavLink } from 'react-router-dom';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 class StartPage extends Component {
 
     startQuiz = () => {
-        this.props.startQuiz();
+        this.props.startQuiz(this.props.apiURL);
+    }
+
+    componentDidMount() {
+        this.props.init();
     }
 
     render() {
+        let settings = this.props.loading === true ? <Spinner /> : (
+            <div className={styles.settings}>
+                <Input name="amount" label="Question count" options={this.props.settings.amount} />
+                <Input name="category" label="Category" options={this.props.settings.category.map(obj => obj.name)} />
+                <Input name="difficulty" label="Dificulity" options={this.props.settings.difficulty} />
+            </div>
+        )
+
+
         return (
             <div className={styles.StartPage}>
                 <h1 className={styles.Title}>Quizer</h1>
@@ -19,11 +33,7 @@ class StartPage extends Component {
                     <p>Quiz generator with use of Trivia API opentdb.com</p>
                     <p>created by Jacek Smetek</p>
                 </div>
-                <div className={styles.settings}>
-                    <Input label="Number of questions" options={this.props.settings.questionsCount} />
-                    <Input label="Category" options={this.props.settings.categories} />
-                    <Input label="Dificulity" options={this.props.settings.dificulities} />                    
-                </div>
+                {settings}                
                 <NavLink to="/quiz" className={styles.StartButton} onClick={this.startQuiz}>Start</NavLink>
             </div>
         )
@@ -32,14 +42,17 @@ class StartPage extends Component {
 
 const mapStateToProps = state => {
     return {
-        settings: state.quiz.settings
+        settings: state.settings,
+        loading: state.loading,
+        apiURL: state.apiURL
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        startQuiz: (questionsCount, category, dificulity) => dispatch(actions.startQuiz(questionsCount, category, dificulity))
+        init: () => dispatch(actions.init()),
+        startQuiz: (url) => dispatch(actions.startQuiz(url))
     };
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(StartPage);
+export default connect(mapStateToProps, mapDispatchToProps)(StartPage);

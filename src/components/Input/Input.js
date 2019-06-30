@@ -6,8 +6,7 @@ import { connect } from 'react-redux';
 class Input extends Component {
     
     handleChange = event => {
-        this.props.changeSetting(this.props.label,event.target.value)
-        console.log(`${this.props.label}: ${event.target.value}`);        
+        this.props.changeSetting(this.props.name,event.target.value)              
     }
 
     render() {
