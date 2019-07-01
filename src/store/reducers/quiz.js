@@ -36,23 +36,20 @@ const initialState = {
             question: "The starting pistol of the Terrorist team in a competitive match of Counter Strike: Global Offensive is what?",
             correct_answer: "Glock-18",
             incorrect_answers: ["Tec-9", "Desert Eagle", "Dual Berretas"]
-        }]
+        }],
+    currentQuestion: 0
 }
 
 const setSetting = (state, action) => {
-    return { ...state, selectedSetting: { ...state.selectedSetting, ...action.selectedSetting } };
-}
-
-const generateApiUrl = (state, action) => {
-
-    const category = state.settings.category.find(category => category.name === state.selectedSetting.category).id;
-    const amount = state.selectedSetting.amount;
-    const difficultyValues = ["0", "easy", "medium", "hard"]
-    const difficulty = difficultyValues[state.settings.difficulty.indexOf(state.selectedSetting.difficulty)];
+    const newSelectedSetting = { ...state.selectedSetting, ...action.selectedSetting }
+    const category = state.settings.category.find(category => category.name === newSelectedSetting.category).id;
+    const amount = newSelectedSetting.amount;
+    const difficultyValues = ["0", "easy", "medium", "hard"];
+    const difficulty = difficultyValues[state.settings.difficulty.indexOf(newSelectedSetting.difficulty)];
     const apiURL = `https://opentdb.com/api.php?amount=${amount}&category=${category}&type=multiple&difficulty=${difficulty}`;
-
-    return { ...state, apiURL };
+    return { ...state, selectedSetting: { ...newSelectedSetting }, apiURL: apiURL };
 }
+
 const fetchCategoriesStart = (state, action) => {
     return { ...state, loading: true }
 }
@@ -77,23 +74,32 @@ const fetchQuestionsStart = (state, action) => {
     return { ...state, loading: true }
 }
 
-const fetchQuestionsSuccess = (state, action) => {            
-    return {...state,questions: action.questions};
+const fetchQuestionsSuccess = (state, action) => {
+    return { ...state, questions: action.questions };
 }
 
 const fetchQuestionsFail = (state, action) => {
     return state;
 }
 
+const nextQuestion = (state, action) => {
+    return {...state, currentQuestion: ++state.currentQuestion };
+}
+
+const prevQuestion = (state, action) => {
+    return {...state, currentQuestion: --state.currentQuestion };
+}
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case actionTypes.PREV_QUESTION: return prevQuestion(state,action);
+        case actionTypes.NEXT_QUESTION: return nextQuestion(state,action);
         case actionTypes.FETCH_QUESTIONS_START: return fetchQuestionsStart(state, action);
         case actionTypes.FETCH_QUESTIONS_SUCCESS: return fetchQuestionsSuccess(state, action);
         case actionTypes.FETCH_QUESTIONS_FAIL: return fetchQuestionsFail(state, action);
         case actionTypes.FETCH_CATEGORIES_START: return fetchCategoriesStart(state, action);
         case actionTypes.FETCH_CATEGORIES_SUCCESS: return fetchCategoriesSuccess(state, action);
         case actionTypes.FETCH_CATEGORIES_FAIL: return fetchCategoriesFail(state, action);
-        case actionTypes.GENERATE_API_URL: return generateApiUrl(state, action);
         case actionTypes.SET_SETTING: return setSetting(state, action);
         default: return state;
     }

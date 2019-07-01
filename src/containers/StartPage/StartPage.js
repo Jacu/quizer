@@ -3,7 +3,7 @@ import styles from './StartPage.css';
 import { connect } from 'react-redux';
 import Input from '../../components/Input/Input';
 import * as actions from '../../store/actions/quiz';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
 class StartPage extends Component {
@@ -34,7 +34,7 @@ class StartPage extends Component {
                     <p>created by Jacek Smetek</p>
                 </div>
                 {settings}                
-                <NavLink to="/quiz" className={styles.StartButton} onClick={this.startQuiz}>Start</NavLink>
+                <Link to="/quiz/1" className={styles.StartButton} onClick={this.startQuiz}>Start</Link>
             </div>
         )
     }

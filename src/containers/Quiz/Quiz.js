@@ -2,24 +2,22 @@ import React, { Component } from 'react';
 import styles from './Quiz.css';
 import Question from '../../components/Question/Question';
 import { connect } from 'react-redux';
+import { Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import * as actions from '../../store/actions/quiz';
+
 
 
 class Quiz extends Component {
-    state = {
-        currentQuestion: 0
-    }
+    
+    
 
     render() {
         return (
-            <div className={styles.Quiz}>
-                <a className={styles.arrow} href='#/'>&lArr;</a>
-                <Question
-                    totalQuestions="2"
-                    currentQuestion={this.state.currentQuestion}
-                    category={this.props.questions[this.state.currentQuestion].category}
-                    question={this.props.questions[this.state.currentQuestion].question}
-                    answers={this.props.questions.incorrect_answers + this.props.questions.correct_answer} />
-                <a className={styles.arrow} href='#/'>&rArr;</a>
+            <div className={styles.Quiz}>                
+                <Link to={`/quiz/${this.props.currentQuestion-1}`} onClick={this.props.prevQuestion} className={styles.arrow}>&lArr;</Link>                
+                <Route path="/quiz/:id" component={Question}/>
+                <Link to={`/quiz/${this.props.currentQuestion+1}`} onClick={this.props.nextQuestion} className={styles.arrow}>&rArr;</Link>                
             </div>
         )
     }
@@ -27,15 +25,18 @@ class Quiz extends Component {
 
 const mapStateToProps = state => {
     return {
-        questions: state.questions
+        questions: state.questions,
+        currentQuestion: state.currentQuestion,
+        questionsAmount: state.selectedSetting.amount
     }
 }
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-        
-//     };
-// };
+const mapDispatchToProps = dispatch => {
+    return {
+        nextQuestion: () => dispatch(actions.nextQuestion()),
+        prevQuestion: () => dispatch(actions.prevQuestion())
+    };
+};
 
 
-export default connect(mapStateToProps, null)(Quiz);
+export default connect(mapStateToProps, mapDispatchToProps)(Quiz);

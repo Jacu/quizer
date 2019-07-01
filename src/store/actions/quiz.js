@@ -3,7 +3,6 @@ import axios from 'axios';
 
 export const startQuiz = apiRL => {
     return dispatch => {
-        dispatch(generateApiUrl());
         dispatch(fetchQuestions(apiRL));
     }
 }
@@ -42,9 +41,15 @@ export const fetchQuestionsFail = error => {
     }
 }
 
-export const generateApiUrl = () => {
+export const nextQuestion = () => {
     return {
-        type: actionTypes.GENERATE_API_URL
+        type: actionTypes.NEXT_QUESTION
+    }
+}
+
+export const prevQuestion = () => {
+    return {
+        type: actionTypes.PREV_QUESTION
     }
 }
 
