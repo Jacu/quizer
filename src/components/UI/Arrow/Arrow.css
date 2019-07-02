@@ -1,0 +1,11 @@
+.Arrow {
+    color: inherit;
+    font-size: 4rem;
+    flex: 1;
+    cursor: pointer;
+}
+
+.disabled {
+    color:rgba(80,80,80,0.2);
+    cursor: not-allowed;
+}

@@ -1,9 +1,9 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
-export const startQuiz = apiRL => {
-    return dispatch => {
-        dispatch(fetchQuestions(apiRL));
+export const startQuiz = () => {
+    return {
+        type: actionTypes.START_QUIZ
     }
 }
 
@@ -12,7 +12,8 @@ export const fetchQuestions = apiRL => {
         dispatch(fetchQuestionsStart());        
         axios.get(apiRL)
             .then(response => {
-                dispatch(fetchQuestionsSuccess(response.data.results))
+                dispatch(fetchQuestionsSuccess(response.data.results));
+                dispatch(startQuiz())
             })
             .catch(err => {
                 dispatch(fetchQuestionsFail(err))

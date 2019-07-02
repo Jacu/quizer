@@ -1,42 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styles from './Quiz.css';
 import Question from '../../components/Question/Question';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import * as actions from '../../store/actions/quiz';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import Arrow from '../../components/UI/Arrow/Arrow';
 
-
-
-class Quiz extends Component {
-    
-    
-
-    render() {
-        return (
-            <div className={styles.Quiz}>                
-                <Link to={`/quiz/${this.props.currentQuestion-1}`} onClick={this.props.prevQuestion} className={styles.arrow}>&lArr;</Link>                
-                <Route path="/quiz/:id" component={Question}/>
-                <Link to={`/quiz/${this.props.currentQuestion+1}`} onClick={this.props.nextQuestion} className={styles.arrow}>&rArr;</Link>                
-            </div>
-        )
-    }
-}
+const Quiz = props => (
+    <div className={styles.Quiz}>
+        <Arrow disable={props.currentQuestion <= 1} direction="left" />
+        {props.quizStarted ? <Redirect to="/quiz/1" /> : <Spinner />}
+        {props.quizStarted ? <Route path="/quiz/:id" component={Question}/> : null}
+        <Arrow disable={props.currentQuestion >= props.questionsAmount} />
+    </div>
+)
 
 const mapStateToProps = state => {
     return {
         questions: state.questions,
         currentQuestion: state.currentQuestion,
-        questionsAmount: state.selectedSetting.amount
+        questionsAmount: state.selectedSetting.amount,
+        quizStarted: state.quizStarted
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        nextQuestion: () => dispatch(actions.nextQuestion()),
-        prevQuestion: () => dispatch(actions.prevQuestion())
-    };
-};
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(Quiz);
+export default connect(mapStateToProps)(Quiz);

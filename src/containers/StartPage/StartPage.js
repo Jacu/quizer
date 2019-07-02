@@ -8,10 +8,6 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 
 class StartPage extends Component {
 
-    startQuiz = () => {
-        this.props.startQuiz(this.props.apiURL);
-    }
-
     componentDidMount() {
         this.props.init();
     }
@@ -25,7 +21,6 @@ class StartPage extends Component {
             </div>
         )
 
-
         return (
             <div className={styles.StartPage}>
                 <h1 className={styles.Title}>Quizer</h1>
@@ -34,7 +29,7 @@ class StartPage extends Component {
                     <p>created by Jacek Smetek</p>
                 </div>
                 {settings}                
-                <Link to="/quiz/1" className={styles.StartButton} onClick={this.startQuiz}>Start</Link>
+                <Link to="/quiz" className={styles.StartButton} onClick={() => this.props.fetchQuestions(this.props.apiURL)}>Start</Link>
             </div>
         )
     }
@@ -51,7 +46,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         init: () => dispatch(actions.init()),
-        startQuiz: (url) => dispatch(actions.startQuiz(url))
+        fetchQuestions: (url) => dispatch(actions.fetchQuestions(url))
     };
 };
 

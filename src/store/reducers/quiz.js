@@ -37,7 +37,8 @@ const initialState = {
             correct_answer: "Glock-18",
             incorrect_answers: ["Tec-9", "Desert Eagle", "Dual Berretas"]
         }],
-    currentQuestion: 0
+    quizStarted: false, // temporary set to true
+    currentQuestion: 1
 }
 
 const setSetting = (state, action) => {
@@ -46,7 +47,7 @@ const setSetting = (state, action) => {
     const amount = newSelectedSetting.amount;
     const difficultyValues = ["0", "easy", "medium", "hard"];
     const difficulty = difficultyValues[state.settings.difficulty.indexOf(newSelectedSetting.difficulty)];
-    const apiURL = `https://opentdb.com/api.php?amount=${amount}&category=${category}&type=multiple&difficulty=${difficulty}`;
+    const apiURL = `https://opentdb.com/api.php?amount=${amount}&category=${category}&type=multiple&dificulty=${difficulty}`;
     return { ...state, selectedSetting: { ...newSelectedSetting }, apiURL: apiURL };
 }
 
@@ -75,25 +76,31 @@ const fetchQuestionsStart = (state, action) => {
 }
 
 const fetchQuestionsSuccess = (state, action) => {
-    return { ...state, questions: action.questions };
+    return { ...state, questions: action.questions, loading: false };
 }
 
 const fetchQuestionsFail = (state, action) => {
-    return state;
+    return { ...state, loading: false };
 }
 
 const nextQuestion = (state, action) => {
-    return {...state, currentQuestion: ++state.currentQuestion };
+
+    return { ...state, currentQuestion: Math.min(++state.currentQuestion, Number(state.selectedSetting.amount)) };
 }
 
 const prevQuestion = (state, action) => {
-    return {...state, currentQuestion: --state.currentQuestion };
+    return { ...state, currentQuestion: Math.max(--state.currentQuestion, 0) };
+}
+
+const startQuiz =(state, action) => {
+    return {...state, quizStarted: true }
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.PREV_QUESTION: return prevQuestion(state,action);
-        case actionTypes.NEXT_QUESTION: return nextQuestion(state,action);
+        case actionTypes.START_QUIZ: return startQuiz(state,action);
+        case actionTypes.PREV_QUESTION: return prevQuestion(state, action);
+        case actionTypes.NEXT_QUESTION: return nextQuestion(state, action);
         case actionTypes.FETCH_QUESTIONS_START: return fetchQuestionsStart(state, action);
         case actionTypes.FETCH_QUESTIONS_SUCCESS: return fetchQuestionsSuccess(state, action);
         case actionTypes.FETCH_QUESTIONS_FAIL: return fetchQuestionsFail(state, action);
