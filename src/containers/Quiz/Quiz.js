@@ -3,7 +3,6 @@ import styles from './Quiz.css';
 import Question from '../../components/Question/Question';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import * as actions from '../../store/actions/quiz';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Arrow from '../../components/UI/Arrow/Arrow';

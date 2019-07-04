@@ -38,7 +38,9 @@ const initialState = {
             incorrect_answers: ["Tec-9", "Desert Eagle", "Dual Berretas"]
         }],
     quizStarted: false, // temporary set to true
-    currentQuestion: 1
+    currentQuestion: 1,
+    questionsAnswers: [1, 2],
+    questionsPicked: [-1, -1]
 }
 
 const setSetting = (state, action) => {
@@ -53,6 +55,16 @@ const setSetting = (state, action) => {
 
 const fetchCategoriesStart = (state, action) => {
     return { ...state, loading: true }
+}
+
+const shuffleAnswers = (state, action) => {
+    let questionsAnswers = [];
+
+    for (const question in state.questions) {
+        questionsAnswers.push(Math.floor(Math.random() * 4) + 1);
+    }
+    const questionsPicked = questionsAnswers.map(() => -1);
+    return { ...state, questionsAnswers: [...questionsAnswers], questionsPicked: [...questionsPicked] };
 }
 
 const fetchCategoriesSuccess = (state, action) => {
@@ -92,13 +104,23 @@ const prevQuestion = (state, action) => {
     return { ...state, currentQuestion: Math.max(--state.currentQuestion, 0) };
 }
 
-const startQuiz =(state, action) => {
-    return {...state, quizStarted: true }
+const startQuiz = (state, action) => {
+    return { ...state, quizStarted: true }
+}
+
+const pickAnswer = (state, action) => {
+    
+    
+    state.questionsPicked[action.index] = action.answer;
+
+    return {...state};
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.START_QUIZ: return startQuiz(state,action);
+        case actionTypes.PICK_ANSWER: return pickAnswer(state, action);
+        case actionTypes.SHUFFLE_ANSWERS: return shuffleAnswers(state, action);
+        case actionTypes.START_QUIZ: return startQuiz(state, action);
         case actionTypes.PREV_QUESTION: return prevQuestion(state, action);
         case actionTypes.NEXT_QUESTION: return nextQuestion(state, action);
         case actionTypes.FETCH_QUESTIONS_START: return fetchQuestionsStart(state, action);

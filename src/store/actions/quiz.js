@@ -7,13 +7,29 @@ export const startQuiz = () => {
     }
 }
 
+export const shuffleAnswers = () => {
+    return {
+        type: actionTypes.SHUFFLE_ANSWERS
+    }
+}
+
+export const pickAnswer = (index, answer) => {
+    return {
+        type: actionTypes.PICK_ANSWER,
+        index: index,
+        answer: answer
+
+    }
+}
+
 export const fetchQuestions = apiRL => {
     return dispatch => {
         dispatch(fetchQuestionsStart());        
         axios.get(apiRL)
             .then(response => {
                 dispatch(fetchQuestionsSuccess(response.data.results));
-                dispatch(startQuiz())
+                dispatch(startQuiz());
+                dispatch(shuffleAnswers());
             })
             .catch(err => {
                 dispatch(fetchQuestionsFail(err))
