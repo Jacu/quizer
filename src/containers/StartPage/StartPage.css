@@ -21,10 +21,26 @@
 h1.Title {    
     margin: 20px 0;
     font-size: 6rem;
-    transform: rotate3d(-0.1, -0.5, -0.5, 15deg);
-    transform: rotate3d(50, -15, -2, 35deg) translate(0,-25px) scale(1.15,1.25);
+    animation: quizerIntro 0.4s 0.5s ease-out forwards;
     background: none;
     color: #125271;    
+    transform: scale(0,0);
+}
+
+@keyframes quizerIntro {
+    0% {        
+        transform: scale(0,0) rotate(0deg)
+    }
+
+    /* 50% {
+        transform: scale(0.5,0.5) rotate(180deg)
+    } */
+    60%{
+        transform: scale(1.25,1.25) rotate(360deg) skew(-15deg);
+    }
+    100%{
+        transform: scale(1.15,1.25) rotate(355deg) skew(-10deg);
+    }
 }
 
 .StartButton{

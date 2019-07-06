@@ -3,7 +3,7 @@ import styles from './Question.css';
 import { connect } from 'react-redux';
 import Answer from '../Answer/Answer';
 import * as actions from '../../store/actions/quiz';
-// import { Redirect } from 'react-router-dom';
+import unescape from '@favware/unescape';
 
 class Question extends Component {
     render() {
@@ -18,11 +18,14 @@ class Question extends Component {
                 {redirect}
                 <h1>Question {this.props.match.params.id}/{this.props.totalQuestions}</h1>
                 <h3>Category: {this.props.question[this.props.match.params.id - 1].category}</h3>
-                <p>{this.props.question[this.props.match.params.id - 1].question}</p>
+                <p>{unescape(this.props.question[this.props.match.params.id - 1].question)}</p>
                 <div className={styles.Answers}>
                     {
                         allAnswers.map((answer, i) => (
-                            <Answer key={i} answer={answer} selected={this.props.questionsPicked[this.props.match.params.id - 1] === i+1} onClick={() => this.props.pickAnswer(this.props.match.params.id - 1,i+1)} />
+                            <Answer key={i}
+                                answer={unescape(answer)}
+                                selected={this.props.questionsPicked[this.props.match.params.id - 1] === i + 1}
+                                onClick={() => this.props.pickAnswer(this.props.match.params.id - 1, i + 1)} />
                         ))
                     }
                 </div>
@@ -33,10 +36,10 @@ class Question extends Component {
 
 const mapStateToProps = state => {
     return {
-        question: [...state.questions],
-        totalQuestions: state.selectedSetting.amount,
-        answers: [...state.questionsAnswers],
-        questionsPicked: [...state.questionsPicked]
+        question: [...state.quiz.questions.all],
+        totalQuestions: state.quiz.questions.amount,
+        answers: [...state.quiz.answers.correct],
+        questionsPicked: [...state.quiz.answers.picked]
     }
 }
 
@@ -46,4 +49,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Question);
+export default connect(mapStateToProps, mapDispatchToProps)(Question);

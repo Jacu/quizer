@@ -1,40 +1,20 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
-export const startQuiz = () => {
-    return {
-        type: actionTypes.START_QUIZ
-    }
-}
-
-export const shuffleAnswers = () => {
-    return {
-        type: actionTypes.SHUFFLE_ANSWERS
-    }
-}
-
-export const pickAnswer = (index, answer) => {
-    return {
-        type: actionTypes.PICK_ANSWER,
-        index: index,
-        answer: answer
-
-    }
-}
-
-export const fetchQuestions = apiRL => {
+export const initQuiz = apiURL => {
     return dispatch => {
         dispatch(fetchQuestionsStart());        
-        axios.get(apiRL)
+        axios.get(apiURL)
             .then(response => {
-                dispatch(fetchQuestionsSuccess(response.data.results));
-                dispatch(startQuiz());
-                dispatch(shuffleAnswers());
+                dispatch(fetchQuestionsSuccess(response.data.results));                
             })
-            .catch(err => {
+            .then( () => {
+                dispatch(shuffleAnswers());
+                dispatch(quizStarted())
+            })
+            .catch(err => {                
                 dispatch(fetchQuestionsFail(err))
             });
-
     }
 }
 
@@ -58,6 +38,26 @@ export const fetchQuestionsFail = error => {
     }
 }
 
+export const shuffleAnswers = () => {
+    return {
+        type: actionTypes.SHUFFLE_ANSWERS
+    }
+}
+
+export const quizStarted =() => {
+    return {
+        type: actionTypes.QUIZ_STARTED
+    }
+}
+
+export const pickAnswer = (index, answer) => {
+    return {
+        type: actionTypes.PICK_ANSWER,
+        index: index,
+        answer: answer
+    }
+}
+
 export const nextQuestion = () => {
     return {
         type: actionTypes.NEXT_QUESTION
@@ -67,48 +67,5 @@ export const nextQuestion = () => {
 export const prevQuestion = () => {
     return {
         type: actionTypes.PREV_QUESTION
-    }
-}
-
-export const fetchCategoriesStart = () => {
-    return {
-        type: actionTypes.FETCH_CATEGORIES_START
-    }
-}
-
-export const fetchCategoriesSuccess = data => {
-    return {
-        type: actionTypes.FETCH_CATEGORIES_SUCCESS,
-        categories: data
-    }
-}
-
-export const fetchCategoriesFail = error => {
-    return {
-        type: actionTypes.FETCH_CATEGORIES_FAIL,
-        error: error
-    }
-}
-
-export const init = () => {
-    return dispatch => {
-        dispatch(fetchCategoriesStart());
-        axios.get('https://opentdb.com/api_category.php')
-            .then(response => {
-                dispatch(fetchCategoriesSuccess(response.data.trivia_categories))
-            })
-            .catch(err => {
-                dispatch(fetchCategoriesFail(err))
-            });
-    }
-
-}
-
-export const setSetting = (setting, value) => {
-    return {
-        type: actionTypes.SET_SETTING,
-        selectedSetting: {
-            [setting]: value
-        }
     }
 }

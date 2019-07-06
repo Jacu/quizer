@@ -10,13 +10,20 @@ class Arrow extends Component {
     render() {
 
         const icon = this.props.direction === "left" ? <FontAwesomeIcon icon={faChevronLeft} /> : <FontAwesomeIcon icon={faChevronRight} />
-        const link = this.props.direction === "left" ? `/quiz/${this.props.currentQuestion - 1}` : `/quiz/${this.props.currentQuestion + 1}`;
+        const link =
+            this.props.disable ?
+                `/quiz/${this.props.currentQuestion}` :
+                this.props.direction === "left" ?
+                    `/quiz/${this.props.currentQuestion - 1}` :
+                    `/quiz/${this.props.currentQuestion + 1}`
+
 
         return (
             <Link
-                to={this.props.disable ? null : link}
-                className={[styles.Arrow, this.props.disable === true ? styles.disabled : null].join(' ')}
-                onClick={this.props.disable ? null : this.props.direction === "left" ? this.props.prevQuestion : this.props.nextQuestion}>
+                to={link}
+                className={styles.Arrow}
+                onClick={this.props.disable ? null : this.props.direction === "left" ? this.props.prevQuestion : this.props.nextQuestion}
+                disabled={this.props.disable}>
                 {icon}
             </Link>
         )
@@ -25,7 +32,7 @@ class Arrow extends Component {
 
 const mapStateToProps = state => {
     return {
-        currentQuestion: state.currentQuestion
+        currentQuestion: state.quiz.questions.current
     }
 }
 
