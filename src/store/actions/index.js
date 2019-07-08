@@ -2,7 +2,9 @@ export {
     initQuiz,
     pickAnswer,
     nextQuestion,
-    prevQuestion
+    prevQuestion,
+    quizEnded,
+    reset
 } from './quiz'
 export {
     init,

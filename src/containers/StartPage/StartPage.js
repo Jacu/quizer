@@ -3,8 +3,8 @@ import styles from './StartPage.css';
 import { connect } from 'react-redux';
 import Input from '../../components/Input/Input';
 import * as actions from '../../store/actions/index';
-import { Link } from 'react-router-dom';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import Button from '../../components/UI/Button/Button';
 
 class StartPage extends Component {
 
@@ -13,7 +13,7 @@ class StartPage extends Component {
     }
 
     render() {
-        let settings = this.props.loading === true ? <Spinner /> : (
+        let settings = this.props.loading === true ? <Spinner/> : (
             <div className={styles.settings}>
                 <Input name="amount" label="Question count" options={this.props.settings.amount} onChange={this.props.changeSetting} />
                 <Input name="category" label="Category" options={this.props.settings.category.map(obj => obj.name)} onChange={this.props.changeSetting} />
@@ -24,17 +24,18 @@ class StartPage extends Component {
 
         return (
             <div className={styles.StartPage}>
-                <h1 className={styles.Title}>Quizer</h1>
-                <div className={styles.SubTitle}>
-                    <p>Quiz generator with use of Trivia API opentdb.com</p>
-                    <p>created by Jacek Smetek</p>
+                <div className={styles.Menu}>
+                    <h1 className={styles.Title}>Quizer</h1>
+                    <div className={styles.SubTitle}>
+                        <p>Quiz generator with use of Trivia API opentdb.com</p>
+                        <p>created by Jacek Smetek</p>
+                    </div>
+                    {settings}
                 </div>
-                {settings}
-                <Link
-                    to="/quiz/1"
-                    className={styles.StartButton}
-                    onClick={this.props.startQuiz}>
-                    Start</Link>
+                <Button
+                    link="/quiz/1"
+                    onClick={this.props.startQuiz}
+                    label="Start" />
             </div>
         )
     }

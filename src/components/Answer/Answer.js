@@ -4,7 +4,7 @@ import styles from './Answer.css'
 const Answer = props => (
     <div 
         className={props.selected === true ? [styles.Answer,styles.selected].join(' ') : styles.Answer}
-        onClick={() => props.onClick()}>
+        onClick={props.disabled ? null : () => props.onClick()}>
         {props.answer}
     </div>
 )

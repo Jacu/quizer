@@ -1,0 +1,40 @@
+.Summary {    
+    position: absolute;
+    display: flex;
+    height: 100vh;
+    width: 80%;
+
+    align-items: center; 
+    flex-direction: column;
+    justify-content: center;       
+    
+}
+.container{
+    padding: 1rem;
+    border-radius: 3rem; 
+    background: white;
+}
+
+.Summary h1 {
+    font-size: 6rem;
+    margin: 0;
+    padding: 0;
+    animation: showoff 0.5s cubic-bezier(0, 0, 0.35, 2.41) forwards;
+}
+
+@keyframes showoff {
+    0%{
+        transform: scale(0,0);
+    }
+    100%{
+        transform: scale(1,1)
+    }
+}
+
+.Summary h2{
+    font-size: 1.5rem;
+}
+.Options {
+    display: flex;
+    flex-direction: row;
+}

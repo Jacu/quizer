@@ -25,7 +25,8 @@ class Question extends Component {
                             <Answer key={i}
                                 answer={unescape(answer)}
                                 selected={this.props.questionsPicked[this.props.match.params.id - 1] === i + 1}
-                                onClick={() => this.props.pickAnswer(this.props.match.params.id - 1, i + 1)} />
+                                onClick={() => this.props.pickAnswer(this.props.match.params.id - 1, i + 1)} 
+                                disabled={this.props.ended}/>
                         ))
                     }
                 </div>
@@ -39,7 +40,8 @@ const mapStateToProps = state => {
         question: [...state.quiz.questions.all],
         totalQuestions: state.quiz.questions.amount,
         answers: [...state.quiz.answers.correct],
-        questionsPicked: [...state.quiz.answers.picked]
+        questionsPicked: [...state.quiz.answers.picked],
+        ended: state.quiz.finished
     }
 }
 

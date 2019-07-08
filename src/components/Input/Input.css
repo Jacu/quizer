@@ -11,6 +11,11 @@ select{
     width: 80%;
     text-align: center;
     color:inherit;
+    border-radius: 5px;
+}
+
+select:focus{
+    outline: 0;
 }
 
 select option {

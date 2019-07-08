@@ -69,3 +69,28 @@ export const prevQuestion = () => {
         type: actionTypes.PREV_QUESTION
     }
 }
+
+export const quizEnded = () => {
+    return dispatch => {
+        dispatch(calculateScore());
+        dispatch(endQuiz());        
+    }
+}
+
+export const endQuiz = () => {
+    return {
+        type: actionTypes.QUIZ_ENDED
+    }
+}
+
+export const calculateScore = () => {
+    return {
+        type: actionTypes.CALCULATE_SCORE
+    }
+}
+
+export const reset = () => {
+    return {
+        type: actionTypes.RESET
+    }
+}

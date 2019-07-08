@@ -8,11 +8,10 @@ import { connect } from 'react-redux';
 
 class Arrow extends Component {
     render() {
-
         const icon = this.props.direction === "left" ? <FontAwesomeIcon icon={faChevronLeft} /> : <FontAwesomeIcon icon={faChevronRight} />
         const link =
-            this.props.disable ?
-                `/quiz/${this.props.currentQuestion}` :
+            this.props.disable ? 
+            `/quiz/${this.props.currentQuestion}` :
                 this.props.direction === "left" ?
                     `/quiz/${this.props.currentQuestion - 1}` :
                     `/quiz/${this.props.currentQuestion + 1}`

@@ -2,7 +2,7 @@
     display: flex;
     width: 64px;
     height: 64px;
-    margin: 36px 0;
+    margin: 36px auto;
   }
   .Spinner:after {
     content: " ";

@@ -2,6 +2,7 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     started: false,
+    finished: false,
     questions: {
         all: [{
             category: "Entertainment: Board Games",
@@ -18,6 +19,10 @@ const initialState = {
     answers: {
         correct: [1],
         picked: [-1]
+    },
+    score: {
+        percentage: -1,
+        correct: 0
     }
 }
 
@@ -35,7 +40,7 @@ const fetchQuestionsStart = (state, action) => {
 }
 
 const fetchQuestionsSuccess = (state, action) => {
-    return { ...state, questions: { ...state.questions, all: action.questions, fetching: false, amount: action.questions.length  } }
+    return { ...state, questions: { ...state.questions, all: action.questions, fetching: false, amount: action.questions.length } }
 }
 
 const fetchQuestionsFail = (state, action) => {
@@ -44,7 +49,7 @@ const fetchQuestionsFail = (state, action) => {
 }
 
 const quizStarted = (state, action) => {
-    return { ...state, questions: {...state.questions, current: 1}, started: true }
+    return { ...state, questions: { ...state.questions, current: 1 }, started: true, score: { percentage: -1, correct: 0 } }
 }
 
 const nextQuestion = (state, action) => {
@@ -60,6 +65,20 @@ const pickAnswer = (state, action) => {
     return { ...state };
 }
 
+const quizEnded = (state, action) => {
+    return { ...state, finished: true ,started: false}
+}
+
+const calculateScore = (state, action) => {
+    const numberOfCorrectAnswers = state.answers.correct.reduce((prevV, currentV, index) => currentV === state.answers.picked[index] ? prevV + 1 : prevV, 0);
+    const percentage = Math.round((numberOfCorrectAnswers / state.questions.amount) * 100);
+    return { ...state, score: { percentage: percentage, correct: numberOfCorrectAnswers } };
+}
+
+const reset = (state, action) => {
+    return {...state,finished: false};
+}
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_QUESTIONS_START: return fetchQuestionsStart(state, action);
@@ -70,6 +89,9 @@ const reducer = (state = initialState, action) => {
         case actionTypes.PICK_ANSWER: return pickAnswer(state, action);
         case actionTypes.NEXT_QUESTION: return nextQuestion(state, action);
         case actionTypes.PREV_QUESTION: return prevQuestion(state, action);
+        case actionTypes.QUIZ_ENDED: return quizEnded(state, action);
+        case actionTypes.CALCULATE_SCORE: return calculateScore(state, action);
+        case actionTypes.RESET: return reset(state, action);
         default: return state;
     }
 }
