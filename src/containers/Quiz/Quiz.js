@@ -23,8 +23,8 @@ class Quiz extends Component {
                         disable={this.props.currentQuestion <= 1}
                         direction="left">
                     </Arrow>
-                    {this.props.quizStarted ? <Redirect to="/quiz/1" /> : <Spinner />}
-                    {this.props.quizStarted ? <Route path="/quiz/:id" component={Question} /> : null}
+                    {this.props.quizStarted || this.props.quizFinished ? <Redirect to="/quiz/1" /> : <Spinner />}
+                    {this.props.quizStarted || this.props.quizFinished ? <Route path="/quiz/:id" component={Question} /> : null}
                     <Arrow
                         disable={this.props.currentQuestion >= this.props.questionsAmount}>
                     </Arrow>
@@ -40,6 +40,7 @@ const mapStateToProps = state => {
         currentQuestion: state.quiz.questions.current,
         questionsAmount: state.quiz.questions.amount,
         quizStarted: state.quiz.started,
+        quizFinished: state.quiz.finished,
         url: state.startPage.settings.apiURL,
         ended: state.quiz.finished
     }

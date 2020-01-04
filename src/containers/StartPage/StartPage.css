@@ -31,6 +31,11 @@ h1.Title {
     transform: scale(0, 0);
 }
 
+.SubTitle {
+    color: #B3D8E9;
+    color: #5B99B7;
+}
+
 @keyframes quizerIntro {
     0% {
         transform: scale(0, 0) rotate(0deg);
@@ -43,7 +48,13 @@ h1.Title {
     }
 }
 
-.SubTitle {
-    color: #B3D8E9;
-    color: #5B99B7;
+@media (max-width: 640px) {
+    .StartPage{
+        width: 100%;
+        
+    }
+    .Menu {
+        border-radius: 0;
+        box-shadow: 0 0;
+    }
 }

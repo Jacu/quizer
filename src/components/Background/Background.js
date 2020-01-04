@@ -6,24 +6,18 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
-const Background = props => (
-    <div className={styles.Background} onClick={props.reset()}>
+const Background = (props) => (
+    <div className={styles.Background}>
         <Link to="/">
-            <FontAwesomeIcon className={styles.icon} icon={faHome} />
+            <FontAwesomeIcon className={styles.icon} icon={faHome} onClick={props.quit}/>
         </Link>
     </div>
 )
 
-const mapStateToProps = state => {
-    return {
-        ended: state.quiz.finished
-    }
-}
-
 const mapDispatchToProps = dispatch => {
     return {
-        reset: () => dispatch(actions.reset)
+        quit: () => dispatch(actions.quizQuit()),
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Background);
+export default connect(null, mapDispatchToProps)(Background);

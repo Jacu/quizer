@@ -7,9 +7,18 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import Button from '../../components/UI/Button/Button';
 
 class StartPage extends Component {
+    constructor(props){
+        super(props);
+        this.handleStartButtonClick = this.handleStartButtonClick.bind(this);
+    }
 
     componentDidMount() {
         this.props.init();
+    }
+
+    handleStartButtonClick() {
+        this.props.reset(); 
+        this.props.startQuiz()
     }
 
     render() {
@@ -34,7 +43,7 @@ class StartPage extends Component {
                 </div>
                 <Button
                     link="/quiz/1"
-                    onClick={this.props.startQuiz}
+                    onClick={this.handleStartButtonClick}
                     label="Start" />
             </div>
         )
@@ -53,7 +62,8 @@ const mapDispatchToProps = dispatch => {
     return {
         init: () => dispatch(actions.init()),
         startQuiz: () => dispatch(actions.generateURL()),
-        changeSetting: (setting, value) => dispatch(actions.setSetting(setting, value))
+        changeSetting: (setting, value) => dispatch(actions.setSetting(setting, value)),
+        reset: () => dispatch(actions.reset())
     };
 };
 

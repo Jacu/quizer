@@ -24,6 +24,7 @@ export const NEXT_QUESTION = 'NEXT_QUESTION';
 export const PREV_QUESTION = 'PREV_QUESTION';
 
 export const QUIZ_ENDED = 'QUIZ_ENDED';
+export const QUIZ_QUIT = 'QUIZ_QUIT';
 
 export const CALCULATE_SCORE = 'CALCULATE_SCORE';
 

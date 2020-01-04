@@ -1,12 +1,14 @@
 import React from 'react';
 import styles from './Answer.css'
 
-const Answer = props => (
+const Answer = ({selected,onClick,answer,correct,ended}) => {    
+    const className = [styles.Answer,selected ? ended ? correct ? styles.correct : styles.incorrect : styles.selected : ended ? correct ? styles.correct : '' : ''];
+    return (
     <div 
-        className={props.selected === true ? [styles.Answer,styles.selected].join(' ') : styles.Answer}
-        onClick={props.disabled ? null : () => props.onClick()}>
-        {props.answer}
-    </div>
-)
+        className={className.join(' ')}
+        onClick={ended ? null : onClick}>
+        {answer}
+    </div>)
+};
 
 export default Answer;

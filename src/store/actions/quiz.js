@@ -20,33 +20,33 @@ export const initQuiz = apiURL => {
 
 export const fetchQuestionsStart = () => {
     return {
-        type: actionTypes.FETCH_QUESTIONS_START
+        type: actionTypes.FETCH_QUESTIONS_START,
     }
 }
 
 export const fetchQuestionsSuccess = data => {    
     return {
         type: actionTypes.FETCH_QUESTIONS_SUCCESS,
-        questions: data
+        questions: data,
     }
 }
 
 export const fetchQuestionsFail = error => {
     return {
         type: actionTypes.FETCH_QUESTIONS_FAIL,
-        error: error
+        error: error,
     }
 }
 
 export const shuffleAnswers = () => {
     return {
-        type: actionTypes.SHUFFLE_ANSWERS
+        type: actionTypes.SHUFFLE_ANSWERS,
     }
 }
 
 export const quizStarted =() => {
     return {
-        type: actionTypes.QUIZ_STARTED
+        type: actionTypes.QUIZ_STARTED,
     }
 }
 
@@ -54,19 +54,19 @@ export const pickAnswer = (index, answer) => {
     return {
         type: actionTypes.PICK_ANSWER,
         index: index,
-        answer: answer
+        answer: answer,
     }
 }
 
 export const nextQuestion = () => {
     return {
-        type: actionTypes.NEXT_QUESTION
+        type: actionTypes.NEXT_QUESTION,
     }
 }
 
 export const prevQuestion = () => {
     return {
-        type: actionTypes.PREV_QUESTION
+        type: actionTypes.PREV_QUESTION,
     }
 }
 
@@ -77,20 +77,26 @@ export const quizEnded = () => {
     }
 }
 
+export const quizQuit = () => {
+    return {
+        type: actionTypes.QUIZ_QUIT,      
+    }
+}
+
 export const endQuiz = () => {
     return {
-        type: actionTypes.QUIZ_ENDED
+        type: actionTypes.QUIZ_ENDED,
     }
 }
 
 export const calculateScore = () => {
     return {
-        type: actionTypes.CALCULATE_SCORE
+        type: actionTypes.CALCULATE_SCORE,
     }
 }
 
 export const reset = () => {
     return {
-        type: actionTypes.RESET
+        type: actionTypes.RESET,
     }
 }

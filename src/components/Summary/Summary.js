@@ -3,6 +3,7 @@ import styles from './Summary.css';
 import { connect } from 'react-redux';
 import Option from '../Option/Option';
 import { faBackward, faUndo, faHome } from '@fortawesome/free-solid-svg-icons';
+import * as actions from '../../store/actions';
 
 const Summary = props => (
     <div className={styles.Summary}>        
@@ -12,7 +13,7 @@ const Summary = props => (
             <div className={styles.Options}>
                 <Option link={"/quiz/1"} icon={faBackward} label="Review" onClick={""} />
                 <Option link={"/quiz/1"} icon={faUndo} label="Try again" onClick={""} />
-                <Option link={"/"} icon={faHome} label="Home" onClick={""} />
+                <Option link={"/"} icon={faHome} label="Home" onClick={props.quit} />
             </div>
         </div>
     </div>
@@ -27,4 +28,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(Summary);
+const mapDispatchToProps = dispatch => {
+    return {
+        quit: () => dispatch(actions.quizQuit()),
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Summary);

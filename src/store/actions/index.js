@@ -4,10 +4,11 @@ export {
     nextQuestion,
     prevQuestion,
     quizEnded,
-    reset
+    reset,
+    quizQuit,
 } from './quiz'
 export {
     init,
     setSetting,
-    generateURL
+    generateURL,
 } from './startPage'

@@ -66,7 +66,11 @@ const pickAnswer = (state, action) => {
 }
 
 const quizEnded = (state, action) => {
-    return { ...state, finished: true ,started: false}
+    return { ...state, finished: true, started: false, questions:{ ...state.questions, current: 1 }}
+}
+
+const quizQuit = (state, action) => {
+    return { ...state, finished: false, started: false}
 }
 
 const calculateScore = (state, action) => {
@@ -76,7 +80,7 @@ const calculateScore = (state, action) => {
 }
 
 const reset = (state, action) => {
-    return {...state,finished: false};
+    return initialState;
 }
 
 const reducer = (state = initialState, action) => {
@@ -90,6 +94,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.NEXT_QUESTION: return nextQuestion(state, action);
         case actionTypes.PREV_QUESTION: return prevQuestion(state, action);
         case actionTypes.QUIZ_ENDED: return quizEnded(state, action);
+        case actionTypes.QUIZ_QUIT: return quizQuit(state, action);
         case actionTypes.CALCULATE_SCORE: return calculateScore(state, action);
         case actionTypes.RESET: return reset(state, action);
         default: return state;

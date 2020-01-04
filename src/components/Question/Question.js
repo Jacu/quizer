@@ -5,43 +5,46 @@ import Answer from '../Answer/Answer';
 import * as actions from '../../store/actions/quiz';
 import unescape from '@favware/unescape';
 
-class Question extends Component {
-    render() {
-        let allAnswers = [...this.props.question[this.props.match.params.id - 1].incorrect_answers];
-        allAnswers.splice(this.props.answers[this.props.match.params.id - 1] - 1, 0, this.props.question[this.props.match.params.id - 1].correct_answer);
+const Question = (props) =>  {
+    const {totalQuestions, questions, questionsPicked, correctAnswers, ended } = props;
+    const questionId = props.match.params.id - 1;
+    let allAnswers = [...questions[questionId].incorrect_answers];
+    allAnswers.splice(correctAnswers[questionId] - 1, 0, questions[questionId].correct_answer);
 
-        const redirect = (
-            Number(this.props.match.params.id) <= 0 || Number(this.props.match.params.id) > this.props.totalQuestions ? this.props.history.goBack() : null
-        )
-        return (
-            <div className={styles.Question}>
-                {redirect}
-                <h1>Question {this.props.match.params.id}/{this.props.totalQuestions}</h1>
-                <h3>Category: {this.props.question[this.props.match.params.id - 1].category}</h3>
-                <p>{unescape(this.props.question[this.props.match.params.id - 1].question)}</p>
-                <div className={styles.Answers}>
-                    {
-                        allAnswers.map((answer, i) => (
-                            <Answer key={i}
-                                answer={unescape(answer)}
-                                selected={this.props.questionsPicked[this.props.match.params.id - 1] === i + 1}
-                                onClick={() => this.props.pickAnswer(this.props.match.params.id - 1, i + 1)} 
-                                disabled={this.props.ended}/>
-                        ))
-                    }
-                </div>
+    const redirect = (
+        Number(questionId) < 0 || Number(questionId) > totalQuestions - 1 ? props.history.goBack() : null
+    )
+    return (
+        <div className={styles.Question}>
+            {redirect}
+            <h1>Question {questionId + 1}/{totalQuestions}</h1>
+            <h3>Category: {questions[questionId].category}</h3>
+            <p>{unescape(questions[questionId].question)}</p>
+            <div className={styles.Answers}>
+                {
+                    allAnswers.map((answer, i) => (
+                        <Answer 
+                            key={i}
+                            answer={unescape(answer)}
+                            selected={questionsPicked[questionId] === i}
+                            onClick={() => props.pickAnswer(questionId, i )} 
+                            ended={ended}
+                            correct={correctAnswers[questionId] === i + 1}
+                            />
+                    ))
+                }
             </div>
-        )
-    }
-}
+        </div>
+    );
+};
 
-const mapStateToProps = state => {
+const mapStateToProps = ({quiz}) => {
     return {
-        question: [...state.quiz.questions.all],
-        totalQuestions: state.quiz.questions.amount,
-        answers: [...state.quiz.answers.correct],
-        questionsPicked: [...state.quiz.answers.picked],
-        ended: state.quiz.finished
+        questions: [...quiz.questions.all],
+        totalQuestions: quiz.questions.amount,
+        correctAnswers: [...quiz.answers.correct],
+        questionsPicked: [...quiz.answers.picked],
+        ended: quiz.finished
     }
 }
 

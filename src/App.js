@@ -7,9 +7,6 @@ import Quiz from './containers/Quiz/Quiz';
 import Summary from './components/Summary/Summary';
 
 class App extends Component {
-  state = {
-
-  }
   render() {
     const routes = (
       <Switch>

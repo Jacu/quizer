@@ -8,8 +8,17 @@
 
 .selected {
     background: #125271;
-    color: white;    
- 
+    color: white; 
+}
+
+.correct {
+    background: green;
+    color: white;
+}
+
+.incorrect {
+    background: red;
+    color: white;
 }
 
 .Answer:hover {
