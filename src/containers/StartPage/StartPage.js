@@ -17,8 +17,8 @@ class StartPage extends Component {
     }
 
     handleStartButtonClick() {
-        this.props.reset(); 
-        this.props.startQuiz()
+        this.props.generateURL();
+        this.props.initQuiz();
     }
 
     render() {
@@ -50,20 +50,20 @@ class StartPage extends Component {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({startPage}) => {
     return {
-        settings: state.startPage.settings.available,
-        loading: state.startPage.loading,
-        apiURL: state.startPage.settings.apiURL
+        settings: startPage.settings.available,
+        loading: startPage.loading,
+        apiURL: startPage.settings.apiURL
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         init: () => dispatch(actions.init()),
-        startQuiz: () => dispatch(actions.generateURL()),
+        generateURL: () => dispatch(actions.generateURL()),
+        initQuiz: () => dispatch(actions.initQuiz()),
         changeSetting: (setting, value) => dispatch(actions.setSetting(setting, value)),
-        reset: () => dispatch(actions.reset())
     };
 };
 

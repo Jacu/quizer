@@ -3,6 +3,7 @@ import axios from 'axios';
 
 export const init = () => {
     return dispatch => {
+        dispatch(reset());
         dispatch(fetchCategoriesStart());
         axios.get('https://opentdb.com/api_category.php')
             .then(response => {
@@ -45,5 +46,11 @@ export const setSetting = (setting, value) => {
 export const generateURL = () => {
     return {
         type: actionTypes.GENERATE_URL
+    }
+}
+
+const reset = () => {
+    return {
+        type: actionTypes.RESET_START_PAGE,
     }
 }

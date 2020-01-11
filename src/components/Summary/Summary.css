@@ -43,3 +43,7 @@
     display: flex;
     flex-direction: row;
 }
+
+.Options :hover {
+    color:red;
+}

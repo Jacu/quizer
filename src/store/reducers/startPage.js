@@ -58,6 +58,10 @@ const setSetting = (state, action) => {
     return { ...state, settings: { ...state.settings, selected: { ...newSelectedSetting } } };
 }
 
+const resetStartPage = (state,action) => {
+    return initialState;
+}
+
 const generateUrl = (state, action) => {
     const categoryID = state.settings.available.category.find(category => category.name === state.settings.selected.category).id;
     const amount = state.settings.selected.amount;    
@@ -74,6 +78,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_CATEGORIES_FAIL: return fetchCategoriesFail(state, action);
         case actionTypes.SET_SETTING: return setSetting(state, action);
         case actionTypes.GENERATE_URL: return generateUrl(state,action);
+        case actionTypes.RESET_START_PAGE: return resetStartPage(state,action);
         default: return state;
     }
 }

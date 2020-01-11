@@ -27,16 +27,23 @@ const initialState = {
 }
 
 const shuffleAnswers = (state, action) => {
+    const { questions } = state;
     let shuffled = [];
-    for (const question in state.questions.all) {
-        const answersAmmount = state.questions.all[question].incorrect_answers.length + 1;
-        shuffled.push(Math.floor(Math.random() * answersAmmount) + 1);
+    for (const question in questions.all) {
+        const currentQuestion = questions.all[question]; 
+        const answersAmmount = currentQuestion.incorrect_answers.length + 1;
+        const isBoolType = answersAmmount === 2;
+        if (isBoolType){
+            shuffled.push(currentQuestion.correct_answer === "True" ? 0 : 1);
+        } else {
+            shuffled.push(Math.floor(Math.random() * answersAmmount));
+        }
     }
     return { ...state, answers: { correct: shuffled, picked: shuffled.map(() => -1) } }
 }
 
 const fetchQuestionsStart = (state, action) => {
-    return { ...state, questions: { ...state.questions, fetching: true } }
+    return { ...state, questions: { ...state.questions, fetching: true }}
 }
 
 const fetchQuestionsSuccess = (state, action) => {
@@ -96,7 +103,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.QUIZ_ENDED: return quizEnded(state, action);
         case actionTypes.QUIZ_QUIT: return quizQuit(state, action);
         case actionTypes.CALCULATE_SCORE: return calculateScore(state, action);
-        case actionTypes.RESET: return reset(state, action);
+        case actionTypes.RESET_QUIZ: return reset(state, action);
         default: return state;
     }
 }

@@ -8,6 +8,8 @@ export const SET_SETTING = 'SET_SETTING';
 
 export const GENERATE_URL = 'GENERATE_URL';
 
+export const RESET_START_PAGE = 'RESET_START_PAGE';
+
 // ----------------------------
 
 export const QUIZ_STARTED = 'QUIZ_STARTED';
@@ -28,4 +30,4 @@ export const QUIZ_QUIT = 'QUIZ_QUIT';
 
 export const CALCULATE_SCORE = 'CALCULATE_SCORE';
 
-export const RESET = "RESET";
+export const RESET_QUIZ = "RESET_QUIZ";

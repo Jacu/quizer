@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styles from './Quiz.css';
 import Question from '../../components/Question/Question';
 import { connect } from 'react-redux';
@@ -8,47 +8,40 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import Arrow from '../../components/UI/Arrow/Arrow';
 import Button from '../../components/UI/Button/Button';
 
-class Quiz extends Component {
+const Quiz = (props) => {    
+    const loading = !(props.quizStarted || props.quizFinished) || props.dataLoading;
 
-    componentDidMount() {
-        if (!this.props.ended)
-            this.props.init(this.props.url)
-    }
-
-    render() {
-        return (
-            <div className={styles.Quiz}>
-                <div className={styles.Questions}>
-                    <Arrow
-                        disable={this.props.currentQuestion <= 1}
-                        direction="left">
-                    </Arrow>
-                    {this.props.quizStarted || this.props.quizFinished ? <Redirect to="/quiz/1" /> : <Spinner />}
-                    {this.props.quizStarted || this.props.quizFinished ? <Route path="/quiz/:id" component={Question} /> : null}
-                    <Arrow
-                        disable={this.props.currentQuestion >= this.props.questionsAmount}>
-                    </Arrow>
-                </div>
-                <Button link='/summary' label={this.props.ended ? "View score" : "Submit"} onClick={this.props.end} />
+    return (
+        <div className={styles.Quiz}>
+            <div className={styles.Questions}>
+                <Arrow
+                    disable={props.currentQuestion <= 1}
+                    direction="left">
+                </Arrow>
+                {/* {!loading && !props.quizStarted ? <Redirect to="/" /> : null} */}
+                {loading ? <Spinner /> : <Route path="/quiz/:id" component={Question} /> }
+                <Arrow
+                    disable={props.currentQuestion >= props.questionsAmount}>
+                </Arrow>
             </div>
-        )
-    }
+            <Button link='/summary' label={props.ended ? "View score" : "Submit"} onClick={!props.ended ? props.end : null} />
+        </div>
+    )
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({quiz,startPage}) => {
     return {
-        currentQuestion: state.quiz.questions.current,
-        questionsAmount: state.quiz.questions.amount,
-        quizStarted: state.quiz.started,
-        quizFinished: state.quiz.finished,
-        url: state.startPage.settings.apiURL,
-        ended: state.quiz.finished
+        currentQuestion: quiz.questions.current,
+        questionsAmount: quiz.questions.amount,
+        quizStarted: quiz.started,
+        quizFinished: quiz.finished,        
+        ended: quiz.finished,
+        dataLoading: quiz.questions.fetching,
     }
 }
 
 const mapDispatchToProps = dispatch => {
-    return {
-        init: (url) => dispatch(actions.initQuiz(url)),
+    return {        
         end: () => dispatch(actions.quizEnded())
     }
 }

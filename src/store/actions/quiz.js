@@ -1,9 +1,11 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
-export const initQuiz = apiURL => {
-    return dispatch => {
-        dispatch(fetchQuestionsStart());        
+export const initQuiz = () => {    
+    return (dispatch,getState) => {
+        const apiURL = getState().startPage.settings.apiURL;
+        dispatch(reset());
+        dispatch(fetchQuestionsStart());
         axios.get(apiURL)
             .then(response => {
                 dispatch(fetchQuestionsSuccess(response.data.results));                
@@ -97,6 +99,6 @@ export const calculateScore = () => {
 
 export const reset = () => {
     return {
-        type: actionTypes.RESET,
+        type: actionTypes.RESET_QUIZ,
     }
 }
