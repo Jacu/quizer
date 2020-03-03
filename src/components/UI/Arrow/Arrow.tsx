@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styles from './Arrow.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
@@ -24,8 +24,8 @@ const Arrow = (props) => {
         <Link
             to={link}
             className={styles.Arrow}
-            onClick={props.disable ? null : props.direction === "left" ? props.prevQuestion : props.nextQuestion}
             //disabled={props.disable}
+            onClick={props.disable ? null : props.direction === "left" ? props.prevQuestion : props.nextQuestion}
             >
             {icon}
         </Link>

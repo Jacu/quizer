@@ -5,7 +5,6 @@ import Input from '../../components/Input/Input';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Button from '../../components/UI/Button/Button';
-import Select from 'react-select';
 
 interface StartPageProps {
     init,
@@ -14,7 +13,6 @@ interface StartPageProps {
     settings,
     loading,
     changeSetting,
-
 }
 
 class StartPage extends Component<StartPageProps, {}> {
