@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from './App.css';
+import * as styles from './App.css';
 import StartPage from './containers/StartPage/StartPage';
 import Background from './components/Background/Background';
 import { Route, Switch, Redirect } from 'react-router-dom';

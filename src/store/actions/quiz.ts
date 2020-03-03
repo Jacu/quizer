@@ -1,7 +1,7 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
-export const initQuiz = () => {    
+export const initQuiz = () => {
     return (dispatch,getState) => {
         const apiURL = getState().startPage.settings.apiURL;
         dispatch(reset());

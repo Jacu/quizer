@@ -7,10 +7,22 @@ import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Arrow from '../../components/UI/Arrow/Arrow';
 import Button from '../../components/UI/Button/Button';
+import { initialState } from '../../store/reducers/quiz';
 
-const Quiz = (props) => {    
+interface Quiz {
+    quizStarted: boolean,
+    quizFinished: boolean,
+    dataLoading: boolean,
+    currentQuestion: number,
+    questionsAmount: number,
+    ended: boolean,
+    end: () => any,
+}
+
+const Quiz: React.FC<Quiz> = (props) => {
     const loading = !(props.quizStarted || props.quizFinished) || props.dataLoading;
-
+    
+    
     return (
         <div className={styles.Quiz}>
             <div className={styles.Questions}>
@@ -18,7 +30,6 @@ const Quiz = (props) => {
                     disable={props.currentQuestion <= 1}
                     direction="left">
                 </Arrow>
-                {/* {!loading && !props.quizStarted ? <Redirect to="/" /> : null} */}
                 {loading ? <Spinner /> : <Route path="/quiz/:id" component={Question} /> }
                 <Arrow
                     disable={props.currentQuestion >= props.questionsAmount}>
@@ -29,19 +40,20 @@ const Quiz = (props) => {
     )
 }
 
-const mapStateToProps = ({quiz,startPage}) => {
+const mapStateToProps = (state: {quiz: typeof initialState}) => {
+    const { quiz } = state;
     return {
         currentQuestion: quiz.questions.current,
         questionsAmount: quiz.questions.amount,
         quizStarted: quiz.started,
-        quizFinished: quiz.finished,        
+        quizFinished: quiz.finished,
         ended: quiz.finished,
         dataLoading: quiz.questions.fetching,
     }
 }
 
 const mapDispatchToProps = dispatch => {
-    return {        
+    return {
         end: () => dispatch(actions.quizEnded())
     }
 }

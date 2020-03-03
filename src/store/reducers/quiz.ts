@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 
-const initialState = {
+export const initialState = {
     started: false,
     finished: false,
     questions: {
@@ -28,7 +28,7 @@ const initialState = {
 
 const shuffleAnswers = (state, action) => {
     const { questions } = state;
-    let shuffled = [];
+    let shuffled: any[] = [];
     for (const question in questions.all) {
         const currentQuestion = questions.all[question]; 
         const answersAmmount = currentQuestion.incorrect_answers.length + 1;

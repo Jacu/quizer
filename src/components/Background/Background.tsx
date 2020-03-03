@@ -9,7 +9,7 @@ import * as actions from '../../store/actions/index';
 const Background = (props) => (
     <div className={styles.Background}>
         <Link to="/">
-            <FontAwesomeIcon className={styles.icon} icon={faHome} onClick={props.quit}/>
+            {/* <FontAwesomeIcon className={styles.icon} icon={faHome} onClick={props.quit}/> */}
         </Link>
     </div>
 )

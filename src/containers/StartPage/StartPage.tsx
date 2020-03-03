@@ -1,12 +1,23 @@
 import React, { Component } from 'react';
-import styles from './StartPage.css';
+import * as styles from './StartPage.css';
 import { connect } from 'react-redux';
 import Input from '../../components/Input/Input';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Button from '../../components/UI/Button/Button';
+import Select from 'react-select';
 
-class StartPage extends Component {
+interface StartPageProps {
+    init,
+    generateURL,
+    initQuiz,
+    settings,
+    loading,
+    changeSetting,
+
+}
+
+class StartPage extends Component<StartPageProps, {}> {
     constructor(props){
         super(props);
         this.handleStartButtonClick = this.handleStartButtonClick.bind(this);
@@ -22,12 +33,14 @@ class StartPage extends Component {
     }
 
     render() {
-        let settings = this.props.loading === true ? <Spinner/> : (
-            <div className={styles.settings}>
-                <Input name="amount" label="Question count" options={this.props.settings.amount} onChange={this.props.changeSetting} />
-                <Input name="category" label="Category" options={this.props.settings.category.map(obj => obj.name)} onChange={this.props.changeSetting} />
-                <Input name="type" label="Type" options={this.props.settings.type} onChange={this.props.changeSetting} />
-                <Input name="difficulty" label="Dificulity" options={this.props.settings.difficulty} onChange={this.props.changeSetting} />
+        console.log('styles',styles);
+        const {settings, loading, changeSetting} = this.props;
+        const settingInputs = loading === true ? <Spinner/> : (
+            <div className={styles.settingInputs}>
+                <Input name="amount" label="Question count" options={settings.amount} onChange={changeSetting} />
+                <Input name="category" label="Category" options={settings.category.map(obj => obj.name)} onChange={changeSetting} />
+                <Input name="type" label="Type" options={settings.type} onChange={changeSetting} />
+                <Input name="difficulty" label="Dificulity" options={settings.difficulty} onChange={changeSetting} />
             </div>
         )
 
@@ -39,7 +52,7 @@ class StartPage extends Component {
                         <p>Quiz generator with use of Trivia API opentdb.com</p>
                         <p>created by Jacek Smetek</p>
                     </div>
-                    {settings}
+                    {settingInputs}
                 </div>
                 <Button
                     link="/quiz/1"

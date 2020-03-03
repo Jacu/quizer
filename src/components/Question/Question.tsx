@@ -5,6 +5,14 @@ import Answer from '../Answer/Answer';
 import * as actions from '../../store/actions/quiz';
 import unescape from '@favware/unescape';
 
+interface Question {
+    totalQuestions, 
+    questions, 
+    questionsPicked, 
+    correctAnswers, 
+    ended
+}
+
 const Question = (props) =>  {
     const {totalQuestions, questions, questionsPicked, correctAnswers, ended } = props;
     const questionId = props.match.params.id - 1;

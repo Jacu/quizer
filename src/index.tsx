@@ -7,9 +7,17 @@ import { createStore, applyMiddleware, compose, combineReducers} from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import quizReducer from './store/reducers/quiz';
-import startPageReducer from './store/reducers/startPage.js';
+import startPageReducer from './store/reducers/startPage';
 
-const composeEnhancers = process.env.NODE_ENV ==='development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
+declare global {
+    interface Window {
+      __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any;
+    }
+}
+
+const composeEnhancers = process.env.NODE_ENV ==='development' 
+? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ 
+: null || compose;
 
 const rootReducer = combineReducers({
     quiz: quizReducer,
