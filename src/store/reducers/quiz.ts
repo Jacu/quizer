@@ -1,6 +1,25 @@
 import * as actionTypes from '../actions/actionTypes';
 
-export const initialState = {
+export interface QuizState {
+    started: boolean,
+    finished: boolean,
+    questions: {
+        all: any[],
+        current: number,
+        amount: number,
+        fetching: boolean,
+    },
+    answers: {
+        correct: number[];
+        picked: number[];
+    },
+    score: {
+        percentage: number,
+        correct: number,
+    }
+};
+
+const initialState: QuizState = {
     started: false,
     finished: false,
     questions: {

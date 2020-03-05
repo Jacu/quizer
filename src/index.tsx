@@ -21,7 +21,7 @@ const composeEnhancers = process.env.NODE_ENV ==='development'
 
 const rootReducer = combineReducers({
     quiz: quizReducer,
-    startPage: startPageReducer
+    startPage: startPageReducer,
 });
 
 const store = createStore(rootReducer, composeEnhancers(
@@ -38,4 +38,4 @@ const app = (
 
 ReactDOM.render(app, document.getElementById('root'));
 
-
+export type AppState = ReturnType<typeof rootReducer>

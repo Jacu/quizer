@@ -31,3 +31,15 @@ export const QUIZ_QUIT = 'QUIZ_QUIT';
 export const CALCULATE_SCORE = 'CALCULATE_SCORE';
 
 export const RESET_QUIZ = "RESET_QUIZ";
+
+// ----------------------------
+
+export interface NextQuestion {
+    type: typeof NEXT_QUESTION,
+}
+
+export interface prevQuestion {
+    type: typeof PREV_QUESTION,
+}
+
+export type AllActions = NextQuestion | prevQuestion;

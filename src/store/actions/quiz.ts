@@ -2,7 +2,7 @@ import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
 export const initQuiz = () => {
-    return (dispatch,getState) => {
+    return (dispatch, getState) => {
         const apiURL = getState().startPage.settings.apiURL;
         dispatch(reset());
         dispatch(fetchQuestionsStart());
@@ -46,7 +46,7 @@ export const shuffleAnswers = () => {
     }
 }
 
-export const quizStarted =() => {
+export const quizStarted = () => {
     return {
         type: actionTypes.QUIZ_STARTED,
     }
@@ -60,13 +60,13 @@ export const pickAnswer = (index, answer) => {
     }
 }
 
-export const nextQuestion = () => {
+export const nextQuestion = (): actionTypes.NextQuestion => {
     return {
         type: actionTypes.NEXT_QUESTION,
     }
 }
 
-export const prevQuestion = () => {
+export const prevQuestion = (): actionTypes.prevQuestion => {
     return {
         type: actionTypes.PREV_QUESTION,
     }

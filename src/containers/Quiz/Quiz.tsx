@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import Arrow from '../../components/UI/Arrow/Arrow';
+import Arrow, { ArrowDirection } from '../../components/UI/Arrow/Arrow';
 import Button from '../../components/UI/Button/Button';
-import { initialState } from '../../store/reducers/quiz';
+import { AppState } from '../../index';
 
 interface Quiz {
     quizStarted: boolean,
@@ -28,19 +28,18 @@ const Quiz: React.FC<Quiz> = (props) => {
             <div className={styles.Questions}>
                 <Arrow
                     disable={props.currentQuestion <= 1}
-                    direction="left">
-                </Arrow>
-                {loading ? <Spinner /> : <Route path="/quiz/:id" component={Question} /> }
+                    direction={ArrowDirection.Left} />
+                { loading ? <Spinner /> : <Route path="/quiz/:id" component={Question} />}
                 <Arrow
-                    disable={props.currentQuestion >= props.questionsAmount}>
-                </Arrow>
+                    disable={props.currentQuestion >= props.questionsAmount}
+                    direction={ArrowDirection.Right} />
             </div>
             <Button link='/summary' label={props.ended ? "View score" : "Submit"} onClick={!props.ended ? props.end : null} />
         </div>
     )
 }
 
-const mapStateToProps = (state: {quiz: typeof initialState}) => {
+const mapStateToProps = (state: AppState) => {
     const { quiz } = state;
     return {
         currentQuestion: quiz.questions.current,
@@ -52,9 +51,9 @@ const mapStateToProps = (state: {quiz: typeof initialState}) => {
     }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch ) => {
     return {
-        end: () => dispatch(actions.quizEnded())
+        end: () => dispatch(actions.quizEnded()),
     }
 }
 
