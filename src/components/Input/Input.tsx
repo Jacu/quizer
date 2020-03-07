@@ -1,19 +1,31 @@
 import React from 'react';
-import styles from './Input.css';
+import * as styled from './styles';
 
-const Input = props => (
-    <div className={styles.Input}>
-        <div className={styles.Label}>{props.label}</div>
-        <select onChange={event => props.onChange(props.name, event.target.value)}>
+interface InputProps {
+    label: string,
+    name: string,
+    options: [],
+    onChange: (setting: string, value: string) => void,
+}
+
+const Input: React.FC<InputProps> = props => {
+    const handleChange = (event: React.ChangeEvent<HTMLSelectElement> ) => {
+        props.onChange(props.name, event.target.value)
+    };
+
+    return (
+    <styled.Input>
+        <styled.Label>{props.label}</styled.Label>
+        <styled.Select onChange={handleChange}>
             {props.options.map(option =>
-                <option
+                <styled.Option
                     key={option}
                     value={option}>
                     {option}
-                </option>)}
-        </select>
-    </div>
-)
+                </styled.Option>)}
+        </styled.Select>
+    </styled.Input>
+)}
 
 
 export default Input;

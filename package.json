@@ -72,6 +72,7 @@
     "sass-loader": "7.1.0",
     "semver": "6.0.0",
     "style-loader": "0.23.1",
+    "styled-components": "^5.0.1",
     "terser-webpack-plugin": "1.2.3",
     "ts-loader": "^6.2.1",
     "ts-pnp": "1.1.2",
@@ -106,6 +107,8 @@
   },
   "devDependencies": {
     "@types/redux": "^3.6.0",
+    "@types/styled-components": "^5.0.1",
+    "babel-plugin-root-import": "^6.4.1",
     "css-loader": "^3.0.0",
     "style-loader": "^0.23.1",
     "typings-for-css-modules-loader": "^1.7.0"
@@ -158,6 +161,15 @@
   "babel": {
     "presets": [
       "react-app"
+    ],
+    "plugins": [
+      [
+        "babel-plugin-root-import",
+        {
+          "rootPathPrefix": "~",
+          "rootPathSuffix": "src"
+        }
+      ]
     ]
   }
 }

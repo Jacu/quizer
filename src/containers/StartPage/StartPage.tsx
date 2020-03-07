@@ -1,75 +1,79 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import * as styles from './StartPage.css';
+import * as styled from './styles';
 import { connect } from 'react-redux';
 import Input from '../../components/Input/Input';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Button from '../../components/UI/Button/Button';
+import { AppState } from "~/index";
 
 interface StartPageProps {
-    init,
-    generateURL,
-    initQuiz,
-    settings,
-    loading,
-    changeSetting,
 }
 
-class StartPage extends Component<StartPageProps, {}> {
-    constructor(props){
-        super(props);
-        this.handleStartButtonClick = this.handleStartButtonClick.bind(this);
-    }
-
-    componentDidMount() {
-        this.props.init();
-    }
-
-    handleStartButtonClick() {
-        this.props.generateURL();
-        this.props.initQuiz();
-    }
-
-    render() {
-        console.log('styles',styles);
-        const {settings, loading, changeSetting} = this.props;
-        const settingInputs = loading === true ? <Spinner/> : (
-            <div className={styles.settingInputs}>
-                <Input name="amount" label="Question count" options={settings.amount} onChange={changeSetting} />
-                <Input name="category" label="Category" options={settings.category.map(obj => obj.name)} onChange={changeSetting} />
-                <Input name="type" label="Type" options={settings.type} onChange={changeSetting} />
-                <Input name="difficulty" label="Dificulity" options={settings.difficulty} onChange={changeSetting} />
-            </div>
-        )
-
-        return (
-            <div className={styles.StartPage}>
-                <div className={styles.Menu}>
-                    <h1 className={styles.Title}>Quizer</h1>
-                    <div className={styles.SubTitle}>
-                        <p>Quiz generator with use of Trivia API opentdb.com</p>
-                        <p>created by Jacek Smetek</p>
-                    </div>
-                    {settingInputs}
-                </div>
-                <Button
-                    link="/quiz/1"
-                    onClick={this.handleStartButtonClick}
-                    label="Start" />
-            </div>
-        )
-    }
+interface StateProps {
+    settings: any, //TODO
+    loading: boolean,
+    apiURL: string,
 }
 
-const mapStateToProps = ({startPage}) => {
+interface DispatchProps {
+    init: () => void,
+    generateURL: () => void,
+    initQuiz: () => void,
+    changeSetting: (setting: string, value: string) => void,
+}
+
+type Props = StartPageProps & StateProps & DispatchProps;
+
+const StartPage: React.FC<Props> = ({init, settings, loading, changeSetting, generateURL, initQuiz}) => {
+    const settingInputs = loading === true ? <Spinner /> : (
+        <styled.settingInputs>
+            <Input name="amount" label="Question count" options={settings.amount} onChange={changeSetting} />
+            <Input name="category" label="Category" options={settings.category.map(obj => obj.name)} onChange={changeSetting} />
+            <Input name="type" label="Type" options={settings.type} onChange={changeSetting} />
+            <Input name="difficulty" label="Dificulity" options={settings.difficulty} onChange={changeSetting} />
+        </styled.settingInputs>
+    );
+
+    //const { init } = props;
+
+    useEffect(() => {
+        init();
+    },[init]);
+
+    const handleStartButtonClick = () => {
+        generateURL();
+        initQuiz();
+    }
+
+    return (
+        <styled.StartPage>
+            <styled.Menu>
+                <h1 className={styles.Title}>Quizer</h1>
+                <styled.SubTitle>
+                    <p>Quiz generator with use of Trivia API opentdb.com</p>
+                    <p>created by Jacek Smetek</p>
+                </styled.SubTitle>
+                {settingInputs}
+            </styled.Menu>
+            <Button
+                link="/quiz/1"
+                onClick={handleStartButtonClick}
+                label="Start" />
+        </styled.StartPage>
+    )
+}
+
+const mapStateToProps = ({ startPage }: AppState): StateProps => {
     return {
         settings: startPage.settings.available,
         loading: startPage.loading,
-        apiURL: startPage.settings.apiURL
+        apiURL: startPage.settings.apiURL,
     }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch): DispatchProps => {
     return {
         init: () => dispatch(actions.init()),
         generateURL: () => dispatch(actions.generateURL()),

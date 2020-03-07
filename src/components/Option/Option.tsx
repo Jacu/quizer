@@ -1,23 +1,21 @@
 import React from 'react';
-import styles from './Option.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
+import * as styled from './styles'
+import { IconDefinition } from "@fortawesome/fontawesome-common-types";
 
 interface Option {
-    icon,
-    link,
-    label,
-    onClick?,
+    icon: IconDefinition,
+    link: string,
+    label: string,
+    onClick? : () => void,
 }
 
 const Option: React.FC<Option> = ({icon, link, label, onClick}) => {
     return (
-        <Link to={link} className={styles.Option} onClick={onClick}>
-            <FontAwesomeIcon className={styles.icon} icon={icon}/>
-            <h3>{label}</h3>
-        </Link>
+        <styled.Option to={link} onClick={onClick} >
+            <styled.Icon icon={icon} />
+            <h3> {label} </h3>
+        </styled.Option>
     )
 }
-
 
 export default Option;

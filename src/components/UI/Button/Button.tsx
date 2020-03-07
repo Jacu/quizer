@@ -1,15 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import styles from './Button.css';
+import * as styled from './styles';
 
-const Button = props => {
+interface ButtonProps {
+    link: string,
+    label: string,
+    onClick: () => void,
+};
+
+const Button: React.FC<ButtonProps> = props => {
     return (
-        <Link
-            className={styles.Button}
+        <styled.Button
+            children={props.label}
             to={props.link}
-            onClick={props.onClick}>
-            {props.label}
-        </Link>
+            onClick={props.onClick} />
     )
 }
 

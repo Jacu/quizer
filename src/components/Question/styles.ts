@@ -1,4 +1,6 @@
-.Question {
+import styled from "styled-components";
+
+export const Question = styled.div`
     position: relative;
     height: 40vh;
     background: white;
@@ -9,26 +11,26 @@
     justify-content: center;
     flex-direction: column;
     overflow: hidden;
-}
+`;
 
-h1 {
-    padding: 1.5rem;
-}
+export const QuestionHeader = styled.h1`
+   padding: 1.5rem;
+`;
 
-h3 {
+export const CategoryLabel = styled.h3`
     font-size: 1rem;
     padding: 0.5rem;
     padding-bottom: 2rem;   
     font-style: italic; 
-}
+`;
 
-.Answers {
+export const AnswersContainer = styled.div`
     display: flex;
-}
+`;
 
-.Score {
+export const Score = styled.div`
     display: block;
     font-size: 1.5rem;
     font-weight: bold;
     margin: 1rem;
-}
+`;

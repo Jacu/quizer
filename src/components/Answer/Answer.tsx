@@ -1,22 +1,27 @@
 import React from 'react';
-import styles from './Answer.css'
+import * as styled from './styles';
 
-interface Answer {
+interface AnswerProps {
     selected: boolean;
-    onClick: () => void;
     answer: string;
     correct: boolean;
     ended: boolean;
+    onClick: () => void;
 }
 
-const Answer = ({selected,onClick,answer,correct,ended}) => {    
-    const className = [styles.Answer,selected ? ended ? correct ? styles.correct : styles.incorrect : styles.selected : ended ? correct ? styles.correct : '' : ''];
+const Answer: React.FC<AnswerProps> = ({selected, onClick, answer, correct, ended}) => {
+    const handleClick = () => {
+        if(!ended) onClick();
+    };
+
     return (
-    <div 
-        className={className.join(' ')}
-        onClick={ended ? null : onClick}>
-        {answer}
-    </div>)
+    <styled.Answer
+        children={answer}
+        isSelected={selected}
+        isCorrect={correct}
+        showAnswer={ended}
+        onClick={handleClick} />
+    );
 };
 
 export default Answer;

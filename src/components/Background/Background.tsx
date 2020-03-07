@@ -1,20 +1,27 @@
 import React from 'react'
-import styles from './Background.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import * as styled from './styles'
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as actions from '../../store/actions/index';
+import { AllActions } from '~/store/actions/actionTypes';
+import * as actions from '~/store/actions/index';
+import { Dispatch } from 'redux';
 
-const Background = (props) => (
-    <div className={styles.Background}>
-        <Link to="/" onClick={props.quit}>
-            <FontAwesomeIcon className={styles.icon} icon={faHome}/>
+interface DispatchProps {
+    quit: () => void,
+}
+
+type Props = DispatchProps
+
+const Background: React.FC<Props> = ({quit}) => (
+    <styled.Background>
+        <Link to="/" onClick={quit}>
+            <styled.Icon icon={faHome}/>
         </Link>
-    </div>
+    </styled.Background>
 )
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: Dispatch<AllActions>): DispatchProps => {
     return {
         quit: () => dispatch(actions.quizQuit()),
     }

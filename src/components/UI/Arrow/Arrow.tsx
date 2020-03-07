@@ -1,10 +1,9 @@
 import React from 'react';
-import styles from './Arrow.css';
+import * as styled from './styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
-import * as actions from '../../../store/actions/quiz';
-import * as actionTypes from '../../../store/actions/actionTypes';
+import * as actions from '../../../store/actions';
+import { AllActions } from '../../../store/actions/actionTypes';
 import { connect } from 'react-redux';
 import { AppState } from '../../../index';
 import { Dispatch } from 'redux';
@@ -27,14 +26,14 @@ interface StateProps {
 
 type Props = ArrowProps & DispatchProps & StateProps;
 
-const Arrow = (props: Props) => {
+const Arrow: React.FC<Props> = props => {
     const isLeft = props.direction === ArrowDirection.Left;
     const icon = isLeft ? <FontAwesomeIcon icon={faChevronLeft} /> : <FontAwesomeIcon icon={faChevronRight} />
-    const link = props.disable
-        ? `/quiz/${props.currentQuestion}`
-        : isLeft
-            ? `/quiz/${props.currentQuestion - 1}`
-            : `/quiz/${props.currentQuestion + 1}`;
+    const link = props.disable 
+        ?  `${props.currentQuestion}` 
+        :  isLeft 
+            ? `${props.currentQuestion - 1}` 
+            : `${props.currentQuestion + 1}`
 
     const handleClick = () => {
         if(!props.disable) {
@@ -47,9 +46,7 @@ const Arrow = (props: Props) => {
     };
 
     return (
-        <Link to={link} className={styles.Arrow} onClick={handleClick} >
-            {icon}
-        </Link>
+        <styled.ArrowLink children={icon} to={link} onClick={handleClick} disabled={props.disable} />
     );
 }
 
@@ -59,7 +56,7 @@ const mapStateToProps = (state: AppState): StateProps => {
     }
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<actionTypes.AllActions>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<AllActions>): DispatchProps => {
     return {
         nextQuestion: () => dispatch(actions.nextQuestion()),
         prevQuestion: () => dispatch(actions.prevQuestion()),
