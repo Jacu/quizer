@@ -1,4 +1,6 @@
-.Quiz {
+import styled from "styled-components";
+
+export const Quiz = styled.div`
     position: relative;
     align-self: center;
     width: 100%;
@@ -6,11 +8,11 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-}
+`;
 
-.Questions {
+export const Questions = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
     width: 80%;
-}
+`;

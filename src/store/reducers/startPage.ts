@@ -1,6 +1,31 @@
 import * as actionTypes from '../actions/actionTypes';
 
-const initialState = {
+export interface Category {
+    name: string, 
+    id: number
+};
+
+export interface StartPageState {
+    loading: boolean,
+    dataFetched: boolean,
+    settings: {
+        available: {
+            amount: string[],
+            category: Category[],
+            difficulty: string[],
+            type: string[],
+        },
+        selected: {
+            amount: string,
+            category: string,
+            difficulty: string,
+            type: string,
+        },
+        apiURL: string,
+    }
+}
+
+const initialState: StartPageState = {
     loading: false,
     dataFetched: false,
     settings: {
@@ -9,27 +34,27 @@ const initialState = {
             category: [
                 {
                     name: 'Any Category',
-                    id: 0
-                } // categories should be fetched from https://opentdb.com/api_category.php
+                    id: 0,
+                }, // categories should be fetched from https://opentdb.com/api_category.php
             ],
             difficulty: ['Any Dificulity', 'Easy', 'Medium', 'Hard'],
-            type: ['Any Type', 'Multiple Choice', 'True / False']
+            type: ['Any Type', 'Multiple Choice', 'True / False'],
         },
         selected: {
             amount: "5",
             category: 'Any Category',
             difficulty: 'Any Dificulity',
-            type: 'Any Type'
+            type: 'Any Type',
         },
-        apiURL: "https://opentdb.com/api.php?amount=5&category=0&type=0&dificulty=0"
+        apiURL: "https://opentdb.com/api.php?amount=5&category=0&type=0&dificulty=0",
     }
 }
 
-const fetchCategoriesStart = (state, action) => {
+const fetchCategoriesStart = (state: StartPageState, action: actionTypes.fetchCategoriesStart) => {
     return { ...state, loading: true }
 }
 
-const fetchCategoriesSuccess = (state, action) => {
+const fetchCategoriesSuccess = (state: StartPageState, action: actionTypes.fetchCategoriesSuccess) => {
     const settingsWithCategories =
     {
         settings: {
@@ -43,14 +68,14 @@ const fetchCategoriesSuccess = (state, action) => {
     return { ...state, loading: false, ...settingsWithCategories, dataFetched: true }
 }
 
-const fetchCategoriesFail = (state, action) => {
+const fetchCategoriesFail = (state: StartPageState, action: actionTypes.fetchCategoriesFail<{}>) => {
     console.log("Something went wrong");
     console.log(action.error);
     return { ...state, loading: false }
 }
 
 
-const setSetting = (state, action) => {
+const setSetting = (state: StartPageState, action: actionTypes.setSetting) => {
     const newSelectedSetting = {
         ...state.settings.selected,
         [action.setting]: action.value
@@ -58,12 +83,12 @@ const setSetting = (state, action) => {
     return { ...state, settings: { ...state.settings, selected: { ...newSelectedSetting } } };
 }
 
-const resetStartPage = (state,action) => {
+const resetStartPage = (state: StartPageState, action: actionTypes.resetStartPage) => {
     return initialState;
 }
 
-const generateUrl = (state, action) => {
-    const categoryID = state.settings.available.category.find(category => category.name === state.settings.selected.category).id;
+const generateUrl = (state: StartPageState, action: actionTypes.generateURL): StartPageState => {
+    const categoryID = state.settings.available.category.find(category => category.name === state.settings.selected.category)!.id;
     const amount = state.settings.selected.amount;    
     const difficulty = ["0", "easy", "medium", "hard"][state.settings.available.difficulty.indexOf(state.settings.selected.difficulty)];
     const type = ["0","multiple","boolean"][state.settings.available.type.indexOf(state.settings.selected.type)];    
@@ -71,7 +96,7 @@ const generateUrl = (state, action) => {
     return {...state, settings: {...state.settings, apiURL: apiURL}};
 }
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action: actionTypes.StartPageActions): StartPageState => {
     switch (action.type) {        
         case actionTypes.FETCH_CATEGORIES_START: return fetchCategoriesStart(state, action);
         case actionTypes.FETCH_CATEGORIES_SUCCESS: return fetchCategoriesSuccess(state, action);

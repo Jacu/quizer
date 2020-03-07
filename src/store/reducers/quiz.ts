@@ -1,6 +1,34 @@
 import * as actionTypes from '../actions/actionTypes';
 
-const initialState = {
+export interface Question {
+    category: string,
+    type: ("multiple" | "boolean"),
+    difficulty: ("easy" | "medium" | "hard"),
+    question: string,
+    correct_answer: string,
+    incorrect_answers: string[],
+}
+
+export interface QuizState {
+    started: boolean,
+    finished: boolean,
+    questions: {
+        all: Question[],
+        current: number,
+        amount: number,
+        fetching: boolean,
+    },
+    answers: {
+        correct: number[];
+        picked: number[];
+    },
+    score: {
+        percentage: number,
+        correct: number,
+    }
+};
+
+const initialState: QuizState = {
     started: false,
     finished: false,
     questions: {
@@ -11,7 +39,7 @@ const initialState = {
             question: "How many pieces are there on the board at the start of a game of chess?",
             correct_answer: "32",
             incorrect_answers: ["16", "20", "36"]
-        }], // questions should be fetched from apiURL with this structure        
+        }],
         current: 1,
         amount: 1,
         fetching: true
@@ -26,9 +54,9 @@ const initialState = {
     }
 }
 
-const shuffleAnswers = (state, action) => {
+const shuffleAnswers = (state: QuizState, action) => {
     const { questions } = state;
-    let shuffled = [];
+    let shuffled: any[] = [];
     for (const question in questions.all) {
         const currentQuestion = questions.all[question]; 
         const answersAmmount = currentQuestion.incorrect_answers.length + 1;
@@ -42,28 +70,28 @@ const shuffleAnswers = (state, action) => {
     return { ...state, answers: { correct: shuffled, picked: shuffled.map(() => -1) } }
 }
 
-const fetchQuestionsStart = (state, action) => {
+const fetchQuestionsStart = (state: QuizState, action) => {
     return { ...state, questions: { ...state.questions, fetching: true }}
 }
 
-const fetchQuestionsSuccess = (state, action) => {
+const fetchQuestionsSuccess = (state: QuizState, action) => {
     return { ...state, questions: { ...state.questions, all: action.questions, fetching: false, amount: action.questions.length } }
 }
 
-const fetchQuestionsFail = (state, action) => {
+const fetchQuestionsFail = (state: QuizState, action) => {
     console.log(action.error)
     return { ...state, questions: { ...state.questions, fetching: false } };
 }
 
-const quizStarted = (state, action) => {
+const quizStarted = (state = initialState, action) => {
     return { ...state, questions: { ...state.questions, current: 1 }, started: true, score: { percentage: -1, correct: 0 } }
 }
 
-const nextQuestion = (state, action) => {
+const nextQuestion = (state = initialState, action) => {
     return { ...state, questions: { ...state.questions, current: Math.min(++state.questions.current, Number(state.questions.amount)) } };
 }
 
-const prevQuestion = (state, action) => {
+const prevQuestion = (state = initialState, action) => {
     return { ...state, questions: { ...state.questions, current: Math.max(--state.questions.current, 0) } };
 }
 
@@ -80,17 +108,17 @@ const quizQuit = (state, action) => {
     return { ...state, finished: false, started: false}
 }
 
-const calculateScore = (state, action) => {
+const calculateScore = (state: QuizState, action: actionTypes.calculateScore): QuizState => {
     const numberOfCorrectAnswers = state.answers.correct.reduce((prevV, currentV, index) => currentV === state.answers.picked[index] ? prevV + 1 : prevV, 0);
     const percentage = Math.round((numberOfCorrectAnswers / state.questions.amount) * 100);
     return { ...state, score: { percentage: percentage, correct: numberOfCorrectAnswers } };
 }
 
-const reset = (state, action) => {
+const reset = (state: QuizState, action: actionTypes.resetQuiz): QuizState => {
     return initialState;
 }
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action: actionTypes.AllActions): QuizState => {
     switch (action.type) {
         case actionTypes.FETCH_QUESTIONS_START: return fetchQuestionsStart(state, action);
         case actionTypes.FETCH_QUESTIONS_SUCCESS: return fetchQuestionsSuccess(state, action);

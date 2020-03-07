@@ -1,58 +1,65 @@
 import * as actionTypes from './actionTypes';
-import axios from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import { Dispatch } from 'react';
+import { Question } from '../reducers/quiz';
+import { AppState } from "~/index"; 
 
-export const initQuiz = () => {    
-    return (dispatch,getState) => {
+interface CategoriesServerData {
+    results: Question[];
+};
+
+export const initQuiz = () => {
+    return (dispatch: Dispatch<actionTypes.AllActions>, getState: () => AppState ) => {
         const apiURL = getState().startPage.settings.apiURL;
         dispatch(reset());
         dispatch(fetchQuestionsStart());
         axios.get(apiURL)
-            .then(response => {
+            .then((response: AxiosResponse<CategoriesServerData>) => {
                 dispatch(fetchQuestionsSuccess(response.data.results));                
             })
             .then( () => {
                 dispatch(shuffleAnswers());
                 dispatch(quizStarted())
             })
-            .catch(err => {                
+            .catch((err: AxiosError) => {                
                 dispatch(fetchQuestionsFail(err))
             });
     }
 }
 
-export const fetchQuestionsStart = () => {
+export const fetchQuestionsStart = (): actionTypes.fetchQuestionsStart => {
     return {
         type: actionTypes.FETCH_QUESTIONS_START,
     }
 }
 
-export const fetchQuestionsSuccess = data => {    
+export const fetchQuestionsSuccess = (data): actionTypes.fetchQuestionsSuccess => {    
     return {
         type: actionTypes.FETCH_QUESTIONS_SUCCESS,
         questions: data,
     }
 }
 
-export const fetchQuestionsFail = error => {
+export const fetchQuestionsFail = (error: AxiosError): actionTypes.fetchQuestionsFail<AxiosError> => {
     return {
         type: actionTypes.FETCH_QUESTIONS_FAIL,
         error: error,
     }
 }
 
-export const shuffleAnswers = () => {
+export const shuffleAnswers = (): actionTypes.shuffleAnswers => {
     return {
         type: actionTypes.SHUFFLE_ANSWERS,
     }
 }
 
-export const quizStarted =() => {
+export const quizStarted = (): actionTypes.quizStarted => {
     return {
         type: actionTypes.QUIZ_STARTED,
     }
 }
 
-export const pickAnswer = (index, answer) => {
+export const pickAnswer = (index: number, answer: number): actionTypes.pickAnswer => {
     return {
         type: actionTypes.PICK_ANSWER,
         index: index,
@@ -60,44 +67,44 @@ export const pickAnswer = (index, answer) => {
     }
 }
 
-export const nextQuestion = () => {
+export const nextQuestion = (): actionTypes.nextQuestion => {
     return {
         type: actionTypes.NEXT_QUESTION,
     }
 }
 
-export const prevQuestion = () => {
+export const prevQuestion = (): actionTypes.prevQuestion => {
     return {
         type: actionTypes.PREV_QUESTION,
     }
 }
 
-export const quizEnded = () => {
-    return dispatch => {
+export const quizEnded = (): Dispatch<Dispatch<actionTypes.QuizActions>> => {
+    return (dispatch: Dispatch<actionTypes.QuizActions>) => {
         dispatch(calculateScore());
         dispatch(endQuiz());        
     }
 }
 
-export const quizQuit = () => {
+export const quizQuit = (): actionTypes.quizQuit  => {
     return {
         type: actionTypes.QUIZ_QUIT,      
     }
 }
 
-export const endQuiz = () => {
+export const endQuiz = (): actionTypes.endQuiz => {
     return {
         type: actionTypes.QUIZ_ENDED,
     }
 }
 
-export const calculateScore = () => {
+export const calculateScore = (): actionTypes.calculateScore => {
     return {
         type: actionTypes.CALCULATE_SCORE,
     }
 }
 
-export const reset = () => {
+export const reset = (): actionTypes.resetQuiz => {
     return {
         type: actionTypes.RESET_QUIZ,
     }
