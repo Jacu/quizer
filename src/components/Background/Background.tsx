@@ -3,9 +3,7 @@ import * as styled from './styles'
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { AllActions } from '~/store/actions/actionTypes';
 import * as actions from '~/store/actions/index';
-import { Dispatch } from 'redux';
 
 interface DispatchProps {
     quit: () => void,
@@ -21,7 +19,7 @@ const Background: React.FC<Props> = ({quit}) => (
     </styled.Background>
 )
 
-const mapDispatchToProps = (dispatch: Dispatch<AllActions>): DispatchProps => {
+const mapDispatchToProps = (dispatch ): DispatchProps => {
     return {
         quit: () => dispatch(actions.quizQuit()),
     }

@@ -25,9 +25,6 @@ export const SHUFFLE_ANSWERS = 'SHUFFLE_ANSWERS';
 
 export const PICK_ANSWER = 'PICK_ANSWER';
 
-export const NEXT_QUESTION = 'NEXT_QUESTION';
-export const PREV_QUESTION = 'PREV_QUESTION';
-
 export const QUIZ_ENDED = 'QUIZ_ENDED';
 export const QUIZ_QUIT = 'QUIZ_QUIT';
 
@@ -65,14 +62,6 @@ export interface pickAnswer {
     answer: number,
 }
 
-export interface nextQuestion {
-    type: typeof NEXT_QUESTION,
-}
-
-export interface prevQuestion {
-    type: typeof PREV_QUESTION,
-}
-
 export interface endQuiz {
     type: typeof QUIZ_ENDED,
 }
@@ -90,7 +79,7 @@ export interface resetQuiz {
 }
 
 export type QuizActions = fetchQuestionsStart | fetchQuestionsSuccess | fetchQuestionsFail<any> | shuffleAnswers |
-quizStarted | pickAnswer | nextQuestion | prevQuestion | endQuiz | quizQuit | calculateScore | resetQuiz;
+quizStarted | pickAnswer | endQuiz | quizQuit | calculateScore | resetQuiz;
 
 // ----------------------------
 

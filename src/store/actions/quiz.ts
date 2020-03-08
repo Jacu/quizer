@@ -67,18 +67,6 @@ export const pickAnswer = (index: number, answer: number): actionTypes.pickAnswe
     }
 }
 
-export const nextQuestion = (): actionTypes.nextQuestion => {
-    return {
-        type: actionTypes.NEXT_QUESTION,
-    }
-}
-
-export const prevQuestion = (): actionTypes.prevQuestion => {
-    return {
-        type: actionTypes.PREV_QUESTION,
-    }
-}
-
 export const quizEnded = (): Dispatch<Dispatch<actionTypes.QuizActions>> => {
     return (dispatch: Dispatch<actionTypes.QuizActions>) => {
         dispatch(calculateScore());

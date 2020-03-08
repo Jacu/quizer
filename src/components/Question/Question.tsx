@@ -3,23 +3,12 @@ import * as styled from './styles';
 import { connect } from 'react-redux';
 import Answer from '../Answer/Answer';
 import * as actions from '../../store/actions/quiz';
-import { AllActions } from "~/store/actions/actionTypes";
 import unescape from '@favware/unescape';
 import { Question as IQuiestion } from "~/store/reducers/quiz";
-import { Dispatch } from "redux";
-import { RouteComponentProps } from 'react-router';
 import { AppState } from "~/index";
 
-interface MatchParams {
-    id: string;
-}
-
-interface QuestionProps extends RouteComponentProps<MatchParams> {
-    totalQuestions,
-    questions,
-    questionsPicked,
-    correctAnswers,
-    ended
+interface QuestionProps {
+    id: number;
 }
 
 interface StateProps {
@@ -39,7 +28,7 @@ type Props = StateProps & QuestionProps & DispatchProps;
 const Question: React.FC<Props> = (props) => {
     const { totalQuestions, questions, questionsPicked, correctAnswers, ended } = props;
 
-    const questionId = +props.match.params.id - 1;
+    const questionId = +props.id - 1;
     const question = questions[questionId];
     const correctAnswerId = correctAnswers[questionId];
     const selectedAnswerId = questionsPicked[questionId];
@@ -50,15 +39,12 @@ const Question: React.FC<Props> = (props) => {
     const categoryLabel = `Category: ${question.category}`;
     const scoreLabel = correctAnswerId === selectedAnswerId ? 'GREAT!' : 'BAD LUCK';
 
-    const redirect = Number(questionId) < 0 || Number(questionId) > totalQuestions - 1;
-
     const handleAnswerPick = (answerId: number) => {
         return () => props.pickAnswer(questionId, answerId)
     }
 
     return (
         <styled.Question>
-            {redirect ? props.history.goBack() : null }
             <styled.QuestionHeader>{header}</styled.QuestionHeader>
             <styled.CategoryLabel>{categoryLabel}</styled.CategoryLabel>
             <p>{unescape(question.question)}</p>
@@ -90,7 +76,7 @@ const mapStateToProps = ({ quiz }: AppState): StateProps => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<AllActions>): DispatchProps => {
+const mapDispatchToProps = (dispatch ): DispatchProps => {
     return {
         pickAnswer: (index, newPick) => dispatch(actions.pickAnswer(index, newPick))
     }
