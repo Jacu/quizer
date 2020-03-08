@@ -14,7 +14,6 @@ export interface QuizState {
     finished: boolean,
     questions: {
         all: Question[],
-        current: number,
         amount: number,
         fetching: boolean,
     },
@@ -40,7 +39,6 @@ const initialState: QuizState = {
             correct_answer: "32",
             incorrect_answers: ["16", "20", "36"]
         }],
-        current: 1,
         amount: 1,
         fetching: true
     },
@@ -84,15 +82,7 @@ const fetchQuestionsFail = (state: QuizState, action) => {
 }
 
 const quizStarted = (state = initialState, action) => {
-    return { ...state, questions: { ...state.questions, current: 1 }, started: true, score: { percentage: -1, correct: 0 } }
-}
-
-const nextQuestion = (state = initialState, action) => {
-    return { ...state, questions: { ...state.questions, current: Math.min(++state.questions.current, Number(state.questions.amount)) } };
-}
-
-const prevQuestion = (state = initialState, action) => {
-    return { ...state, questions: { ...state.questions, current: Math.max(--state.questions.current, 0) } };
+    return { ...state, questions: { ...state.questions }, started: true, score: { percentage: -1, correct: 0 } }
 }
 
 const pickAnswer = (state, action) => {
@@ -101,7 +91,7 @@ const pickAnswer = (state, action) => {
 }
 
 const quizEnded = (state, action) => {
-    return { ...state, finished: true, started: false, questions:{ ...state.questions, current: 1 }}
+    return { ...state, finished: true, started: false, questions:{ ...state.questions }}
 }
 
 const quizQuit = (state, action) => {
@@ -126,8 +116,6 @@ const reducer = (state = initialState, action: actionTypes.AllActions): QuizStat
         case actionTypes.QUIZ_STARTED: return quizStarted(state, action);
         case actionTypes.SHUFFLE_ANSWERS: return shuffleAnswers(state, action);
         case actionTypes.PICK_ANSWER: return pickAnswer(state, action);
-        case actionTypes.NEXT_QUESTION: return nextQuestion(state, action);
-        case actionTypes.PREV_QUESTION: return prevQuestion(state, action);
         case actionTypes.QUIZ_ENDED: return quizEnded(state, action);
         case actionTypes.QUIZ_QUIT: return quizQuit(state, action);
         case actionTypes.CALCULATE_SCORE: return calculateScore(state, action);

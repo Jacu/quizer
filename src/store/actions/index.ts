@@ -1,8 +1,6 @@
 export {
     initQuiz,
     pickAnswer,
-    nextQuestion,
-    prevQuestion,
     quizEnded,
     reset,
     quizQuit,

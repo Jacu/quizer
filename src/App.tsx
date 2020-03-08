@@ -10,8 +10,8 @@ class App extends Component {
   render() {
     const routes = (
       <Switch>
-        <Route path="/quiz" component={Quiz} />
-        <Route path="/summary" component={Summary} />
+        <Route path="/quiz" exact component={Quiz} />
+        <Route path="/summary" exact component={Summary} />
         <Route path="/" exact component={StartPage} />
         <Redirect to="/" />
       </Switch>

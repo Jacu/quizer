@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import * as styles from './StartPage.css';
 import * as styled from './styles';
 import { connect } from 'react-redux';
 import Input from '../../components/Input/Input';
@@ -36,8 +35,6 @@ const StartPage: React.FC<Props> = ({init, settings, loading, changeSetting, gen
         </styled.settingInputs>
     );
 
-    //const { init } = props;
-
     useEffect(() => {
         init();
     },[init]);
@@ -50,7 +47,7 @@ const StartPage: React.FC<Props> = ({init, settings, loading, changeSetting, gen
     return (
         <styled.StartPage>
             <styled.Menu>
-                <h1 className={styles.Title}>Quizer</h1>
+                <styled.Title>Quizer</styled.Title>
                 <styled.SubTitle>
                     <p>Quiz generator with use of Trivia API opentdb.com</p>
                     <p>created by Jacek Smetek</p>
@@ -58,7 +55,7 @@ const StartPage: React.FC<Props> = ({init, settings, loading, changeSetting, gen
                 {settingInputs}
             </styled.Menu>
             <Button
-                link="/quiz/1"
+                link="/quiz"
                 onClick={handleStartButtonClick}
                 label="Start" />
         </styled.StartPage>
