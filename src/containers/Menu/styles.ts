@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import { Link } from 'react-router-dom';
 
 export const StartPage = styled.div`
     position: absolute;
@@ -8,21 +9,12 @@ export const StartPage = styled.div`
     flex-direction: column;
     align-self: center;
     height: 50%;
-    width: 60%;
-    @media (max-width: 640px) {
-        width: 100%;
-    }
+    width: 100%;
 `;
 
 export const Menu = styled.div`
     width: 100%;
     background: white;
-    border-radius: 3rem;
-    box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.25);
-    @media (max-width: 640px) {
-        border-radius: 0;
-        box-shadow: 0 0;
-    }
 `;
 
 export const settingInputs = styled.div`
@@ -55,4 +47,22 @@ export const Title = styled.h1`
 export const SubTitle = styled.div`
     color: #B3D8E9;
     color: #5B99B7;
+`;
+
+export const Button = styled(Link)`
+    color: inherit;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    background: white;
+    padding: 20px 50px;    
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 2rem;
+    box-shadow: 2px 2px 10px 2px rgba(0,0,0,0.25);
+    transition: transform 0.25s;
+    margin: 2rem;
+    :hover {
+        transform: scale(1.2,1.2);    
+    }
 `;

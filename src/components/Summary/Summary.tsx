@@ -35,8 +35,8 @@ const Summary: React.FC<Props> = props => {
             <styled.Percentage>{props.percentage}%</styled.Percentage>
             <styled.Score>{props.score}/{props.max}</styled.Score>
             <styled.OptionsContainer>
-                <Option link={"/quiz/1"} icon={faBackward} label="Review"/>
-                <Option link={"/quiz/1"} icon={faUndo} label="Try again" onClick={handleTryAgainButton} />
+                <Option link={"/quiz"} icon={faBackward} label="Review"/>
+                <Option link={"/quiz"} icon={faUndo} label="Try again" onClick={handleTryAgainButton} />
                 <Option link={"/"} icon={faHome} label="Home" onClick={handleHomeButton} />
             </styled.OptionsContainer>
         </styled.Container>

@@ -28,7 +28,7 @@ type Props = StateProps & QuestionProps & DispatchProps;
 const Question: React.FC<Props> = (props) => {
     const { totalQuestions, questions, questionsPicked, correctAnswers, ended } = props;
 
-    const questionId = +props.id - 1;
+    const questionId = props.id - 1;
     const question = questions[questionId];
     const correctAnswerId = correctAnswers[questionId];
     const selectedAnswerId = questionsPicked[questionId];

@@ -8,6 +8,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import Arrow, { ArrowDirection } from '../../components/UI/Arrow/Arrow';
 import Button from '../../components/UI/Button/Button';
 import { AppState } from '../../index';
+import Summary from "../../components/Summary/Summary";
 
 interface QuizProps {
 }
@@ -51,20 +52,22 @@ const Quiz: React.FC<Props> = props => {
     return (
         <styled.Quiz>
             {!props.isDataAvailable ? <Redirect to="/" /> : null}
-            <styled.Questions>
-                <Arrow
-                    disable={questionNumber <= 1}
-                    direction={ArrowDirection.Left} 
-                    onClick={handlePrevQuestion} />
-                { loading 
-                    ? <Spinner /> 
-                    : <Question id={questionNumber} />}
-                <Arrow
-                    disable={questionNumber >= props.questionsAmount}
-                    direction={ArrowDirection.Right} 
-                    onClick={handleNextQuestion} />
-            </styled.Questions>
-            <Button link='/summary' label={buttonLabel} onClick={handleButtonClick} />
+            {!props.ended
+                ? <styled.Questions>
+                    <Arrow
+                        disable={questionNumber <= 1}
+                        direction={ArrowDirection.Left} 
+                        onClick={handlePrevQuestion} />
+                    { loading 
+                        ? <Spinner /> 
+                        : <Question id={questionNumber} />}
+                    <Arrow
+                        disable={questionNumber >= props.questionsAmount}
+                        direction={ArrowDirection.Right} 
+                        onClick={handleNextQuestion} />
+                </styled.Questions>
+                : <Summary/> }
+            <Button label={buttonLabel} onClick={handleButtonClick} />
         </styled.Quiz>
     )
 }
@@ -80,7 +83,7 @@ const mapStateToProps = ({ quiz, startPage }: AppState): StateProps => {
     }
 }
 
-const mapDispatchToProps = (dispatch ): DispatchProps => {
+const mapDispatchToProps = (dispatch): DispatchProps => {
     return {
         end: () => dispatch(actions.quizEnded()),
     }

@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import * as styles from './App.css';
-import StartPage from './containers/StartPage/StartPage';
+import Menu from './containers/Menu/Menu';
 import Background from './components/Background/Background';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Quiz from './containers/Quiz/Quiz';
-import Summary from './components/Summary/Summary';
 
 class App extends Component {
   render() {
     const routes = (
       <Switch>
         <Route path="/quiz" exact component={Quiz} />
-        <Route path="/summary" exact component={Summary} />
-        <Route path="/" exact component={StartPage} />
+        <Route path="/" exact component={Menu} />
         <Redirect to="/" />
       </Switch>
     )

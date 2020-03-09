@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import Input from '../../components/Input/Input';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import Button from '../../components/UI/Button/Button';
 import { AppState } from "~/index";
 
 interface StartPageProps {
@@ -54,10 +53,9 @@ const StartPage: React.FC<Props> = ({init, settings, loading, changeSetting, gen
                 </styled.SubTitle>
                 {settingInputs}
             </styled.Menu>
-            <Button
-                link="/quiz"
-                onClick={handleStartButtonClick}
-                label="Start" />
+            <styled.Button to="/quiz" onClick={handleStartButtonClick}>
+                Start
+            </styled.Button>
         </styled.StartPage>
     )
 }
