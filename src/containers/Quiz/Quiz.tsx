@@ -53,19 +53,9 @@ const Quiz: React.FC<Props> = props => {
         <styled.Quiz>
             {!props.isDataAvailable ? <Redirect to="/" /> : null}
             {!props.ended
-                ? <styled.Questions>
-                    <Arrow
-                        disable={questionNumber <= 1}
-                        direction={ArrowDirection.Left} 
-                        onClick={handlePrevQuestion} />
-                    { loading 
-                        ? <Spinner /> 
-                        : <Question id={questionNumber} />}
-                    <Arrow
-                        disable={questionNumber >= props.questionsAmount}
-                        direction={ArrowDirection.Right} 
-                        onClick={handleNextQuestion} />
-                </styled.Questions>
+                ? loading 
+                    ? <Spinner /> 
+                    : <Question id={questionNumber} />
                 : <Summary/> }
             <Button label={buttonLabel} onClick={handleButtonClick} />
         </styled.Quiz>

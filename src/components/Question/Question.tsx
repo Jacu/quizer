@@ -44,10 +44,12 @@ const Question: React.FC<Props> = (props) => {
     }
 
     return (
-        <styled.Question>
-            <styled.QuestionHeader>{header}</styled.QuestionHeader>
-            <styled.CategoryLabel>{categoryLabel}</styled.CategoryLabel>
-            <p>{unescape(question.question)}</p>
+        <styled.QuestionComponent>
+            <styled.Header>
+                <styled.QuestionHeader>{header}</styled.QuestionHeader>
+                <styled.CategoryLabel>{categoryLabel}</styled.CategoryLabel>
+            </styled.Header>
+            <styled.Question>{unescape(question.question)}</styled.Question>
             <styled.AnswersContainer>
                 {allAnswers.map((answer, i) => (
                     <Answer
@@ -62,7 +64,7 @@ const Question: React.FC<Props> = (props) => {
             </styled.AnswersContainer>
             {!ended ? null
                 : <styled.Score>{scoreLabel}</styled.Score>}
-        </styled.Question>
+        </styled.QuestionComponent>
     );
 };
 
@@ -76,7 +78,7 @@ const mapStateToProps = ({ quiz }: AppState): StateProps => {
     }
 }
 
-const mapDispatchToProps = (dispatch ): DispatchProps => {
+const mapDispatchToProps = (dispatch): DispatchProps => {
     return {
         pickAnswer: (index, newPick) => dispatch(actions.pickAnswer(index, newPick))
     }

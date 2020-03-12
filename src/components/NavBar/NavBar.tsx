@@ -11,12 +11,12 @@ interface DispatchProps {
 
 type Props = DispatchProps
 
-const Background: React.FC<Props> = ({quit}) => (
-    <styled.Background>
+const NavBar: React.FC<Props> = ({quit}) => (
+    <styled.NavBar>
         <Link to="/" onClick={quit}>
             <styled.Icon icon={faHome}/>
         </Link>
-    </styled.Background>
+    </styled.NavBar>
 )
 
 const mapDispatchToProps = (dispatch ): DispatchProps => {
@@ -25,4 +25,4 @@ const mapDispatchToProps = (dispatch ): DispatchProps => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(Background);
+export default connect(null, mapDispatchToProps)(NavBar);

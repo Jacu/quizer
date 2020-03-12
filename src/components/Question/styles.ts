@@ -1,31 +1,33 @@
 import styled from "styled-components";
 
-export const Question = styled.div`
-    position: relative;
-    height: 40vh;
-    background: white;
-    border-radius: 50px;
-    box-shadow: 2px 2px 10px 2px rgba(0,0,0,0.25);
-    flex: 6;
+export const QuestionComponent = styled.div`
+    width: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;
     overflow: hidden;
 `;
 
-export const QuestionHeader = styled.h1`
-   padding: 1.5rem;
+export const QuestionHeader = styled.div`
+   display: flex;
 `;
 
-export const CategoryLabel = styled.h3`
-    font-size: 1rem;
-    padding: 0.5rem;
-    padding-bottom: 2rem;   
-    font-style: italic; 
+export const Header = styled.div`
+`;
+
+export const Question = styled.h3`
+    display: flex;
+    margin: 15px 0;
+`;
+
+export const CategoryLabel = styled.p` 
+    font-style: italic;
+    display: flex;
 `;
 
 export const AnswersContainer = styled.div`
     display: flex;
+    flex-direction: column;
 `;
 
 export const Score = styled.div`

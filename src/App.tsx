@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import * as styles from './App.css';
+import * as styled from './styles';
 import Menu from './containers/Menu/Menu';
-import Background from './components/Background/Background';
+import NavBar from './components/NavBar/NavBar';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Quiz from './containers/Quiz/Quiz';
 
@@ -15,10 +15,10 @@ class App extends Component {
       </Switch>
     )
     return (
-      <div className={styles.App}>
-        <Background />
+      <styled.App>
+        <NavBar />
         {routes}
-      </div>
+      </styled.App>
     );
   }
 }

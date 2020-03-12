@@ -15,12 +15,14 @@ const Answer: React.FC<AnswerProps> = ({selected, onClick, answer, correct, ende
     };
 
     return (
-    <styled.Answer
-        children={answer}
-        isSelected={selected}
-        isCorrect={correct}
-        showAnswer={ended}
-        onClick={handleClick} />
+    <styled.Answer 
+        // isSelected={selected}
+        // isCorrect={correct}
+        // showAnswer={ended}
+        onClick={handleClick} >
+        <styled.Checkbox isSelected={selected} />
+        {answer} 
+    </styled.Answer>
     );
 };
 
