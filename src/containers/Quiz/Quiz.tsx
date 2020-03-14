@@ -5,70 +5,113 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import Arrow, { ArrowDirection } from '../../components/UI/Arrow/Arrow';
+import NavBar from "../../components/NavBar/NavBar";
 import Button from '../../components/UI/Button/Button';
 import { AppState } from '../../index';
-import Summary from "../../components/Summary/Summary";
+import Summary from "~/components/Question/Summary/Summary";
+import { Question as IQuiestion } from "~/store/reducers/quiz";
 
 interface QuizProps {
 }
 
 interface StateProps {
-    questionsAmount: number,
+    questions: IQuiestion[],
     quizStarted: boolean,
-    quizFinished: boolean,
-    ended: boolean,
     dataLoading: boolean,
     isDataAvailable: boolean,
 }
 
 interface DispatchProps {
     end: () => void,
+    initQuiz: () => void,
 }
 
 type Props = QuizProps & StateProps & DispatchProps;
 
 const Quiz: React.FC<Props> = props => {
-    const [questionNumber,setQuestionNumber] = useState(1);
-    const loading = !(props.quizStarted || props.quizFinished) || props.dataLoading;
-    const buttonLabel = props.ended ? "View score" : "Submit";
+    const [finished, setFinished] = useState(false);
+    const [questionNumber, setQuestionNumber] = useState(1);
+    const [correctAnswers, setCorrectAnswers] = useState<boolean[]>([]);
+    const questionId = questionNumber - 1;
+    const [selectedId, setSelectedId] = useState(-1);
+    const question = props.questions[questionId];
+
+    let answers: string[] = [];
+    const questionsAmount = props.questions.length;
+    const correctAnswerId = question?.correctAnswerId;
+
+    const [inRevealMode, setInRevealMode] = useState(false);
+    const buttonLabel = finished ? 'Try Again!' : inRevealMode ? "Next" : "Check";
+    const loading = !(props.quizStarted || finished) || props.dataLoading;
+
+    if(!props.isDataAvailable) {
+        return <Redirect to="/" />
+    };
+
+    if (question) {
+        answers = [...question.incorrect_answers];
+        answers.splice(correctAnswerId, 0, question.correct_answer);
+    }
+
+    const resetSettings = () => {
+        setQuestionNumber(1);
+        setCorrectAnswers([]);
+        setFinished(false);
+        setInRevealMode(false)
+        props.initQuiz();
+    }
 
     const handleButtonClick = () => {
-        if(!props.ended){
-            props.end();
-        }
+        if (finished) {
+            resetSettings();
+        } else  
+        if (!inRevealMode) {
+            const isCorrect = selectedId === correctAnswerId
+            setCorrectAnswers([...correctAnswers, isCorrect])
+            setInRevealMode(true);
+        } else {
+            setSelectedId(-1);
+            const isLastQuestion = questionNumber === props.questions.length;
+            if (!isLastQuestion) {
+                setQuestionNumber(questionNumber + 1);
+                setInRevealMode(false);
+            } else {
+                setFinished(true);
+            }
+        };
     }
 
-    const handleNextQuestion = () => {
-        setQuestionNumber(questionNumber + 1);
-        console.log('questionNumber',questionNumber);
+    const handleAnswerPicked = (selectedAnswerId: number) => {
+        setSelectedId(selectedAnswerId);
     }
 
-    const handlePrevQuestion = () => {
-        setQuestionNumber(questionNumber - 1);
-        console.log('questionNumber',questionNumber);
-    }
-    
     return (
         <styled.Quiz>
-            {!props.isDataAvailable ? <Redirect to="/" /> : null}
-            {!props.ended
-                ? loading 
-                    ? <Spinner /> 
-                    : <Question id={questionNumber} />
-                : <Summary/> }
+            {loading ? <Spinner /> :
+                !finished
+                    ? <Question
+                        question={props.questions[questionId]}
+                        reveal={inRevealMode}
+                        answers={answers}
+                        correctId={correctAnswerId}
+                        onAnswerPicked={handleAnswerPicked}
+                        selectedId={selectedId} />
+                    : <Summary questions={props.questions} correctAnswers={correctAnswers}  />}
             <Button label={buttonLabel} onClick={handleButtonClick} />
+            <NavBar 
+                currentQuestionNumber={questionNumber}
+                questionsAmount={questionsAmount}
+                loading={props.dataLoading}
+                finished={finished} />
         </styled.Quiz>
     )
 }
 
 const mapStateToProps = ({ quiz, startPage }: AppState): StateProps => {
     return {
-        questionsAmount: quiz.questions.amount,
+        questions: quiz.questions,
         quizStarted: quiz.started,
-        quizFinished: quiz.finished,
-        ended: quiz.finished,
-        dataLoading: quiz.questions.fetching,
+        dataLoading: quiz.fetching,
         isDataAvailable: startPage.dataFetched,
     }
 }
@@ -76,6 +119,7 @@ const mapStateToProps = ({ quiz, startPage }: AppState): StateProps => {
 const mapDispatchToProps = (dispatch): DispatchProps => {
     return {
         end: () => dispatch(actions.quizEnded()),
+        initQuiz: () => dispatch(actions.initQuiz()),
     }
 }
 

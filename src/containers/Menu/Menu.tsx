@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import * as styled from './styles';
 import { connect } from 'react-redux';
-import Input from '../../components/Input/Input';
+import Input from '../../components/Menu/Input/Input';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import { AppState } from "~/index";
@@ -24,19 +24,10 @@ interface DispatchProps {
 
 type Props = StartPageProps & StateProps & DispatchProps;
 
-const StartPage: React.FC<Props> = ({init, settings, loading, changeSetting, generateURL, initQuiz}) => {
-    const settingInputs = loading === true ? <Spinner /> : (
-        <styled.settingInputs>
-            <Input name="amount" label="Question count" options={settings.amount} onChange={changeSetting} />
-            <Input name="category" label="Category" options={settings.category.map(obj => obj.name)} onChange={changeSetting} />
-            <Input name="type" label="Type" options={settings.type} onChange={changeSetting} />
-            <Input name="difficulty" label="Dificulity" options={settings.difficulty} onChange={changeSetting} />
-        </styled.settingInputs>
-    );
-
-    useEffect(() => {
-        init();
-    },[init]);
+const StartPage: React.FC<Props> = ({ init, settings, loading, changeSetting, generateURL, initQuiz }) => {
+        useEffect(() => {
+            init();
+        }, [init]);
 
     const handleStartButtonClick = () => {
         generateURL();
@@ -51,11 +42,16 @@ const StartPage: React.FC<Props> = ({init, settings, loading, changeSetting, gen
                     <p>Quiz generator with use of Trivia API opentdb.com</p>
                     <p>created by Jacek Smetek</p>
                 </styled.SubTitle>
-                {settingInputs}
+                {loading === true ? <Spinner /> : (
+                    <styled.settingInputs>
+                        <Input name="amount" label="Question count" options={settings.amount} onChange={changeSetting} />
+                        <Input name="category" label="Category" options={settings.category.map(obj => obj.name)} onChange={changeSetting} />
+                        <Input name="type" label="Type" options={settings.type} onChange={changeSetting} />
+                        <Input name="difficulty" label="Dificulity" options={settings.difficulty} onChange={changeSetting} />
+                    </styled.settingInputs>
+                )}
             </styled.Menu>
-            <styled.Button to="/quiz" onClick={handleStartButtonClick}>
-                Start
-            </styled.Button>
+            {!loading ? <styled.Button to="/quiz" onClick={handleStartButtonClick}> Start </styled.Button> : null}
         </styled.StartPage>
     )
 }

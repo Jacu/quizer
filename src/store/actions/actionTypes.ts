@@ -1,4 +1,5 @@
 import { Category } from "../reducers/startPage";
+import { Question } from "../reducers/quiz";
 import { Dispatch } from "redux";
 
 export const INIT = 'INIT';
@@ -23,12 +24,8 @@ export const FETCH_QUESTIONS_FAIL = 'FETCH_QUESTIONS_FAIL';
 
 export const SHUFFLE_ANSWERS = 'SHUFFLE_ANSWERS';
 
-export const PICK_ANSWER = 'PICK_ANSWER';
-
 export const QUIZ_ENDED = 'QUIZ_ENDED';
 export const QUIZ_QUIT = 'QUIZ_QUIT';
-
-export const CALCULATE_SCORE = 'CALCULATE_SCORE';
 
 export const RESET_QUIZ = "RESET_QUIZ";
 
@@ -40,7 +37,7 @@ export interface fetchQuestionsStart {
 
 export interface fetchQuestionsSuccess {
     type: typeof FETCH_QUESTIONS_SUCCESS,
-    questions: string,
+    questions: Question[],
 }
 
 export interface fetchQuestionsFail<T> {
@@ -56,12 +53,6 @@ export interface quizStarted {
     type: typeof QUIZ_STARTED,
 }
 
-export interface pickAnswer {
-    type: typeof PICK_ANSWER,
-    index: number,
-    answer: number,
-}
-
 export interface endQuiz {
     type: typeof QUIZ_ENDED,
 }
@@ -70,16 +61,12 @@ export interface quizQuit {
     type: typeof QUIZ_QUIT,
 }
 
-export interface calculateScore {
-    type: typeof CALCULATE_SCORE,
-}
-
 export interface resetQuiz {
     type: typeof RESET_QUIZ,
 }
 
 export type QuizActions = fetchQuestionsStart | fetchQuestionsSuccess | fetchQuestionsFail<any> | shuffleAnswers |
-quizStarted | pickAnswer | endQuiz | quizQuit | calculateScore | resetQuiz;
+quizStarted |  endQuiz | quizQuit | resetQuiz;
 
 // ----------------------------
 

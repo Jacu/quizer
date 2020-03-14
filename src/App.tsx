@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import * as styled from './styles';
 import Menu from './containers/Menu/Menu';
-import NavBar from './components/NavBar/NavBar';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Quiz from './containers/Quiz/Quiz';
 
@@ -16,7 +15,6 @@ class App extends Component {
     )
     return (
       <styled.App>
-        <NavBar />
         {routes}
       </styled.App>
     );
