@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.js": "/quizer/static/js/main.07edd68e.chunk.js",
+    "main.js.map": "/quizer/static/js/main.07edd68e.chunk.js.map",
+    "runtime~main.js": "/quizer/static/js/runtime~main.01864015.js",
+    "runtime~main.js.map": "/quizer/static/js/runtime~main.01864015.js.map",
+    "static/js/2.a375b6d1.chunk.js": "/quizer/static/js/2.a375b6d1.chunk.js",
+    "static/js/2.a375b6d1.chunk.js.map": "/quizer/static/js/2.a375b6d1.chunk.js.map",
+    "index.html": "/quizer/index.html",
+    "precache-manifest.18a4222c3819ddbe17e3c3896d158965.js": "/quizer/precache-manifest.18a4222c3819ddbe17e3c3896d158965.js",
+    "service-worker.js": "/quizer/service-worker.js"
+  }
+}
