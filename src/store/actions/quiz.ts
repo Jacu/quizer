@@ -33,7 +33,7 @@ export const fetchQuestionsStart = (): actionTypes.fetchQuestionsStart => {
     }
 }
 
-export const fetchQuestionsSuccess = (data): actionTypes.fetchQuestionsSuccess => {    
+export const fetchQuestionsSuccess = (data: Question[]): actionTypes.fetchQuestionsSuccess => {    
     return {
         type: actionTypes.FETCH_QUESTIONS_SUCCESS,
         questions: data,
@@ -59,17 +59,8 @@ export const quizStarted = (): actionTypes.quizStarted => {
     }
 }
 
-export const pickAnswer = (index: number, answer: number): actionTypes.pickAnswer => {
-    return {
-        type: actionTypes.PICK_ANSWER,
-        index: index,
-        answer: answer,
-    }
-}
-
 export const quizEnded = (): Dispatch<Dispatch<actionTypes.QuizActions>> => {
     return (dispatch: Dispatch<actionTypes.QuizActions>) => {
-        dispatch(calculateScore());
         dispatch(endQuiz());        
     }
 }
@@ -83,12 +74,6 @@ export const quizQuit = (): actionTypes.quizQuit  => {
 export const endQuiz = (): actionTypes.endQuiz => {
     return {
         type: actionTypes.QUIZ_ENDED,
-    }
-}
-
-export const calculateScore = (): actionTypes.calculateScore => {
-    return {
-        type: actionTypes.CALCULATE_SCORE,
     }
 }
 

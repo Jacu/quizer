@@ -7,101 +7,61 @@ export interface Question {
     question: string,
     correct_answer: string,
     incorrect_answers: string[],
+    correctAnswerId: number,
 }
 
 export interface QuizState {
     started: boolean,
-    finished: boolean,
-    questions: {
-        all: Question[],
-        amount: number,
-        fetching: boolean,
-    },
-    answers: {
-        correct: number[];
-        picked: number[];
-    },
-    score: {
-        percentage: number,
-        correct: number,
-    }
+    fetching: boolean,
+    questions: Question[],
 };
 
 const initialState: QuizState = {
     started: false,
-    finished: false,
-    questions: {
-        all: [{
-            category: "Entertainment: Board Games",
-            type: "multiple",
-            difficulty: "easy",
-            question: "How many pieces are there on the board at the start of a game of chess?",
-            correct_answer: "32",
-            incorrect_answers: ["16", "20", "36"]
-        }],
-        amount: 1,
-        fetching: true
-    },
-    answers: {
-        correct: [1],
-        picked: [-1]
-    },
-    score: {
-        percentage: -1,
-        correct: 0
-    }
+    fetching: true,
+    questions: [],
 }
 
-const shuffleAnswers = (state: QuizState, action) => {
+const shuffleAnswers = (state: QuizState, action: actionTypes.shuffleAnswers): QuizState => {
     const { questions } = state;
-    let shuffled: any[] = [];
-    for (const question in questions.all) {
-        const currentQuestion = questions.all[question]; 
-        const answersAmmount = currentQuestion.incorrect_answers.length + 1;
+    const questionsWithAnswerId: Question[] = [...questions];
+    questions.forEach((question,i) => {
+        let correctAnswerId = -1;
+        const answersAmmount = question.incorrect_answers.length + 1;
         const isBoolType = answersAmmount === 2;
-        if (isBoolType){
-            shuffled.push(currentQuestion.correct_answer === "True" ? 0 : 1);
+        if (isBoolType) {
+            correctAnswerId = question.correct_answer === "True" ? 0 : 1;
         } else {
-            shuffled.push(Math.floor(Math.random() * answersAmmount));
+            correctAnswerId = Math.floor(Math.random() * answersAmmount);
         }
-    }
-    return { ...state, answers: { correct: shuffled, picked: shuffled.map(() => -1) } }
+        questionsWithAnswerId[i].correctAnswerId = correctAnswerId;
+    });
+    return { ...state, questions: questionsWithAnswerId  }
 }
 
-const fetchQuestionsStart = (state: QuizState, action) => {
-    return { ...state, questions: { ...state.questions, fetching: true }}
+const fetchQuestionsStart = (state: QuizState, action: actionTypes.fetchQuestionsStart): QuizState => {
+    return { ...state, fetching: true };
 }
 
-const fetchQuestionsSuccess = (state: QuizState, action) => {
-    return { ...state, questions: { ...state.questions, all: action.questions, fetching: false, amount: action.questions.length } }
+const fetchQuestionsSuccess = (state: QuizState, action: actionTypes.fetchQuestionsSuccess): QuizState => {
+    return { ...state, questions: action.questions, fetching: false };
 }
 
-const fetchQuestionsFail = (state: QuizState, action) => {
+const fetchQuestionsFail = (state: QuizState, action: actionTypes.fetchQuestionsFail<any>): QuizState => {
     console.log(action.error)
-    return { ...state, questions: { ...state.questions, fetching: false } };
+    return { ...state, fetching: false };
 }
 
-const quizStarted = (state = initialState, action) => {
-    return { ...state, questions: { ...state.questions }, started: true, score: { percentage: -1, correct: 0 } }
+const quizStarted = (state: QuizState, action: actionTypes.quizStarted): QuizState => {
+    return { ...state, started: true }
 }
 
-const pickAnswer = (state, action) => {
-    state.answers.picked[action.index] = action.answer;
-    return { ...state };
+const quizEnded = (state: QuizState, action: actionTypes.endQuiz): QuizState => {
+    return { ...state, started: false }
 }
 
-const quizEnded = (state, action) => {
-    return { ...state, finished: true, started: false, questions:{ ...state.questions }}
-}
-
-const quizQuit = (state, action) => {
-    return { ...state, finished: false, started: false}
-}
-
-const calculateScore = (state: QuizState, action: actionTypes.calculateScore): QuizState => {
-    const numberOfCorrectAnswers = state.answers.correct.reduce((prevV, currentV, index) => currentV === state.answers.picked[index] ? prevV + 1 : prevV, 0);
-    const percentage = Math.round((numberOfCorrectAnswers / state.questions.amount) * 100);
-    return { ...state, score: { percentage: percentage, correct: numberOfCorrectAnswers } };
+const quizQuit = (state: QuizState, action: actionTypes.quizQuit): QuizState => {
+    return { ...state, started: false}
 }
 
 const reset = (state: QuizState, action: actionTypes.resetQuiz): QuizState => {
@@ -115,10 +75,8 @@ const reducer = (state = initialState, action: actionTypes.AllActions): QuizStat
         case actionTypes.FETCH_QUESTIONS_FAIL: return fetchQuestionsFail(state, action);
         case actionTypes.QUIZ_STARTED: return quizStarted(state, action);
         case actionTypes.SHUFFLE_ANSWERS: return shuffleAnswers(state, action);
-        case actionTypes.PICK_ANSWER: return pickAnswer(state, action);
         case actionTypes.QUIZ_ENDED: return quizEnded(state, action);
         case actionTypes.QUIZ_QUIT: return quizQuit(state, action);
-        case actionTypes.CALCULATE_SCORE: return calculateScore(state, action);
         case actionTypes.RESET_QUIZ: return reset(state, action);
         default: return state;
     }

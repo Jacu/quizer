@@ -13,8 +13,9 @@ export const StartPage = styled.div`
 `;
 
 export const Menu = styled.div`
-    width: 100%;
-    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `;
 
 export const settingInputs = styled.div`
@@ -59,7 +60,7 @@ export const Button = styled(Link)`
     border-radius: 25px;
     font-weight: bold;
     font-size: 2rem;
-    box-shadow: 2px 2px 10px 2px rgba(0,0,0,0.25);
+    box-shadow: 1px 1px 0px 3px rgba(0, 0, 0, 0.5);
     transition: transform 0.25s;
     margin: 2rem;
     :hover {

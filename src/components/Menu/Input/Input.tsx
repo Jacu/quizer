@@ -27,5 +27,4 @@ const Input: React.FC<InputProps> = props => {
     </styled.Input>
 )}
 
-
 export default Input;

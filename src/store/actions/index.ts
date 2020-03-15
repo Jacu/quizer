@@ -1,6 +1,5 @@
 export {
     initQuiz,
-    pickAnswer,
     quizEnded,
     reset,
     quizQuit,
