@@ -19,9 +19,11 @@ export const Menu = styled.div`
 `;
 
 export const settingInputs = styled.div`
-    margin: 50px 0;
-    display: flex;    
     width: 100%;
+    max-width: 900px;
+    margin: 50px 0;
+    display: flex;
+    flex-direction: column;
 `;
 
 const quizerIntro = keyframes`
@@ -46,7 +48,6 @@ export const Title = styled.h1`
 `;
 
 export const SubTitle = styled.div`
-    color: #B3D8E9;
     color: #5B99B7;
 `;
 
