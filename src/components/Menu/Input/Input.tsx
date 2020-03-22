@@ -1,30 +1,31 @@
 import React from 'react';
 import * as styled from './styles';
+import Tile from "~/components/UI/Tile/Tile";
+import { IFontSize } from '~/components/UI/Tile/Tile';
 
 interface InputProps {
     label: string,
-    name: string,
-    options: [],
-    onChange: (setting: string, value: string) => void,
+    values: string[],
+    selected: string,
+    onSelect: (selectedValue: string) => void,
+    fontSize?: IFontSize,
 }
 
 const Input: React.FC<InputProps> = props => {
-    const handleChange = (event: React.ChangeEvent<HTMLSelectElement> ) => {
-        props.onChange(props.name, event.target.value)
+    const handleSelect = (selectedValue: string) => {
+        props.onSelect(selectedValue)
     };
 
     return (
-    <styled.Input>
-        <styled.Label>{props.label}</styled.Label>
-        <styled.Select onChange={handleChange}>
-            {props.options.map(option =>
-                <styled.Option
-                    key={option}
-                    value={option}>
-                    {option}
-                </styled.Option>)}
-        </styled.Select>
-    </styled.Input>
-)}
+        <styled.Input>
+            <styled.Label>{props.label}</styled.Label>
+            <styled.TilesContainer>
+                {props.values.map(option =>
+                    <Tile fontSize={props.fontSize} selected={option === props.selected} header={option} onSelect={() => handleSelect(option)} />
+                )}
+            </styled.TilesContainer>
+        </styled.Input>
+    )
+}
 
 export default Input;
