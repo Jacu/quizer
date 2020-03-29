@@ -71,6 +71,8 @@ const fetchCategoriesFail = (state: StartPageState, action: actionTypes.fetchCat
 
 
 const setSetting = (state: StartPageState, action: actionTypes.setSetting): StartPageState => {
+    console.log('setSetting');
+    
     const settings = {
         ...state.settings,
         [action.setting]: {
