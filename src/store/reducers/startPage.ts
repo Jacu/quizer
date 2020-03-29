@@ -37,12 +37,12 @@ const initialState: StartPageState = {
             selected: { name: 'Any Category', id: 0 },
         },
         difficulty: {
-            values: ['Easy', 'Medium', 'Hard', 'Any Dificulity'],
-            selected: 'Any Dificulity',
+            values: ['Easy', 'Medium', 'Hard', 'Any'],
+            selected: 'Any',
         },
         type: {
-            values: ['Multiple Choice', 'True / False', 'Any Type'],
-            selected: 'Any Type',
+            values: ['ABCD', 'True/False', 'Any'],
+            selected: 'Any',
         },
         apiURL: "https://opentdb.com/api.php?amount=5&category=0&type=0&dificulty=0",
     }

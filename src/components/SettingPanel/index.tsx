@@ -1,9 +1,7 @@
 import React from 'react';
 import * as styled from './styles';
-import Input from "~/components/Menu/Input/Input";
-import SliderInput from '~/components/Menu/SliderInput';
 import { ISetting, Category } from "~/store/reducers/startPage";
-import CategoryInput from '../Menu/CategoryInput';
+import { CategoryInput, SliderInput, ButtonInput } from '../Inputs';
 
 interface ISettingPanel {
     amount: ISetting<string>,
@@ -12,8 +10,8 @@ interface ISettingPanel {
     type: ISetting<string>,
     onAmountChange: (newAmount: string) => void,
     onCategoryChange: (newAmount: Category) => void,
-    onDifficultyChange: (newAmount: string) => void,
     onTypeChange: (newAmount: string) => void,
+    onDifficultyChange: (newAmount: string) => void,
 }
 
 const SettingPanel: React.FC<ISettingPanel> = (props) => {
@@ -22,18 +20,10 @@ const SettingPanel: React.FC<ISettingPanel> = (props) => {
 
     return (
         <styled.settingPanel>
-            <SliderInput label="Question count" min={5} max={25} value={amount.selected} onChange={onAmountChange} />
-            <CategoryInput label="Cateogry" options={category.values} value={category.selected} onChange={onCategoryChange} />
-            <Input
-                label="Type"
-                values={type.values}
-                selected={type.selected}
-                onSelect={() => {}} />
-            <Input
-                label="Dificulity"
-                values={difficulty.values}
-                selected={difficulty.selected}
-                onSelect={() => {}} />
+            <SliderInput label="Quantity" options={["5","30"]} selected={amount.selected} onChange={onAmountChange} />
+            <CategoryInput label="Cateogry" options={category.values} selected={category.selected} onChange={onCategoryChange} />
+            <ButtonInput label="Type" options={type.values} selected={type.selected} onChange={onTypeChange} />
+            <ButtonInput label="Difficulty" options={difficulty.values} selected={difficulty.selected} onChange={onDifficultyChange} />
         </styled.settingPanel>
     )
 }

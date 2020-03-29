@@ -6,7 +6,6 @@ interface ISlider {
     min: number,
     max: number,
     onChange: (value: string) => void,
-
 }
 
 const Slider: React.FC<ISlider> = (props) => {
