@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import * as styled from './styles';
 import { connect } from 'react-redux';
-import Input from '../../components/Menu/Input/Input';
 import * as actions from '../../store/actions/index';
 import { ISettings } from "~/store/reducers/startPage";
 import Spinner from '../../components/UI/Spinner/Spinner';
 import { AppState } from "~/index";
-import { IFontSize } from '~/components/UI/Tile/Tile';
+import SettingPanel from '~/components/SettingPanel';
 
 interface StartPageProps {
 }
@@ -37,8 +36,12 @@ const StartPage: React.FC<Props> = ({ init, settings, loading, changeSetting, ge
     }
 
     const handleOptionChange = (settingName: string, selectedValue: string) => {
+        console.log('settingName',settingName,'selectedValue',selectedValue);
+        
         changeSetting(settingName,selectedValue)
     }
+
+    const {amount, category, difficulty, type } = settings;
 
     return (
         <styled.StartPage>
@@ -48,32 +51,9 @@ const StartPage: React.FC<Props> = ({ init, settings, loading, changeSetting, ge
                     <p>Quiz generator with use of Trivia API opentdb.com</p>
                     <p>created by Jacek Smetek</p>
                 </styled.SubTitle>
-                {loading === true ? <Spinner /> : (  // TODO Optimize below
-                    <styled.settingInputs>
-                        <Input
-                            label="Question count"
-                            values={settings.amount.values}
-                            fontSize={IFontSize.Big}
-                            selected={settings.amount.selected}
-                            onSelect={(value) => handleOptionChange("amount",value)} />
-                        <Input
-                            label="Category"
-                            values={settings.category.values.map(obj => obj.name)}
-                            fontSize={IFontSize.Small}
-                            selected={settings.category.selected}
-                            onSelect={(value) => handleOptionChange("category",value)} />
-                        <Input
-                            label="Type"
-                            values={settings.type.values}
-                            selected={settings.type.selected}
-                            onSelect={(value) => handleOptionChange("type",value)} />
-                        <Input
-                            label="Dificulity"
-                            values={settings.difficulty.values}
-                            selected={settings.difficulty.selected}
-                            onSelect={(value) => handleOptionChange("difficulty",value)} />
-                    </styled.settingInputs>
-                )}
+                {loading === true 
+                    ? <Spinner />
+                    : <SettingPanel amount={amount} category={category} difficulty={difficulty} type={type} onChange={handleOptionChange} /> }
             </styled.Menu>
             {!loading ? <styled.Button to="/quiz" onClick={handleStartButtonClick}> Start </styled.Button> : null}
         </styled.StartPage>
