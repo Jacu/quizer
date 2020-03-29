@@ -16,13 +16,11 @@ export const Menu = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    max-width: 650px;
 `;
 
-export const settingInputs = styled.div`
-    margin: 50px 0;
-    display: flex;    
-    width: 100%;
-`;
+
 
 const quizerIntro = keyframes`
     0% {
@@ -46,7 +44,6 @@ export const Title = styled.h1`
 `;
 
 export const SubTitle = styled.div`
-    color: #B3D8E9;
     color: #5B99B7;
 `;
 

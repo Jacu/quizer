@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
 import * as styled from './styles';
 import { connect } from 'react-redux';
-import Input from '../../components/Menu/Input/Input';
 import * as actions from '../../store/actions/index';
+import { ISettings, Category } from "~/store/reducers/startPage";
 import Spinner from '../../components/UI/Spinner/Spinner';
 import { AppState } from "~/index";
+import SettingPanel from '~/components/SettingPanel';
 
 interface StartPageProps {
 }
 
 interface StateProps {
-    settings: any, //TODO
+    settings: ISettings,
     loading: boolean,
     apiURL: string,
 }
@@ -19,15 +20,22 @@ interface DispatchProps {
     init: () => void,
     generateURL: () => void,
     initQuiz: () => void,
-    changeSetting: (setting: string, value: string) => void,
+    setQuestionAmount: (value: string) => void,
+    setQuestionCategory: (value: Category) => void,
+    setQuestionType: (value: string) => void,
+    setQuestionDifficulty: (value: string) => void,
 }
 
 type Props = StartPageProps & StateProps & DispatchProps;
 
-const StartPage: React.FC<Props> = ({ init, settings, loading, changeSetting, generateURL, initQuiz }) => {
-        useEffect(() => {
-            init();
-        }, [init]);
+const StartPage: React.FC<Props> = (props) => {
+    const { init, settings, loading, generateURL, initQuiz } = props;
+    const { setQuestionAmount, setQuestionCategory, setQuestionType, setQuestionDifficulty } = props;
+    const {amount, category, difficulty, type } = settings;
+
+    useEffect(() => {
+        init();
+    }, [init]);
 
     const handleStartButtonClick = () => {
         generateURL();
@@ -42,14 +50,18 @@ const StartPage: React.FC<Props> = ({ init, settings, loading, changeSetting, ge
                     <p>Quiz generator with use of Trivia API opentdb.com</p>
                     <p>created by Jacek Smetek</p>
                 </styled.SubTitle>
-                {loading === true ? <Spinner /> : (
-                    <styled.settingInputs>
-                        <Input name="amount" label="Question count" options={settings.amount} onChange={changeSetting} />
-                        <Input name="category" label="Category" options={settings.category.map(obj => obj.name)} onChange={changeSetting} />
-                        <Input name="type" label="Type" options={settings.type} onChange={changeSetting} />
-                        <Input name="difficulty" label="Dificulity" options={settings.difficulty} onChange={changeSetting} />
-                    </styled.settingInputs>
-                )}
+                {loading === true 
+                    ? <Spinner />
+                    : <SettingPanel 
+                        amount={amount}
+                        onAmountChange={setQuestionAmount}
+                        category={category}
+                        onCategoryChange={setQuestionCategory}
+                        difficulty={difficulty}
+                        onDifficultyChange={setQuestionDifficulty}
+                        type={type}
+                        onTypeChange={setQuestionType}
+                    /> }
             </styled.Menu>
             {!loading ? <styled.Button to="/quiz" onClick={handleStartButtonClick}> Start </styled.Button> : null}
         </styled.StartPage>
@@ -58,7 +70,7 @@ const StartPage: React.FC<Props> = ({ init, settings, loading, changeSetting, ge
 
 const mapStateToProps = ({ startPage }: AppState): StateProps => {
     return {
-        settings: startPage.settings.available,
+        settings: startPage.settings,
         loading: startPage.loading,
         apiURL: startPage.settings.apiURL,
     }
@@ -69,7 +81,10 @@ const mapDispatchToProps = (dispatch): DispatchProps => {
         init: () => dispatch(actions.init()),
         generateURL: () => dispatch(actions.generateURL()),
         initQuiz: () => dispatch(actions.initQuiz()),
-        changeSetting: (setting, value) => dispatch(actions.setSetting(setting, value)),
+        setQuestionAmount: (newAmount) => dispatch(actions.setQuestionAmount(newAmount)),
+        setQuestionCategory: (newCategory) => dispatch(actions.setQuestionCategory(newCategory)),
+        setQuestionType: (newType) => dispatch(actions.setQuestionType(newType)),
+        setQuestionDifficulty: (newDifficulty) => dispatch(actions.setQuestionDifficulty(newDifficulty)),
     };
 };
 

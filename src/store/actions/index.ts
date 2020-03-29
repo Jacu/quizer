@@ -6,6 +6,9 @@ export {
 } from './quiz'
 export {
     init,
-    setSetting,
+    setQuestionAmount,
+    setQuestionCategory,
+    setQuestionType,
+    setQuestionDifficulty,
     generateURL,
 } from './startPage'

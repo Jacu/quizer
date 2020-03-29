@@ -5,103 +5,133 @@ export interface Category {
     id: number
 };
 
+export interface ISetting<T> {
+    values: T[],
+    selected: T,
+}
+
+export interface ISettings {
+    amount: ISetting<string>,
+    category: ISetting<Category>,
+    difficulty: ISetting<string>,
+    type: ISetting<string>,
+    apiURL: string,
+}
+
 export interface StartPageState {
     loading: boolean,
     dataFetched: boolean,
-    settings: {
-        available: {
-            amount: string[],
-            category: Category[],
-            difficulty: string[],
-            type: string[],
-        },
-        selected: {
-            amount: string,
-            category: string,
-            difficulty: string,
-            type: string,
-        },
-        apiURL: string,
-    }
+    settings: ISettings,
 }
 
 const initialState: StartPageState = {
     loading: false,
     dataFetched: false,
     settings: {
-        available: {
-            amount: ["5", "10", "15", "20", "50"],
-            category: [
-                {
-                    name: 'Any Category',
-                    id: 0,
-                }, // categories should be fetched from https://opentdb.com/api_category.php
-            ],
-            difficulty: ['Any Dificulity', 'Easy', 'Medium', 'Hard'],
-            type: ['Any Type', 'Multiple Choice', 'True / False'],
+        amount: {
+            values: ["5", "10", "15", "20", "50"],
+            selected: "5",
         },
-        selected: {
-            amount: "5",
-            category: 'Any Category',
-            difficulty: 'Any Dificulity',
-            type: 'Any Type',
+        category: {
+            values: [{ name: 'Any Category', id: 0 }], // categories should be fetched from https://opentdb.com/api_category.php
+            selected: { name: 'Any Category', id: 0 },
+        },
+        difficulty: {
+            values: ['Easy', 'Medium', 'Hard', 'Any'],
+            selected: 'Any',
+        },
+        type: {
+            values: ['ABCD', 'True/False', 'Any'],
+            selected: 'Any',
         },
         apiURL: "https://opentdb.com/api.php?amount=5&category=0&type=0&dificulty=0",
     }
 }
 
-const fetchCategoriesStart = (state: StartPageState, action: actionTypes.fetchCategoriesStart) => {
+const fetchCategoriesStart = (state: StartPageState, action: actionTypes.fetchCategoriesStart): StartPageState => {
     return { ...state, loading: true }
 }
 
-const fetchCategoriesSuccess = (state: StartPageState, action: actionTypes.fetchCategoriesSuccess) => {
-    const settingsWithCategories =
-    {
-        settings: {
+const fetchCategoriesSuccess = (state: StartPageState, action: actionTypes.fetchCategoriesSuccess): StartPageState => {
+    const settings = {
             ...state.settings,
-            available: {
-                ...state.settings.available,
-                category: [{name: 'Any Category',id: 0}].concat(action.categories)
+            category: {
+                ...state.settings.category,
+                values: [{name: 'Any Category',id: 0}].concat(action.categories),
             }
         }
-    }
-    return { ...state, loading: false, ...settingsWithCategories, dataFetched: true }
+    return { ...state, loading: false, settings, dataFetched: true };
 }
 
-const fetchCategoriesFail = (state: StartPageState, action: actionTypes.fetchCategoriesFail<{}>) => {
+const fetchCategoriesFail = (state: StartPageState, action: actionTypes.fetchCategoriesFail<{}>): StartPageState => {
     console.log("Something went wrong");
     console.log(action.error);
     return { ...state, loading: false }
 }
 
-
-const setSetting = (state: StartPageState, action: actionTypes.setSetting) => {
-    const newSelectedSetting = {
-        ...state.settings.selected,
-        [action.setting]: action.value
-    }
-    return { ...state, settings: { ...state.settings, selected: { ...newSelectedSetting } } };
+const setQuestionAmount = (state: StartPageState, action: actionTypes.setQuestionAmount): StartPageState => {
+    return {...state, settings: {
+        ...state.settings,
+        amount: {
+            ...state.settings.amount,
+            selected: action.value,
+        }
+    }};
 }
 
-const resetStartPage = (state: StartPageState, action: actionTypes.resetStartPage) => {
+const setQuestionCategory = (state: StartPageState, action: actionTypes.setQuestionCategory): StartPageState => {
+    return {...state, settings: {
+        ...state.settings,
+        category: {
+            ...state.settings.category,
+            selected: action.value,
+        }
+    }};
+}
+
+const setQuestionType = (state: StartPageState, action: actionTypes.setQuestionType): StartPageState => {
+    return {...state, settings: {
+        ...state.settings,
+        type: {
+            ...state.settings.type,
+            selected: action.value,
+        }
+    }};
+}
+
+const setQuestionDifficulty = (state: StartPageState, action: actionTypes.setQuestionDifficulty): StartPageState => {
+    return {...state, settings: {
+        ...state.settings,
+        difficulty: {
+            ...state.settings.difficulty,
+            selected: action.value,
+        }
+    }};
+}
+
+const resetStartPage = (state: StartPageState, action: actionTypes.resetStartPage): StartPageState => {
     return initialState;
 }
 
 const generateUrl = (state: StartPageState, action: actionTypes.generateURL): StartPageState => {
-    const categoryID = state.settings.available.category.find(category => category.name === state.settings.selected.category)!.id;
-    const amount = state.settings.selected.amount;    
-    const difficulty = ["0", "easy", "medium", "hard"][state.settings.available.difficulty.indexOf(state.settings.selected.difficulty)];
-    const type = ["0","multiple","boolean"][state.settings.available.type.indexOf(state.settings.selected.type)];    
-    const apiURL = `https://opentdb.com/api.php?amount=${amount}&category=${categoryID}&type=${type}&dificulty=${difficulty}`;
+    const { category, amount, difficulty, type } = state.settings;
+    const categoryID = category.values.filter(currCategory => currCategory.name === category.selected.name)[0].id;
+    const questionsAmount = amount.selected;
+    const selectedDifficulty = ["easy", "medium", "hard", "0"][difficulty.values.indexOf(difficulty.selected)];
+    const selectedType = ["multiple","boolean","0"][type.values.indexOf(type.selected)];
+    const apiURL = `https://opentdb.com/api.php?amount=${questionsAmount}&category=${categoryID}&type=${selectedType}&dificulty=${selectedDifficulty}`;
     return {...state, settings: {...state.settings, apiURL: apiURL}};
 }
 
 const reducer = (state = initialState, action: actionTypes.StartPageActions): StartPageState => {
-    switch (action.type) {        
+    switch (action.type) {
         case actionTypes.FETCH_CATEGORIES_START: return fetchCategoriesStart(state, action);
         case actionTypes.FETCH_CATEGORIES_SUCCESS: return fetchCategoriesSuccess(state, action);
         case actionTypes.FETCH_CATEGORIES_FAIL: return fetchCategoriesFail(state, action);
-        case actionTypes.SET_SETTING: return setSetting(state, action);
+        case actionTypes.SET_QUESTION_AMOUNT: return setQuestionAmount(state, action);
+        case actionTypes.SET_QUESTION_CATEGORY: return setQuestionCategory(state, action);
+        case actionTypes.SET_QUESTION_TYPE: return setQuestionType(state, action);
+        case actionTypes.SET_QUESTION_DIFFICULTY: return setQuestionDifficulty(state, action);
         case actionTypes.GENERATE_URL: return generateUrl(state,action);
         case actionTypes.RESET_START_PAGE: return resetStartPage(state,action);
         default: return state;
