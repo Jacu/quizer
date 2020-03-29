@@ -7,7 +7,7 @@ export interface Category {
 
 export interface ISetting<T> {
     values: T[],
-    selected: string,
+    selected: T,
 }
 
 export interface ISettings {
@@ -34,7 +34,7 @@ const initialState: StartPageState = {
         },
         category: {
             values: [{ name: 'Any Category', id: 0 }], // categories should be fetched from https://opentdb.com/api_category.php
-            selected: 'Any Category',
+            selected: { name: 'Any Category', id: 0 },
         },
         difficulty: {
             values: ['Easy', 'Medium', 'Hard', 'Any Dificulity'],
@@ -69,18 +69,44 @@ const fetchCategoriesFail = (state: StartPageState, action: actionTypes.fetchCat
     return { ...state, loading: false }
 }
 
-
-const setSetting = (state: StartPageState, action: actionTypes.setSetting): StartPageState => {
-    console.log('setSetting');
-    
-    const settings = {
+const setQuestionAmount = (state: StartPageState, action: actionTypes.setQuestionAmount): StartPageState => {
+    return {...state, settings: {
         ...state.settings,
-        [action.setting]: {
-            ...state.settings[action.setting],
+        amount: {
+            ...state.settings.amount,
             selected: action.value,
-        },
-    }
-    return { ...state, settings };
+        }
+    }};
+}
+
+const setQuestionCategory = (state: StartPageState, action: actionTypes.setQuestionCategory): StartPageState => {
+    return {...state, settings: {
+        ...state.settings,
+        category: {
+            ...state.settings.category,
+            selected: action.value,
+        }
+    }};
+}
+
+const setQuestionType = (state: StartPageState, action: actionTypes.setQuestionType): StartPageState => {
+    return {...state, settings: {
+        ...state.settings,
+        type: {
+            ...state.settings.type,
+            selected: action.value,
+        }
+    }};
+}
+
+const setQuestionDifficulty = (state: StartPageState, action: actionTypes.setQuestionDifficulty): StartPageState => {
+    return {...state, settings: {
+        ...state.settings,
+        difficulty: {
+            ...state.settings.difficulty,
+            selected: action.value,
+        }
+    }};
 }
 
 const resetStartPage = (state: StartPageState, action: actionTypes.resetStartPage): StartPageState => {
@@ -89,7 +115,7 @@ const resetStartPage = (state: StartPageState, action: actionTypes.resetStartPag
 
 const generateUrl = (state: StartPageState, action: actionTypes.generateURL): StartPageState => {
     const { category, amount, difficulty, type } = state.settings;
-    const categoryID = category.values.find(currCategory => currCategory.name === category.selected)!.id;
+    const categoryID = category.values.filter(currCategory => currCategory.name === category.selected.name)[0].id;
     const questionsAmount = amount.selected;
     const selectedDifficulty = ["easy", "medium", "hard", "0"][difficulty.values.indexOf(difficulty.selected)];
     const selectedType = ["multiple","boolean","0"][type.values.indexOf(type.selected)];
@@ -102,7 +128,10 @@ const reducer = (state = initialState, action: actionTypes.StartPageActions): St
         case actionTypes.FETCH_CATEGORIES_START: return fetchCategoriesStart(state, action);
         case actionTypes.FETCH_CATEGORIES_SUCCESS: return fetchCategoriesSuccess(state, action);
         case actionTypes.FETCH_CATEGORIES_FAIL: return fetchCategoriesFail(state, action);
-        case actionTypes.SET_SETTING: return setSetting(state, action);
+        case actionTypes.SET_QUESTION_AMOUNT: return setQuestionAmount(state, action);
+        case actionTypes.SET_QUESTION_CATEGORY: return setQuestionCategory(state, action);
+        case actionTypes.SET_QUESTION_TYPE: return setQuestionType(state, action);
+        case actionTypes.SET_QUESTION_DIFFICULTY: return setQuestionDifficulty(state, action);
         case actionTypes.GENERATE_URL: return generateUrl(state,action);
         case actionTypes.RESET_START_PAGE: return resetStartPage(state,action);
         default: return state;

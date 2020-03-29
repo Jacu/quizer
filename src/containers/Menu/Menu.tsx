@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import * as styled from './styles';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
-import { ISettings } from "~/store/reducers/startPage";
+import { ISettings, Category } from "~/store/reducers/startPage";
 import Spinner from '../../components/UI/Spinner/Spinner';
 import { AppState } from "~/index";
 import SettingPanel from '~/components/SettingPanel';
@@ -20,28 +20,27 @@ interface DispatchProps {
     init: () => void,
     generateURL: () => void,
     initQuiz: () => void,
-    changeSetting: (setting: string, value: string) => void,
+    setQuestionAmount: (value: string) => void,
+    setQuestionCategory: (value: Category) => void,
+    setQuestionType: (value: string) => void,
+    setQuestionDifficulty: (value: string) => void,
 }
 
 type Props = StartPageProps & StateProps & DispatchProps;
 
-const StartPage: React.FC<Props> = ({ init, settings, loading, changeSetting, generateURL, initQuiz }) => {
-        useEffect(() => {
-            init();
-        }, [init]);
+const StartPage: React.FC<Props> = (props) => {
+    const { init, settings, loading, generateURL, initQuiz } = props;
+    const { setQuestionAmount, setQuestionCategory, setQuestionType, setQuestionDifficulty } = props;
+    const {amount, category, difficulty, type } = settings;
+
+    useEffect(() => {
+        init();
+    }, [init]);
 
     const handleStartButtonClick = () => {
         generateURL();
         initQuiz();
     }
-
-    const handleOptionChange = (settingName: string, selectedValue: string) => {
-        console.log('settingName',settingName,'selectedValue',selectedValue);
-        
-        changeSetting(settingName,selectedValue)
-    }
-
-    const {amount, category, difficulty, type } = settings;
 
     return (
         <styled.StartPage>
@@ -53,7 +52,16 @@ const StartPage: React.FC<Props> = ({ init, settings, loading, changeSetting, ge
                 </styled.SubTitle>
                 {loading === true 
                     ? <Spinner />
-                    : <SettingPanel amount={amount} category={category} difficulty={difficulty} type={type} onChange={handleOptionChange} /> }
+                    : <SettingPanel 
+                        amount={amount}
+                        onAmountChange={setQuestionAmount}
+                        category={category}
+                        onCategoryChange={setQuestionCategory}
+                        difficulty={difficulty}
+                        onDifficultyChange={setQuestionDifficulty}
+                        type={type}
+                        onTypeChange={setQuestionType}
+                    /> }
             </styled.Menu>
             {!loading ? <styled.Button to="/quiz" onClick={handleStartButtonClick}> Start </styled.Button> : null}
         </styled.StartPage>
@@ -73,7 +81,10 @@ const mapDispatchToProps = (dispatch): DispatchProps => {
         init: () => dispatch(actions.init()),
         generateURL: () => dispatch(actions.generateURL()),
         initQuiz: () => dispatch(actions.initQuiz()),
-        changeSetting: (setting, value) => dispatch(actions.setSetting(setting, value)),
+        setQuestionAmount: (newAmount) => dispatch(actions.setQuestionAmount(newAmount)),
+        setQuestionCategory: (newCategory) => dispatch(actions.setQuestionCategory(newCategory)),
+        setQuestionType: (newType) => dispatch(actions.setQuestionType(newType)),
+        setQuestionDifficulty: (newDifficulty) => dispatch(actions.setQuestionDifficulty(newDifficulty)),
     };
 };
 

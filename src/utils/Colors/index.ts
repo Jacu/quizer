@@ -1,5 +1,5 @@
 export const primaryTheme = {
-    base: '#19729F',
+    base: '#125271',
 };
 export const secondaryTheme = {
     base: '#19729F',
