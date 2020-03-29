@@ -1,49 +1,29 @@
 import React from 'react';
 import * as styled from './styles';
-import Input from "~/components/Menu/Input/Input";
-import { IFontSize } from '~/components/UI/Tile/Tile';
-import Slider from "../UI/Slider/Slider";
-import SliderInput from '~/components/Menu/SliderInput';
-import { ISetting } from "~/store/reducers/startPage";
+import { ISetting, Category } from "~/store/reducers/startPage";
+import { CategoryInput, SliderInput, ButtonInput } from '../Inputs';
 
 interface ISettingPanel {
     amount: ISetting<string>,
-    category,
-    difficulty,
-    type,
-    onChange,
+    category: ISetting<Category>,
+    difficulty: ISetting<string>,
+    type: ISetting<string>,
+    onAmountChange: (newAmount: string) => void,
+    onCategoryChange: (newAmount: Category) => void,
+    onTypeChange: (newAmount: string) => void,
+    onDifficultyChange: (newAmount: string) => void,
 }
 
-const SettingPanel: React.FC<ISettingPanel> = ({amount, category, difficulty, type, onChange}) => {
-    const handleQuestionAmountChange = (newAmount: string) => {
-        onChange("amount", newAmount);
-    };
+const SettingPanel: React.FC<ISettingPanel> = (props) => {
+    const {amount, category, difficulty, type} = props;
+    const {onAmountChange, onCategoryChange, onDifficultyChange, onTypeChange } = props;
 
     return (
         <styled.settingPanel>
-            {/* <Input
-                label="Question count"
-                values={amount.values}
-                fontSize={IFontSize.Big}
-                selected={amount.selected}
-                onSelect={(value) => onChange("amount", value)} /> */}
-            <SliderInput label="Question count" min={5} max={25} value={amount.selected} onChange={handleQuestionAmountChange} />
-            <Input
-                label="Category"
-                values={category.values.map(obj => obj.name)}
-                fontSize={IFontSize.Small}
-                selected={category.selected}
-                onSelect={(value) => onChange("category", value)} />
-            <Input
-                label="Type"
-                values={type.values}
-                selected={type.selected}
-                onSelect={(value) => onChange("type", value)} />
-            <Input
-                label="Dificulity"
-                values={difficulty.values}
-                selected={difficulty.selected}
-                onSelect={(value) => onChange("difficulty", value)} />
+            <SliderInput label="Quantity" options={["5","30"]} selected={amount.selected} onChange={onAmountChange} />
+            <CategoryInput label="Cateogry" options={category.values} selected={category.selected} onChange={onCategoryChange} />
+            <ButtonInput label="Type" options={type.values} selected={type.selected} onChange={onTypeChange} />
+            <ButtonInput label="Difficulty" options={difficulty.values} selected={difficulty.selected} onChange={onDifficultyChange} />
         </styled.settingPanel>
     )
 }

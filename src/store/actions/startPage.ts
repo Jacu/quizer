@@ -41,10 +41,30 @@ export const fetchCategoriesFail = (error: AxiosError): actionTypes.fetchCategor
     }
 }
 
-export const setSetting = (setting: string, value: string): actionTypes.setSetting => {
+export const setQuestionAmount = (value: string): actionTypes.setQuestionAmount => {
     return {
-        type: actionTypes.SET_SETTING,
-        setting: setting,
+        type: actionTypes.SET_QUESTION_AMOUNT,
+        value: value,
+    }
+}
+
+export const setQuestionCategory = (value: Category): actionTypes.setQuestionCategory => {
+    return {
+        type: actionTypes.SET_QUESTION_CATEGORY,
+        value: value,
+    }
+}
+
+export const setQuestionDifficulty = (value: string): actionTypes.setQuestionDifficulty => {
+    return {
+        type: actionTypes.SET_QUESTION_DIFFICULTY,
+        value: value,
+    }
+}
+
+export const setQuestionType = (value: string): actionTypes.setQuestionType => {
+    return {
+        type: actionTypes.SET_QUESTION_TYPE,
         value: value,
     }
 }

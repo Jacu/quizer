@@ -1,7 +1,9 @@
 import styled from 'styled-components';
+import * as colors from '~/utils/Colors';
 
 export const SliderInput = styled.div`
     display: flex;
+    margin: 10px 0px;
 `;
 
 export const ValueLabel = styled.div`
@@ -13,6 +15,9 @@ export const Label = styled.div`
     width: 100%;
     flex: 1;
     text-align: end;
+    font-size: 1.5rem;
+    padding: 0 20px;
+    border-right: 1px solid ${colors.gray.base};
 `;
 
 export const SliderContainer = styled.div`
@@ -23,5 +28,6 @@ export const SliderContainer = styled.div`
 `;
 
 export const Slider = styled.div`
-    flex: 2;
+    flex: 3;
+    padding-right: 50px;
 `;
