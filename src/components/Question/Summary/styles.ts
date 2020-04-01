@@ -33,4 +33,5 @@ export const CorrectAnswer = styled.div`
     display: flex;
     padding: 0 15px;
     align-items: center;
+    overflow: hidden;
 `;

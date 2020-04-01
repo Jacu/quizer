@@ -64,20 +64,16 @@ const Quiz: React.FC<Props> = props => {
     const handleButtonClick = () => {
         if (finished) {
             resetSettings();
-        } else  
-        if (!inRevealMode) {
+        } else if (inRevealMode) {
+            const isLastQuestion = questionNumber === props.questions.length;
+            setSelectedId(-1);
+            setFinished(isLastQuestion);
+            setQuestionNumber(isLastQuestion ? questionNumber : questionNumber  + 1);
+            setInRevealMode(false);
+        } else {
             const isCorrect = selectedId === correctAnswerId
             setCorrectAnswers([...correctAnswers, isCorrect])
             setInRevealMode(true);
-        } else {
-            setSelectedId(-1);
-            const isLastQuestion = questionNumber === props.questions.length;
-            if (!isLastQuestion) {
-                setQuestionNumber(questionNumber + 1);
-                setInRevealMode(false);
-            } else {
-                setFinished(true);
-            }
         };
     }
 

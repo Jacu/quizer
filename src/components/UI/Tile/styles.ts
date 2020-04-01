@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { gray, correct } from "~/utils/Colors";
+import { gray, correct, primaryTheme } from "~/utils/Colors";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 enum IFontSize {Small, Medium, Big};
@@ -24,20 +24,20 @@ export const Tile = styled.div<Tile>`
     height: 82px;
     border-width: ${props => props.selected ? '2px' : '1px'};
     border-style: solid;
-    border-color: ${props => props.selected ? correct.base : gray.base};
-    border-radius: 15px;
+    border-color: ${props => props.selected ? primaryTheme.base : gray.base};
+    border-radius: 6px;
     margin: 5px;
     font-size: ${props => fontSizes[props.fontSize]};
     display: flex;
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
-    /* overflow: hidden; */
     cursor: pointer;
     :hover {
-        color: ${gray.light};
+        box-shadow: 0px 0px 4px 0px #ababab;
     }
-    background: ${props => props.selected ? correct.light : null};
+    color: ${props => props.selected ? primaryTheme.base : gray.base};
+    box-shadow: ${props => props.selected ? '0px 0px 4px 0px #ababab' : null};
 `;
 
 export const Label = styled.div`
@@ -45,7 +45,7 @@ export const Label = styled.div`
 `;
 
 export const Icon = styled(FontAwesomeIcon)<Selectable>`
-    color: ${props => props.selected ? correct.base : gray.base};
+    color: inherit;
     font-size: 2rem;
     :hover {
         color: inherit;

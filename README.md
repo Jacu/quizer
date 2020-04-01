@@ -7,5 +7,6 @@ Quiz application with usage of opentdb.com questions database.
 
 ### Updates
 
+- 2020-03-29 main menu update (slider, tiles, dropdown)
 - 2020-03-22 tile style selection for menu options
 - 2020-03-15 initial release 
