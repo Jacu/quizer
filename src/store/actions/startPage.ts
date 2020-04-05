@@ -9,7 +9,6 @@ interface CategoriesServerData {
 
 export const init = () => {
     return (dispatch: Dispatch<actionTypes.StartPageActions>) => {
-        dispatch(reset());
         dispatch(fetchCategoriesStart());
         axios.get('https://opentdb.com/api_category.php')
             .then((response: AxiosResponse<CategoriesServerData>) => {

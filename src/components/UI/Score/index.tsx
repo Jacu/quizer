@@ -11,7 +11,6 @@ interface IScore {
 const Score: React.FC<IScore> = ({ score }) => {
     const numOfFullStars = Math.round(score / 20) === 5 && score !== 100 ? 4 : Math.round(score / 20);
     const numOfEmptyStars = 5 - numOfFullStars;
-    console.log();
 
     return (
         <styled.Score>

@@ -14,6 +14,7 @@ interface StateProps {
     settings: ISettings,
     loading: boolean,
     apiURL: string,
+    dataAvailable: boolean,
 }
 
 interface DispatchProps {
@@ -34,16 +35,16 @@ const StartPage: React.FC<Props> = (props) => {
     const {amount, category, difficulty, type } = settings;
 
     useEffect(() => {
-        init();
+        if(!props.dataAvailable){
+            console.log('init');
+            init();
+        }
     }, [init]);
 
     const handleStartButtonClick = () => {
         generateURL();
         initQuiz();
     }
-
-    console.log('asd');
-    
 
     return (
         <styled.StartPage>
@@ -74,6 +75,7 @@ const mapStateToProps = ({ startPage }: AppState): StateProps => {
         settings: startPage.settings,
         loading: startPage.loading,
         apiURL: startPage.settings.apiURL,
+        dataAvailable: startPage.dataFetched,
     }
 }
 
