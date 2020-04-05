@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 
-export interface Question {
+export interface IQuestion {
     category: string,
     type: ("multiple" | "boolean"),
     difficulty: ("easy" | "medium" | "hard"),
@@ -13,18 +13,18 @@ export interface Question {
 export interface QuizState {
     started: boolean,
     fetching: boolean,
-    questions: Question[],
+    questions: IQuestion[],
 };
 
 const initialState: QuizState = {
     started: false,
-    fetching: true,
+    fetching: false,
     questions: [],
 }
 
 const shuffleAnswers = (state: QuizState, action: actionTypes.shuffleAnswers): QuizState => {
     const { questions } = state;
-    const questionsWithAnswerId: Question[] = [...questions];
+    const questionsWithAnswerId: IQuestion[] = [...questions];
     questions.forEach((question,i) => {
         let correctAnswerId = -1;
         const answersAmmount = question.incorrect_answers.length + 1;
@@ -68,7 +68,7 @@ const reset = (state: QuizState, action: actionTypes.resetQuiz): QuizState => {
     return initialState;
 }
 
-const reducer = (state = initialState, action: actionTypes.AllActions): QuizState => {
+const reducer = (state = initialState, action: actionTypes.QuizActions): QuizState => {
     switch (action.type) {
         case actionTypes.FETCH_QUESTIONS_START: return fetchQuestionsStart(state, action);
         case actionTypes.FETCH_QUESTIONS_SUCCESS: return fetchQuestionsSuccess(state, action);

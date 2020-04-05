@@ -1,22 +1,29 @@
 import styled from 'styled-components';
-import * as colors from '~/utils/Colors';
+import { PRIMARY_THEME, CORRECT, WRONG } from '~/utils/colors';
 
-interface IAnswerContainer {
+interface IAnswerContainerStyle {
     isCorrect: boolean,
 }
 
 export const Summary = styled.div`
+    color: ${PRIMARY_THEME.BASE};
 `;
 
-export const AnswerContainer = styled.div<IAnswerContainer>`
+export const ScoreContainer = styled.div`
+    padding: 50px 0;
+    font-size: 3rem;
+    font-weight: 500;
+`;
+
+export const AnswerContainer = styled.div<IAnswerContainerStyle>`
     display: flex;
     justify-content: space-between;
     padding: 15px 0;
     margin: 5px;
-    background-color: ${({isCorrect}) => isCorrect ? colors.correct.light : colors.wrong.light};
+    background-color: ${({isCorrect}) => isCorrect ? CORRECT.LIGHT : WRONG.LIGHT};
     border-width: 1px;
     border-style: solid;
-    border-color: ${({isCorrect}) => isCorrect ? colors.correct.base : colors.wrong.base };
+    border-color: ${({isCorrect}) => isCorrect ? CORRECT.BASE : WRONG.BASE };
     border-radius: 5px;
 `;
 
@@ -33,4 +40,5 @@ export const CorrectAnswer = styled.div`
     display: flex;
     padding: 0 15px;
     align-items: center;
+    overflow: hidden;
 `;

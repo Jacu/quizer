@@ -1,5 +1,5 @@
 import { Category } from "../reducers/startPage";
-import { Question } from "../reducers/quiz";
+import { IQuestion } from "../reducers/quiz";
 import { Dispatch } from "redux";
 
 export const INIT = 'INIT';
@@ -40,7 +40,7 @@ export interface fetchQuestionsStart {
 
 export interface fetchQuestionsSuccess {
     type: typeof FETCH_QUESTIONS_SUCCESS,
-    questions: Question[],
+    questions: IQuestion[],
 }
 
 export interface fetchQuestionsFail<T> {

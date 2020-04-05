@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import { PRIMARY_THEME } from "~/utils/colors";
 
 const lds_dual_ring = keyframes`
     0% {
@@ -23,7 +24,7 @@ export const Spinner = styled.div`
     margin: 1px;
     border-radius: 50%;
     border: 5px solid #125271;
-    border-color: #125271 transparent #125271 transparent;
+    border-color: ${PRIMARY_THEME.BASE} transparent ${PRIMARY_THEME.BASE} transparent;
     animation: ${lds_dual_ring} 1.2s linear infinite;
   }
 `;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import * as colors from '~/utils/Colors';
+import { CORRECT, WRONG, GRAY, PRIMARY_THEME } from '~/utils/colors';
 
-interface AnswerProps {
+interface IAnswerProps {
     isSelected: boolean,
     showAnswer: boolean,
     isCorrect: boolean,
@@ -9,7 +9,7 @@ interface AnswerProps {
 
 enum StyleState { CorrectSelected, IncorrectSelected, Selected, CorrectNotSelected, Notselected }
 
-const getState = (props: AnswerProps): StyleState => {
+const getState = (props: IAnswerProps): StyleState => {
     const { isSelected, showAnswer, isCorrect} = props;
     return isSelected 
         ? showAnswer
@@ -23,29 +23,29 @@ const getState = (props: AnswerProps): StyleState => {
 };
 
 const answerBackgroundColor = {
-    [StyleState.CorrectSelected]: colors.correct.light,
-    [StyleState.IncorrectSelected]: colors.wrong.light,
+    [StyleState.CorrectSelected]: CORRECT.LIGHT,
+    [StyleState.IncorrectSelected]: WRONG.LIGHT,
     [StyleState.Selected]: 'transparent',
-    [StyleState.CorrectNotSelected]: colors.correct.light,
+    [StyleState.CorrectNotSelected]: CORRECT.LIGHT,
     [StyleState.Notselected]: 'transparent',
 }
 
 const answerBorderColor = {
-    [StyleState.CorrectSelected]: colors.correct.base,
-    [StyleState.IncorrectSelected]: colors.wrong.base,
-    [StyleState.Selected]: colors.gray.base,
-    [StyleState.CorrectNotSelected]: colors.gray.base,
-    [StyleState.Notselected]: colors.gray.base,
+    [StyleState.CorrectSelected]: CORRECT.BASE,
+    [StyleState.IncorrectSelected]: WRONG.BASE,
+    [StyleState.Selected]: GRAY.BASE,
+    [StyleState.CorrectNotSelected]: GRAY.BASE,
+    [StyleState.Notselected]: GRAY.BASE,
 }
 
-export const Answer = styled.div<AnswerProps>`
+export const Answer = styled.div<IAnswerProps>`
     display: flex;
     width: 100%;
     padding: 15px 0;
     cursor: pointer;
     background-color: ${props => answerBackgroundColor[getState(props)]};
     :hover {
-        background: ${colors.gray.light};
+        background: ${GRAY.LIGHT};
     }
     border-width: 1px;
     border-style: solid;
@@ -55,11 +55,11 @@ export const Answer = styled.div<AnswerProps>`
 `;
 
 const checkboxBorderColor = {
-    [StyleState.CorrectSelected]: colors.correct.base,
-    [StyleState.IncorrectSelected]: colors.wrong.base,
-    [StyleState.Selected]: colors.primaryTheme.base,
-    [StyleState.CorrectNotSelected]: colors.correct.base,
-    [StyleState.Notselected]: colors.gray.base,
+    [StyleState.CorrectSelected]: CORRECT.BASE,
+    [StyleState.IncorrectSelected]: WRONG.BASE,
+    [StyleState.Selected]: PRIMARY_THEME.BASE,
+    [StyleState.CorrectNotSelected]: CORRECT.BASE,
+    [StyleState.Notselected]: GRAY.BASE,
 }
 
 const checkboxBorderWidth = {
@@ -70,7 +70,7 @@ const checkboxBorderWidth = {
     [StyleState.Notselected]: '1px',
 }
 
-export const Checkbox = styled.div<AnswerProps>`
+export const Checkbox = styled.div<IAnswerProps>`
     width: 20px;
     height: 20px;
     border-width: ${props => checkboxBorderWidth[getState(props)]};

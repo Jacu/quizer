@@ -9,7 +9,6 @@ interface CategoriesServerData {
 
 export const init = () => {
     return (dispatch: Dispatch<actionTypes.StartPageActions>) => {
-        dispatch(reset());
         dispatch(fetchCategoriesStart());
         axios.get('https://opentdb.com/api_category.php')
             .then((response: AxiosResponse<CategoriesServerData>) => {
@@ -75,7 +74,7 @@ export const generateURL = (): actionTypes.generateURL => {
     }
 }
 
-const reset = (): actionTypes.resetStartPage => {
+export const reset = (): actionTypes.resetStartPage => {
     return {
         type: actionTypes.RESET_START_PAGE,
     }

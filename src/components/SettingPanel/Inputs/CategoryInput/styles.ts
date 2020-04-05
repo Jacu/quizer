@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import ReactSelect from 'react-select';
-import * as colors from '~/utils/Colors';
+import { PRIMARY_THEME, GRAY } from '~/utils/colors';
 
 export const CategoryInput = styled.div`
     display: flex;
@@ -14,7 +14,7 @@ export const Label = styled.div`
     flex: 1;
     font-size: 1.5rem;
     padding: 0 20px;
-    border-right: 1px solid ${colors.gray.base};
+    border-right: 1px solid ${GRAY.BASE};
 `;
 
 export const SelectContainer = styled.div`
@@ -27,7 +27,10 @@ export const Select = styled(ReactSelect)`
     &.reactSelect {
         width: 100%;
         max-width: 400px;
-        color: ${colors.primaryTheme.base};
+        color: ${PRIMARY_THEME.BASE};
+        & .rSelect__control {
+            cursor: pointer;
+        }
         & .rSelect__control--is-focused {
             border: 1px solid lightgray;
             box-shadow: none;
@@ -36,7 +39,7 @@ export const Select = styled(ReactSelect)`
             background: lightgray;
         }
         & .rSelect__option--is-selected {
-            background: ${colors.primaryTheme.base};
+            background: ${PRIMARY_THEME.BASE};
         }
         & .rSelect__single-value {
             color: inherit;

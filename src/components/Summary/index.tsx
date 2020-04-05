@@ -1,18 +1,18 @@
 import React from 'react';
 import * as styled from './styles';
-import { Question as IQuiestion } from "~/store/reducers/quiz";
+import Score from '~/components/UI/Score';
+import { IQuestion } from "~/store/reducers/quiz";
 
-interface SummaryProps {
-    questions: IQuiestion[],
+interface ISummary {
+    questions: IQuestion[],
     correctAnswers: boolean[],
+    score: number,
 }
 
-type Props = SummaryProps;
-
-const Summary: React.FC<Props> = ({ questions, correctAnswers }) => {
-
+const Summary: React.FC<ISummary> = ({ questions, correctAnswers, score }) => {
     return (
         <styled.Summary>
+            <Score score={score}/>
             {questions.map((question, questionId) =>
             <styled.AnswerContainer key={questionId} isCorrect={correctAnswers[questionId]}>
                 <styled.Question>

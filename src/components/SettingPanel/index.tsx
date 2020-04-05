@@ -1,7 +1,7 @@
 import React from 'react';
 import * as styled from './styles';
 import { ISetting, Category } from "~/store/reducers/startPage";
-import { CategoryInput, SliderInput, ButtonInput } from '../Inputs';
+import { CategoryInput, SliderInput, ButtonInput } from './Inputs';
 
 interface ISettingPanel {
     amount: ISetting<string>,
@@ -19,12 +19,12 @@ const SettingPanel: React.FC<ISettingPanel> = (props) => {
     const {onAmountChange, onCategoryChange, onDifficultyChange, onTypeChange } = props;
 
     return (
-        <styled.settingPanel>
+        <styled.SettingPanel>
             <SliderInput label="Quantity" options={["5","30"]} selected={amount.selected} onChange={onAmountChange} />
             <CategoryInput label="Cateogry" options={category.values} selected={category.selected} onChange={onCategoryChange} />
             <ButtonInput label="Type" options={type.values} selected={type.selected} onChange={onTypeChange} />
             <ButtonInput label="Difficulty" options={difficulty.values} selected={difficulty.selected} onChange={onDifficultyChange} />
-        </styled.settingPanel>
+        </styled.SettingPanel>
     )
 }
 
