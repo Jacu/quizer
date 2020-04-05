@@ -1,6 +1,5 @@
 import React from 'react';
 import * as styled from './styles';
-
 import { faQuestion } from '@fortawesome/free-solid-svg-icons';
 
 enum ITileSize {Small, Medium, Big};

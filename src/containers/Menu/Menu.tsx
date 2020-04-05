@@ -42,6 +42,9 @@ const StartPage: React.FC<Props> = (props) => {
         initQuiz();
     }
 
+    console.log('asd');
+    
+
     return (
         <styled.StartPage>
             <styled.Menu>
@@ -50,8 +53,7 @@ const StartPage: React.FC<Props> = (props) => {
                     <p>Quiz generator with use of Trivia API opentdb.com</p>
                     <p>created by Jacek Smetek</p>
                 </styled.SubTitle>
-                {loading === true 
-                    ? <Spinner />
+                {loading ? <styled.Spinner><Spinner/></styled.Spinner>
                     : <SettingPanel 
                         amount={amount}
                         onAmountChange={setQuestionAmount}
@@ -60,8 +62,7 @@ const StartPage: React.FC<Props> = (props) => {
                         difficulty={difficulty}
                         onDifficultyChange={setQuestionDifficulty}
                         type={type}
-                        onTypeChange={setQuestionType}
-                    /> }
+                        onTypeChange={setQuestionType} /> }
             </styled.Menu>
             {!loading ? <styled.Button to="/quiz" onClick={handleStartButtonClick}> Start </styled.Button> : null}
         </styled.StartPage>

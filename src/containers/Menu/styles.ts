@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { Link } from 'react-router-dom';
 import { primaryTheme } from "~/utils/Colors";
+import SmallSpinner from '~/components/UI/Spinner/Spinner';
 
 export const StartPage = styled.div`
     position: absolute;
@@ -11,6 +12,12 @@ export const StartPage = styled.div`
     align-self: center;
     height: 50%;
     width: 100%;
+`;
+
+export const Spinner = styled.div`
+    height: 300px;
+    display: flex;
+    align-items: center;
 `;
 
 export const Menu = styled.div`

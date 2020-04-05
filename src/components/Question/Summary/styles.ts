@@ -8,6 +8,12 @@ interface IAnswerContainer {
 export const Summary = styled.div`
 `;
 
+export const ScoreContainer = styled.div`
+    padding: 50px 0;
+    font-size: 3rem;
+    font-weight: 500;
+`;
+
 export const AnswerContainer = styled.div<IAnswerContainer>`
     display: flex;
     justify-content: space-between;

@@ -39,6 +39,7 @@ const Quiz: React.FC<Props> = props => {
     let answers: string[] = [];
     const questionsAmount = props.questions.length;
     const correctAnswerId = question?.correctAnswerId;
+    const score = correctAnswers.reduce((prev,curr) => curr ? prev + 1 : prev, 0) / questionsAmount * 100;
 
     const [inRevealMode, setInRevealMode] = useState(false);
     const buttonLabel = finished ? 'Try Again!' : inRevealMode ? "Next" : "Check";
@@ -82,7 +83,7 @@ const Quiz: React.FC<Props> = props => {
     }
 
     return (
-        <styled.Quiz>
+        <styled.Quiz finished={finished}>
             {loading ? <Spinner /> :
                 !finished
                     ? <Question
@@ -92,7 +93,7 @@ const Quiz: React.FC<Props> = props => {
                         correctId={correctAnswerId}
                         onAnswerPicked={handleAnswerPicked}
                         selectedId={selectedId} />
-                    : <Summary questions={props.questions} correctAnswers={correctAnswers}  />}
+                    : <Summary score={score} questions={props.questions} correctAnswers={correctAnswers}  />}
             <Button label={buttonLabel} onClick={handleButtonClick} />
             <NavBar 
                 currentQuestionNumber={questionNumber}

@@ -8,6 +8,7 @@ export const Button = styled.div`
     padding: 15px 25px;
     font-size: 1.25rem;
     margin: 2rem;
+    margin-bottom: 90px;
     :hover {
         background: #992337;
     }
