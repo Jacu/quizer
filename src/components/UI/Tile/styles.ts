@@ -1,33 +1,20 @@
 import styled from 'styled-components';
-import { gray, correct, primaryTheme } from "~/utils/Colors";
+import { GRAY, PRIMARY_THEME } from "~/utils/colors";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-enum IFontSize {Small, Medium, Big};
-
-interface Tile {
-    selected: boolean,
-    fontSize: IFontSize,
-}
-
-interface Selectable {
+interface ISelectable {
     selected: boolean,
 }
 
-const fontSizes = {
-    [IFontSize.Small]: '0.75rem',
-    [IFontSize.Medium]: '1rem',
-    [IFontSize.Big]: '1.75rem',
-}
-
-export const Tile = styled.div<Tile>`
+export const Tile = styled.div<ISelectable>`
     width: 82px;
     height: 82px;
     border-width: ${props => props.selected ? '2px' : '1px'};
     border-style: solid;
-    border-color: ${props => props.selected ? primaryTheme.base : gray.base};
+    border-color: ${props => props.selected ? PRIMARY_THEME.BASE : GRAY.BASE};
     border-radius: 6px;
     margin: 5px;
-    font-size: ${props => fontSizes[props.fontSize]};
+    font-size: '1rem';
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -36,15 +23,15 @@ export const Tile = styled.div<Tile>`
     :hover {
         box-shadow: 0px 0px 4px 0px #ababab;
     }
-    color: ${props => props.selected ? primaryTheme.base : gray.base};
-    box-shadow: ${props => props.selected ? '0px 0px 4px 0px #ababab' : null};
+    color: ${props => props.selected ? PRIMARY_THEME.BASE : GRAY.BASE};
+    
 `;
 
 export const Label = styled.div`
     white-space: nowrap;
 `;
 
-export const Icon = styled(FontAwesomeIcon)<Selectable>`
+export const Icon = styled(FontAwesomeIcon)<ISelectable>`
     color: inherit;
     font-size: 2rem;
     :hover {

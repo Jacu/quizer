@@ -74,7 +74,7 @@ export const generateURL = (): actionTypes.generateURL => {
     }
 }
 
-const reset = (): actionTypes.resetStartPage => {
+export const reset = (): actionTypes.resetStartPage => {
     return {
         type: actionTypes.RESET_START_PAGE,
     }

@@ -1,6 +1,6 @@
 export {
     initQuiz,
-    quizEnded,
+    endQuiz,
     reset,
     quizQuit,
 } from './quiz'

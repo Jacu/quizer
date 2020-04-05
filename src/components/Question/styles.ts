@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { PRIMARY_THEME } from "~/utils/colors";
 
 export const QuestionComponent = styled.div`
     width: 100%;
@@ -6,6 +7,7 @@ export const QuestionComponent = styled.div`
     justify-content: center;
     flex-direction: column;
     overflow: hidden;
+    color: ${PRIMARY_THEME.BASE};
 `;
 
 export const QuestionHeader = styled.div`

@@ -1,7 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { Link } from 'react-router-dom';
-import { primaryTheme } from "~/utils/Colors";
-import SmallSpinner from '~/components/UI/Spinner/Spinner';
+import { PRIMARY_THEME } from "~/utils/colors";
 
 export const StartPage = styled.div`
     position: absolute;
@@ -12,6 +10,9 @@ export const StartPage = styled.div`
     align-self: center;
     height: 50%;
     width: 100%;
+    :focus {
+        outline: none;
+    }
 `;
 
 export const Spinner = styled.div`
@@ -45,26 +46,10 @@ export const Title = styled.h1`
     font-size: 6rem;
     animation: ${quizerIntro} 0.4s 0.5s ease-out forwards;
     background: none;
-    color: ${primaryTheme.base};
+    color: ${PRIMARY_THEME.BASE};
     transform: scale(0, 0);
 `;
 
 export const SubTitle = styled.div`
-    color: ${primaryTheme.base};
-`;
-
-export const Button = styled(Link)`
-    color: white;
-    text-transform: uppercase;
-    text-decoration: none;
-    cursor: pointer;
-    background: ${primaryTheme.base};
-    padding: 20px 50px;
-    font-weight: bold;
-    font-size: 2rem;
-    transition: transform 0.25s;
-    margin: 2rem;
-    :hover {
-        transform: scale(1.1,1.1);
-    }
+    color: ${PRIMARY_THEME.BASE};
 `;

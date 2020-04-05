@@ -1,15 +1,15 @@
 import React from 'react';
 import * as styled from './styles';
-import Answer from './Answer/Answer';
-import { Question as IQuiestion } from "~/store/reducers/quiz";
+import Answer from './Answer';
+import { IQuestion } from "~/store/reducers/quiz";
 import unescape from '@favware/unescape';
 
 interface QuestionProps {
-    question: IQuiestion,
+    question: IQuestion,
     answers: string[],
     correctId: number,
     reveal: boolean,
-    selectedId: number,
+    selectedId?: number,
     onAnswerPicked: (answerId: number) => void,
 }
 
@@ -25,7 +25,7 @@ const Question: React.FunctionComponent<QuestionProps> = ({ question, answers, c
                     <Answer
                         key={i}
                         answer={unescape(answer)}
-                        isSelected={selectedId === i}
+                        isSelected={(!selectedId && reveal) || selectedId === i}
                         isCorrect={correctId === i}
                         reveal={reveal}
                         onClick={() => onAnswerPicked(i)} />

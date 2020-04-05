@@ -1,7 +1,7 @@
 import React from 'react';
 import * as styled from './styles';
 
-interface AnswerProps {
+interface IAnswerProps {
     answer: string,
     isSelected: boolean,
     isCorrect: boolean,
@@ -9,11 +9,11 @@ interface AnswerProps {
     onClick: () => void,
 }
 
-const Answer: React.FC<AnswerProps> = ({isSelected, onClick, answer, isCorrect, reveal}) => 
+const Answer: React.FC<IAnswerProps> = ({isSelected, onClick, answer, isCorrect, reveal}) => 
     <styled.Answer 
         isSelected={isSelected}
         isCorrect={isCorrect}
-        showAnswer={reveal} 
+        showAnswer={reveal}
         onClick={!reveal ? onClick : undefined} >
         <styled.Checkbox showAnswer={reveal} isCorrect={isCorrect} isSelected={isSelected} />
         {answer} 

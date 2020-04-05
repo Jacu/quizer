@@ -1,11 +1,11 @@
 import * as actionTypes from './actionTypes';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { Dispatch } from 'react';
-import { Question } from '../reducers/quiz';
+import { IQuestion } from '../reducers/quiz';
 import { AppState } from "~/index"; 
 
 interface CategoriesServerData {
-    results: Question[];
+    results: IQuestion[];
 };
 
 export const initQuiz = () => {
@@ -33,7 +33,7 @@ export const fetchQuestionsStart = (): actionTypes.fetchQuestionsStart => {
     }
 }
 
-export const fetchQuestionsSuccess = (data: Question[]): actionTypes.fetchQuestionsSuccess => {    
+export const fetchQuestionsSuccess = (data: IQuestion[]): actionTypes.fetchQuestionsSuccess => {    
     return {
         type: actionTypes.FETCH_QUESTIONS_SUCCESS,
         questions: data,
@@ -56,12 +56,6 @@ export const shuffleAnswers = (): actionTypes.shuffleAnswers => {
 export const quizStarted = (): actionTypes.quizStarted => {
     return {
         type: actionTypes.QUIZ_STARTED,
-    }
-}
-
-export const quizEnded = (): Dispatch<Dispatch<actionTypes.QuizActions>> => {
-    return (dispatch: Dispatch<actionTypes.QuizActions>) => {
-        dispatch(endQuiz());        
     }
 }
 

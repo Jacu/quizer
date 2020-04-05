@@ -1,8 +1,11 @@
 import styled from "styled-components";
 
+interface IQuizStyle {
+    finished: boolean, 
+    ref: React.MutableRefObject<HTMLDivElement | null>,
+}
 
-
-export const Quiz = styled.div<{finished: boolean}>`
+export const Quiz = styled.div<IQuizStyle>`
     align-self: center;
     width: 80%;
     max-width: 700px;
@@ -11,4 +14,7 @@ export const Quiz = styled.div<{finished: boolean}>`
     justify-content: ${props => props.finished ? 'start' : 'center'};
     align-items: center;
     flex-direction: column;
+    :focus {
+        outline: none;
+    }
 `;

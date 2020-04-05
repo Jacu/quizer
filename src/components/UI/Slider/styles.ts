@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as colors from '~/utils/Colors';
+import { PRIMARY_THEME } from '~/utils/colors';
 
 interface ISlider {
     min: number,
@@ -20,14 +20,14 @@ export const Slider = styled.input.attrs<ISlider>(props => {
     background: lightgrey;
     outline: none;
     border-radius: 16px;
+    cursor: pointer;
 
     ::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
         width: 20px;
         height: 20px;
-        background: ${colors.primaryTheme.base};
+        background: ${PRIMARY_THEME.BASE};
         border-radius: 50%;
-        cursor: pointer;
     }
 `;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as colors from '~/utils/Colors';
+import { GRAY } from '~/utils/colors';
 
 export const SliderInput = styled.div`
     display: flex;
@@ -17,7 +17,7 @@ export const Label = styled.div`
     text-align: end;
     font-size: 1.5rem;
     padding: 0 20px;
-    border-right: 1px solid ${colors.gray.base};
+    border-right: 1px solid ${GRAY.BASE};
 `;
 
 export const SliderContainer = styled.div`

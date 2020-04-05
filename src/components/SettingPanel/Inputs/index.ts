@@ -7,7 +7,6 @@ export interface IInput<T> {
     options: T[],
     selected: T,
     onChange: (newInput: T) => void,
-
 }
 
 export {

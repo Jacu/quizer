@@ -1,6 +1,6 @@
 import React from 'react';
 import * as styled from './styles';
-import Slider from '~/components/UI/Slider/Slider';
+import Slider from '~/components/UI/Slider';
 import { IInput } from '../';
 
 const SliderInput: React.FC<IInput<string>> = ({label, selected, options, onChange}) => {
