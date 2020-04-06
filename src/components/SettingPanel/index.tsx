@@ -21,7 +21,7 @@ const SettingPanel: React.FC<ISettingPanel> = (props) => {
     return (
         <styled.SettingPanel>
             <SliderInput label="Quantity" options={["5","30"]} selected={amount.selected} onChange={onAmountChange} />
-            <CategoryInput label="Cateogry" options={category.values} selected={category.selected} onChange={onCategoryChange} />
+            <CategoryInput label="Category" options={category.values} selected={category.selected} onChange={onCategoryChange} />
             <ButtonInput label="Type" options={type.values} selected={type.selected} onChange={onTypeChange} />
             <ButtonInput label="Difficulty" options={difficulty.values} selected={difficulty.selected} onChange={onDifficultyChange} />
         </styled.SettingPanel>
