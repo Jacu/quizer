@@ -10,11 +10,11 @@ interface ITile {
     icon?: IconDefinition,
 }
 
-const Tile: React.FC<ITile> = (props) => {
+const Tile: React.FC<ITile> = ({ selected, header, onClick, icon}) => {
     return (
-        <styled.Tile selected={props.selected} onClick={props.onClick}>
-            <styled.Icon selected={props.selected} icon={props.icon || faQuestion} />
-            <styled.Label>{props.header}</styled.Label>
+        <styled.Tile selected={selected} onClick={onClick}>
+            <styled.Icon selected={selected} icon={icon || faQuestion} />
+            <styled.Label>{header}</styled.Label>
         </styled.Tile>
     );
 }
