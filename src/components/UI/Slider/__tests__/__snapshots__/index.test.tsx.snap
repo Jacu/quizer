@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Slider should match snapshot 1`] = `
+<DocumentFragment>
+  <input
+    class="sc-AxjAm juIUyd"
+    max="2"
+    min="0"
+    step="5"
+    type="range"
+    value="1"
+  />
+</DocumentFragment>
+`;

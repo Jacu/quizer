@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Spinner should render 1`] = `
-<styled.div>
+exports[`Spinner should match snapshot 1`] = `
+<DocumentFragment>
   <div
-    className="sc-AxjAm iSIMQH"
+    class="sc-AxjAm iSIMQH"
   />
-</styled.div>
+</DocumentFragment>
 `;

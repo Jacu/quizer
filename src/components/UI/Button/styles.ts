@@ -14,7 +14,7 @@ export const Button = styled.div<IButtonStyle>`
     cursor: pointer;
     background: ${PRIMARY_THEME.BASE};
     padding: 15px 25px;
-    font-size: ${props => props.size}rem;
+    font-size: ${props => `${props.size}rem`};
     font-weight: ${props => props.bold ? 'bold' : 'normal' };
     margin: 2rem;
     margin-bottom: 90px;

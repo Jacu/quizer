@@ -22,7 +22,7 @@ interface IDispatchProps {
     init: () => void,
     generateURL: () => void,
     initQuiz: () => void,
-    setQuestionAmount: (value: string) => void,
+    setQuestionAmount: (value: number) => void,
     setQuestionCategory: (value: Category) => void,
     setQuestionType: (value: string) => void,
     setQuestionDifficulty: (value: string) => void,

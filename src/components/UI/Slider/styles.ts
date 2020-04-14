@@ -6,14 +6,12 @@ interface ISlider {
     max: number,
 }
 
-export const Slider = styled.input.attrs<ISlider>(props => {
-    return {
+export const Slider = styled.input.attrs<ISlider>(props => ({
     type: "range",
     min: props.min,
     max: props.max,
     step: 5,
-    }
-})`
+}))`
     -webkit-appearance: none;
     width: 100%;
     height: 8px;

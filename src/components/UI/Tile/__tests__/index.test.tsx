@@ -1,10 +1,10 @@
 
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react'
 import Tile from '../';
-import '@testing-library/jest-dom';
+import { render, fireEvent } from '@testing-library/react';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { GRAY, PRIMARY_THEME } from "~/utils/colors";
+import '@testing-library/jest-dom';
 
 const header = 'header';
 const onClick = jest.fn();
@@ -16,18 +16,23 @@ const props = {
 }
 
 describe('Tile', () => {
+    it('should render with default props', () => {
+        const { asFragment } = render(<Tile {...props} />);
+        expect(asFragment()).toMatchSnapshot();
+    });
+
     it('should execute onClick function on click', () => {
         const { container } = render(<Tile {...props} />);
         fireEvent.click(container.firstChild!);
         expect(onClick).toHaveBeenCalled();
     });
 
-    it('shoudl use grey color when NOT selected', () => {
+    it('shoudl use GRAY color when NOT selected', () => {
         const { container } = render(<Tile {...props} selected={false} />);
         expect(container.firstChild).toHaveStyle(`color: ${GRAY.BASE}`);
     });
 
-    it('use different style when selected', () => {
+    it('use PRIMARY_THEME style when selected', () => {
         const { container } = render(<Tile {...props} selected={true} />);
         expect(container.firstChild).toHaveStyle(`color: ${PRIMARY_THEME.BASE}`);
     });

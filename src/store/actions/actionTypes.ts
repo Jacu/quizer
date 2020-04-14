@@ -91,7 +91,7 @@ export interface fetchCategoriesFail<T> {
 
 export interface setQuestionAmount {
     type: typeof SET_QUESTION_AMOUNT,
-    value: string,
+    value: number,
 }
 
 export interface setQuestionCategory {
