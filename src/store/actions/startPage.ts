@@ -40,7 +40,7 @@ export const fetchCategoriesFail = (error: AxiosError): actionTypes.fetchCategor
     }
 }
 
-export const setQuestionAmount = (value: string): actionTypes.setQuestionAmount => {
+export const setQuestionAmount = (value: number): actionTypes.setQuestionAmount => {
     return {
         type: actionTypes.SET_QUESTION_AMOUNT,
         value: value,

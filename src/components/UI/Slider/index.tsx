@@ -2,18 +2,18 @@ import React from 'react';
 import * as styled from './styles';
 
 interface ISlider {
-    value: string,
+    value: number,
     min: number,
     max: number,
-    onChange: (value: string) => void,
+    onChange: (value: number) => void,
 }
 
-const Slider: React.FC<ISlider> = (props) => {
+const Slider: React.FC<ISlider> = ({value, min, max, onChange}) => {
     const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        props.onChange(e.target.value);
+        onChange(+e.target.value);
     }
     return (
-        <styled.Slider min={props.min} max={props.max} value={props.value} onChange={handleSliderChange}/>
+        <styled.Slider min={min} max={max} value={value} onChange={handleSliderChange}/>
     );
 }
 

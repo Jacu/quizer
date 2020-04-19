@@ -11,7 +11,7 @@ export interface ISetting<T> {
 }
 
 export interface ISettings {
-    amount: ISetting<string>,
+    amount: ISetting<number>,
     category: ISetting<Category>,
     difficulty: ISetting<string>,
     type: ISetting<string>,
@@ -29,8 +29,8 @@ const initialState: StartPageState = {
     dataFetched: false,
     settings: {
         amount: {
-            values: ["5", "10", "15", "20", "50"],
-            selected: "5",
+            values: [5, 10, 15, 20, 50],
+            selected: 5,
         },
         category: {
             values: [{ name: 'Any Category', id: 0 }], // categories should be fetched from https://opentdb.com/api_category.php
