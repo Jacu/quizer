@@ -6,7 +6,7 @@ import '@testing-library/jest-dom';
 describe('Score', () => {
     it('should match snapshot', () => {
         const { asFragment } = render(<Score score={0} />);
-        expect(asFragment()).toMatchSnapshot(); 
+        expect(asFragment()).toMatchSnapshot();
     });
 
     it('should display score with percentage symbol', () => {
