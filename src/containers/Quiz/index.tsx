@@ -136,7 +136,9 @@ const Quiz: React.FC<StateProps & DispatchProps> = props => {
         if (loading) {
             return <Spinner />
         } else if (finished) {
-            return <Summary score={score} questions={props.questions} correctAnswers={correctAnswers} />
+            return <Summary 
+                score={score} 
+                questions={props.questions.map((q,i) => ({question: q.question, answer: q.correct_answer, isCorrect: correctAnswers[i]}))} />
         }
         return <Question
             question={props.questions[questionId]}

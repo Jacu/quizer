@@ -1,0 +1,240 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SettingPanel should render with default props 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-AxjAm iIOXNU"
+  >
+    <div
+      class="sc-fzpans cLvkua"
+    >
+      <div
+        class="sc-fznyAO kzIRfF"
+      >
+        Quantity
+      </div>
+      <div
+        class="sc-fznKkj bgYulV"
+      >
+        <div
+          class="sc-fzplWN kSmVFA"
+        >
+          5
+        </div>
+        <div
+          class="sc-fznZeY jAprAR"
+        >
+          <input
+            class="sc-fzokOt fXemEN"
+            max="30"
+            min="5"
+            step="5"
+            type="range"
+            value="5"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="sc-Axmtr hZeoOE"
+    >
+      <div
+        class="sc-AxmLO hdRaze"
+      >
+        Category
+      </div>
+      <div
+        class="sc-fzozJi dxMRuS"
+      >
+        <div
+          class="sc-fzoLsD iNMKcf reactSelect css-2b097c-container"
+        >
+          <div
+            class="rSelect__control css-yk16xz-control"
+          >
+            <div
+              class="rSelect__value-container rSelect__value-container--has-value css-g1d714-ValueContainer"
+            >
+              <div
+                class="rSelect__single-value css-1uccc91-singleValue"
+              >
+                c1
+              </div>
+              <div
+                class="css-b8ldur-Input"
+              >
+                <div
+                  class="rSelect__input"
+                  style="display: inline-block;"
+                >
+                  <input
+                    aria-autocomplete="list"
+                    autocapitalize="none"
+                    autocomplete="off"
+                    autocorrect="off"
+                    id="react-select-2-input"
+                    spellcheck="false"
+                    style="box-sizing: content-box; width: 2px; border: 0px; font-size: inherit; opacity: 1; outline: 0; padding: 0px;"
+                    tabindex="0"
+                    type="text"
+                    value=""
+                  />
+                  <div
+                    style="position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: inherit; font-family: -webkit-small-control; letter-spacing: normal; text-transform: none;"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="rSelect__indicators css-1hb7zxy-IndicatorsContainer"
+            >
+              <span
+                class="rSelect__indicator-separator css-1okebmr-indicatorSeparator"
+              />
+              <div
+                aria-hidden="true"
+                class="rSelect__indicator rSelect__dropdown-indicator css-tlfecz-indicatorContainer"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="css-6q0nyr-Svg"
+                  focusable="false"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  width="20"
+                >
+                  <path
+                    d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="sc-AxirZ fOqfWA"
+    >
+      <div
+        class="sc-AxiKw jNudyq"
+      >
+        Type
+      </div>
+      <div
+        class="sc-AxhCb drWzQp"
+      >
+        <div
+          class="sc-AxhUy fTMqSR"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-question fa-w-12 sc-AxheI bfYrzZ"
+            data-icon="question"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            viewBox="0 0 384 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M202.021 0C122.202 0 70.503 32.703 29.914 91.026c-7.363 10.58-5.093 25.086 5.178 32.874l43.138 32.709c10.373 7.865 25.132 6.026 33.253-4.148 25.049-31.381 43.63-49.449 82.757-49.449 30.764 0 68.816 19.799 68.816 49.631 0 22.552-18.617 34.134-48.993 51.164-35.423 19.86-82.299 44.576-82.299 106.405V320c0 13.255 10.745 24 24 24h72.471c13.255 0 24-10.745 24-24v-5.773c0-42.86 125.268-44.645 125.268-160.627C377.504 66.256 286.902 0 202.021 0zM192 373.459c-38.196 0-69.271 31.075-69.271 69.271 0 38.195 31.075 69.27 69.271 69.27s69.271-31.075 69.271-69.271-31.075-69.27-69.271-69.27z"
+              fill="currentColor"
+            />
+          </svg>
+          <div
+            class="sc-AxgMl jNWmsL"
+          >
+            T/F
+          </div>
+        </div>
+        <div
+          class="sc-AxhUy jCbnSy"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-question fa-w-12 sc-AxheI bfYrzZ"
+            data-icon="question"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            viewBox="0 0 384 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M202.021 0C122.202 0 70.503 32.703 29.914 91.026c-7.363 10.58-5.093 25.086 5.178 32.874l43.138 32.709c10.373 7.865 25.132 6.026 33.253-4.148 25.049-31.381 43.63-49.449 82.757-49.449 30.764 0 68.816 19.799 68.816 49.631 0 22.552-18.617 34.134-48.993 51.164-35.423 19.86-82.299 44.576-82.299 106.405V320c0 13.255 10.745 24 24 24h72.471c13.255 0 24-10.745 24-24v-5.773c0-42.86 125.268-44.645 125.268-160.627C377.504 66.256 286.902 0 202.021 0zM192 373.459c-38.196 0-69.271 31.075-69.271 69.271 0 38.195 31.075 69.27 69.271 69.27s69.271-31.075 69.271-69.271-31.075-69.27-69.271-69.27z"
+              fill="currentColor"
+            />
+          </svg>
+          <div
+            class="sc-AxgMl jNWmsL"
+          >
+            M
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="sc-AxirZ fOqfWA"
+    >
+      <div
+        class="sc-AxiKw jNudyq"
+      >
+        Difficulty
+      </div>
+      <div
+        class="sc-AxhCb drWzQp"
+      >
+        <div
+          class="sc-AxhUy fTMqSR"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-question fa-w-12 sc-AxheI bfYrzZ"
+            data-icon="question"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            viewBox="0 0 384 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M202.021 0C122.202 0 70.503 32.703 29.914 91.026c-7.363 10.58-5.093 25.086 5.178 32.874l43.138 32.709c10.373 7.865 25.132 6.026 33.253-4.148 25.049-31.381 43.63-49.449 82.757-49.449 30.764 0 68.816 19.799 68.816 49.631 0 22.552-18.617 34.134-48.993 51.164-35.423 19.86-82.299 44.576-82.299 106.405V320c0 13.255 10.745 24 24 24h72.471c13.255 0 24-10.745 24-24v-5.773c0-42.86 125.268-44.645 125.268-160.627C377.504 66.256 286.902 0 202.021 0zM192 373.459c-38.196 0-69.271 31.075-69.271 69.271 0 38.195 31.075 69.27 69.271 69.27s69.271-31.075 69.271-69.271-31.075-69.27-69.271-69.27z"
+              fill="currentColor"
+            />
+          </svg>
+          <div
+            class="sc-AxgMl jNWmsL"
+          >
+            easy
+          </div>
+        </div>
+        <div
+          class="sc-AxhUy jCbnSy"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-question fa-w-12 sc-AxheI bfYrzZ"
+            data-icon="question"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            viewBox="0 0 384 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M202.021 0C122.202 0 70.503 32.703 29.914 91.026c-7.363 10.58-5.093 25.086 5.178 32.874l43.138 32.709c10.373 7.865 25.132 6.026 33.253-4.148 25.049-31.381 43.63-49.449 82.757-49.449 30.764 0 68.816 19.799 68.816 49.631 0 22.552-18.617 34.134-48.993 51.164-35.423 19.86-82.299 44.576-82.299 106.405V320c0 13.255 10.745 24 24 24h72.471c13.255 0 24-10.745 24-24v-5.773c0-42.86 125.268-44.645 125.268-160.627C377.504 66.256 286.902 0 202.021 0zM192 373.459c-38.196 0-69.271 31.075-69.271 69.271 0 38.195 31.075 69.27 69.271 69.27s69.271-31.075 69.271-69.271-31.075-69.27-69.271-69.27z"
+              fill="currentColor"
+            />
+          </svg>
+          <div
+            class="sc-AxgMl jNWmsL"
+          >
+            hard
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SliderInput should render with default props 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-AxjAm Taep"
+  >
+    <div
+      class="sc-AxiKw hqYDqk"
+    >
+      sliderInput
+    </div>
+    <div
+      class="sc-AxhCb KZzGZ"
+    >
+      <div
+        class="sc-AxirZ cQnzXZ"
+      >
+        5
+      </div>
+      <div
+        class="sc-AxhUy igmPPg"
+      >
+        <input
+          class="sc-AxgMl jPPVud"
+          max="20"
+          min="1"
+          step="5"
+          type="range"
+          value="5"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
