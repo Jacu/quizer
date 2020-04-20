@@ -1,5 +1,5 @@
 import ButtonInput from './ButtonInput';
-import CategoryInput from './CategoryInput';
+import DropdownInput from './DropdownInput';
 import SliderInput from './SliderInput';
 
 export interface IInput<T> {
@@ -11,6 +11,6 @@ export interface IInput<T> {
 
 export {
     ButtonInput,
-    CategoryInput,
+    DropdownInput,
     SliderInput,
 }

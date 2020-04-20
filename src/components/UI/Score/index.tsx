@@ -9,15 +9,15 @@ interface IScore {
 }
 
 const Score: React.FC<IScore> = ({ score }) => {
-    const numOfFullStars = Math.round(score / 20) === 5 && score !== 100 ? 4 : Math.round(score / 20);
+    const roundedScore = Math.max(Math.min(Math.round(score), 100), 0);
+    const numOfFullStars = Math.max(Math.min(Math.round(score / 20) === 5 && roundedScore !== 100 ? 4 : Math.round(score / 20), 5), 0);
     const numOfEmptyStars = 5 - numOfFullStars;
-
     return (
         <styled.Score>
-            <styled.Label>{score}%</styled.Label>
+            <styled.Label>{roundedScore}%</styled.Label>
             <styled.StarsContainer>
-                {[...Array(numOfFullStars)].map(star => <FontAwesomeIcon icon={fasStar} />)}
-                {[...Array(numOfEmptyStars)].map(star => <FontAwesomeIcon icon={farStar} />)}
+                {[...Array(numOfFullStars)].map((_, i) => <FontAwesomeIcon key={i} icon={fasStar} />)}
+                {[...Array(numOfEmptyStars)].map((_, i) => <FontAwesomeIcon key={i} icon={farStar} />)}
             </styled.StarsContainer>
         </styled.Score>
     );

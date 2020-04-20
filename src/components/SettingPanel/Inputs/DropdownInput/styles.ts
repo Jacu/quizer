@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import ReactSelect from 'react-select';
 import { PRIMARY_THEME, GRAY } from '~/utils/colors';
 
-export const CategoryInput = styled.div`
+export const DropdownInput = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;

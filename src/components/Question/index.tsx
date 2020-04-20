@@ -25,7 +25,7 @@ const Question: React.FunctionComponent<QuestionProps> = ({ question, answers, c
                     <Answer
                         key={i}
                         answer={unescape(answer)}
-                        isSelected={(!selectedId && reveal) || selectedId === i}
+                        isSelected={(selectedId == null && reveal) || selectedId === i}
                         isCorrect={correctId === i}
                         reveal={reveal}
                         onClick={() => onAnswerPicked(i)} />
