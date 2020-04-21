@@ -3,19 +3,19 @@ import * as styled from './styles';
 
 interface IAnswerProps {
     answer: string,
-    isSelected: boolean,
-    isCorrect: boolean,
+    selected: boolean,
+    correct: boolean,
     reveal: boolean,
     onClick: () => void,
 }
 
-const Answer: React.FC<IAnswerProps> = ({ isSelected, onClick, answer, isCorrect, reveal }) =>
+const Answer: React.FC<IAnswerProps> = ({ selected, onClick, answer, correct, reveal }) =>
     <styled.Answer
-        isSelected={isSelected}
-        isCorrect={isCorrect}
+        selected={selected}
+        correct={correct}
         showAnswer={reveal}
         onClick={!reveal ? onClick : undefined} >
-        <styled.Checkbox showAnswer={reveal} isCorrect={isCorrect} isSelected={isSelected} />
+        <styled.Checkbox showAnswer={reveal} correct={correct} selected={selected} />
         {answer}
     </styled.Answer>
 

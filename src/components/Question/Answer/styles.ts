@@ -2,31 +2,33 @@ import styled from 'styled-components';
 import { CORRECT, WRONG, GRAY, PRIMARY_THEME } from '~/utils/colors';
 
 interface IAnswerProps {
-    isSelected: boolean,
+    selected: boolean,
     showAnswer: boolean,
-    isCorrect: boolean,
+    correct: boolean,
 }
 
-enum StyleState { CorrectSelected, IncorrectSelected, Selected, CorrectNotSelected, Notselected }
+enum StyleState { CorrectSelected, IncorrectSelected, Selected, Notselected }
 
 const getState = (props: IAnswerProps): StyleState => {
-    const { isSelected, showAnswer, isCorrect} = props;
-    return isSelected 
-        ? showAnswer
-            ? isCorrect 
-                ? StyleState.CorrectSelected 
-                : StyleState.IncorrectSelected
-            : StyleState.Selected
-        : showAnswer && isCorrect 
-            ? StyleState.CorrectNotSelected
-            : StyleState.Notselected
+    const { selected, showAnswer, correct } = props;
+    if (selected) {
+        if (showAnswer) {
+            if(correct) {
+                return StyleState.CorrectSelected;
+            } else {
+                return StyleState.IncorrectSelected;
+            }
+        } else {
+            return StyleState.Selected;
+        }
+    }
+    return StyleState.Notselected;    
 };
 
 const answerBackgroundColor = {
     [StyleState.CorrectSelected]: CORRECT.LIGHT,
     [StyleState.IncorrectSelected]: WRONG.LIGHT,
     [StyleState.Selected]: 'transparent',
-    [StyleState.CorrectNotSelected]: CORRECT.LIGHT,
     [StyleState.Notselected]: 'transparent',
 }
 
@@ -34,7 +36,6 @@ const answerBorderColor = {
     [StyleState.CorrectSelected]: CORRECT.BASE,
     [StyleState.IncorrectSelected]: WRONG.BASE,
     [StyleState.Selected]: GRAY.BASE,
-    [StyleState.CorrectNotSelected]: GRAY.BASE,
     [StyleState.Notselected]: GRAY.BASE,
 }
 
@@ -58,7 +59,6 @@ const checkboxBorderColor = {
     [StyleState.CorrectSelected]: CORRECT.BASE,
     [StyleState.IncorrectSelected]: WRONG.BASE,
     [StyleState.Selected]: PRIMARY_THEME.BASE,
-    [StyleState.CorrectNotSelected]: CORRECT.BASE,
     [StyleState.Notselected]: GRAY.BASE,
 }
 
@@ -66,7 +66,6 @@ const checkboxBorderWidth = {
     [StyleState.CorrectSelected]: '10px',
     [StyleState.IncorrectSelected]: '6px',
     [StyleState.Selected]: '6px',
-    [StyleState.CorrectNotSelected]: '10px',
     [StyleState.Notselected]: '1px',
 }
 

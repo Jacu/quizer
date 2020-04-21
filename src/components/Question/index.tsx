@@ -25,8 +25,8 @@ const Question: React.FunctionComponent<QuestionProps> = ({ question, category, 
                     <Answer
                         key={i}
                         answer={unescape(answer)}
-                        isSelected={(selectedId == null && reveal) || selectedId === i}
-                        isCorrect={correctId === i}
+                        selected={(selectedId == null && reveal) || selectedId === i || (reveal && correctId === i)}
+                        correct={correctId === i}
                         reveal={reveal}
                         onClick={() => onAnswerPicked(i)} />
                 ))}
