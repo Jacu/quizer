@@ -41,6 +41,16 @@ describe('SettingPanel', () => {
         expect(asFragment()).toMatchSnapshot();
     });
 
+    it('should render unselected answer',() => {
+        const selected = false;
+        const { asFragment } = render(<Answer {...props} selected={selected} />);
+        expect(asFragment()).toMatchSnapshot();
+        expect(asFragment()).toEqual(render(<Answer {...props} selected={selected} reveal={true} correct={false} />).asFragment());
+        expect(asFragment()).toEqual(render(<Answer {...props} selected={selected} reveal={false} correct={true} />).asFragment());
+        expect(asFragment()).toEqual(render(<Answer {...props} selected={selected} reveal={true} correct={true} />).asFragment());
+        expect(asFragment()).toEqual(render(<Answer {...props} selected={selected} reveal={false} correct={false} />).asFragment());
+    });
+
     it('should call onClick when not in reveal mode', () => {
         const { getByText } = render(<Answer {...props} />);
         fireEvent.click(getByText(answer));

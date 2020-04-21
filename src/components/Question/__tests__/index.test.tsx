@@ -17,6 +17,10 @@ const props = {
 }
 
 describe('SettingPanel', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
     it('should render with default props', () => {
         const wrapper = shallow(<Question {...props} />);
         expect(toJson(wrapper)).toMatchSnapshot();
