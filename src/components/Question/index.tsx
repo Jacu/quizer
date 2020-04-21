@@ -1,11 +1,11 @@
 import React from 'react';
 import * as styled from './styles';
 import Answer from './Answer';
-import { IQuestion } from "~/store/reducers/quiz";
 import unescape from '@favware/unescape';
 
 interface QuestionProps {
-    question: IQuestion,
+    question: string,
+    category: string,
     answers: string[],
     correctId: number,
     reveal: boolean,
@@ -13,20 +13,20 @@ interface QuestionProps {
     onAnswerPicked: (answerId: number) => void,
 }
 
-const Question: React.FunctionComponent<QuestionProps> = ({ question, answers, correctId, reveal, onAnswerPicked, selectedId }) => {
-    const categoryLabel = `Category: ${question.category}`;
+const Question: React.FunctionComponent<QuestionProps> = ({ question, category, answers, correctId, reveal, onAnswerPicked, selectedId }) => {
+    const categoryLabel = `Category: ${category}`;
 
     return (
         <styled.QuestionComponent>
             <styled.CategoryLabel>{categoryLabel}</styled.CategoryLabel>
-            <styled.Question>{unescape(question.question)}</styled.Question>
+            <styled.Question>{unescape(question)}</styled.Question>
             <styled.AnswersContainer>
                 {answers.map((answer, i) => (
                     <Answer
                         key={i}
                         answer={unescape(answer)}
-                        isSelected={(selectedId == null && reveal) || selectedId === i}
-                        isCorrect={correctId === i}
+                        selected={(selectedId == null && reveal) || selectedId === i || (reveal && correctId === i)}
+                        correct={correctId === i}
                         reveal={reveal}
                         onClick={() => onAnswerPicked(i)} />
                 ))}
