@@ -140,8 +140,10 @@ const Quiz: React.FC<StateProps & DispatchProps> = props => {
                 score={score} 
                 questions={props.questions.map((q,i) => ({question: q.question, answer: q.correct_answer, isCorrect: correctAnswers[i]}))} />
         }
+        const currentQuestion = props.questions[questionId];
         return <Question
-            question={props.questions[questionId]}
+            question={currentQuestion.question}
+            category={currentQuestion.category}
             reveal={inRevealMode}
             answers={answers}
             correctId={correctAnswerId}

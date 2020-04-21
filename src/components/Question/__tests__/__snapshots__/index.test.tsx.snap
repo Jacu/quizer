@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SettingPanel should render with default props 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-AxjAm fbvjrF"
+  >
+    <p
+      class="sc-AxhCb kcDBNW"
+    >
+      Category: Category
+    </p>
+    <h3
+      class="sc-AxiKw cWgrDT"
+    >
+      Question
+    </h3>
+    <div
+      class="sc-AxhUy kRznDN"
+    >
+      <div
+        class="sc-AxgMl hrRWqd"
+      >
+        <div
+          class="sc-AxheI eUhxBE"
+        />
+        a1
+      </div>
+      <div
+        class="sc-AxgMl hrRWqd"
+      >
+        <div
+          class="sc-AxheI eUhxBE"
+        />
+        a2
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
