@@ -8,7 +8,7 @@ export const FETCH_CATEGORIES_START = 'FETCH_CATEGORIES_START';
 export const FETCH_CATEGORIES_SUCCESS = 'FETCH_CATEGORIES_SUCCESS';
 export const FETCH_CATEGORIES_FAIL = 'FETCH_CATEGORIES_FAIL';
 
-export const SET_QUESTION_AMOUNT = 'SET_QUESTION_AMOUNT';
+export const SET_QUESTION_QUANTITY = 'SET_QUESTION_QUANTITY';
 export const SET_QUESTION_CATEGORY = 'SET_QUESTION_CATEGORY';
 export const SET_QUESTION_TYPE = 'SET_QUESTION_TYPE';
 export const SET_QUESTION_DIFFICULTY = 'SET_QUESTION_DIFFICULTY';
@@ -89,8 +89,8 @@ export interface fetchCategoriesFail<T> {
     error: T,
 }
 
-export interface setQuestionAmount {
-    type: typeof SET_QUESTION_AMOUNT,
+export interface setQuestionQuantity {
+    type: typeof SET_QUESTION_QUANTITY,
     value: number,
 }
 
@@ -118,7 +118,7 @@ export interface resetStartPage {
 }
 
 export type StartPageActions = fetchCategoriesStart | fetchCategoriesSuccess | fetchCategoriesFail<any> |
-    setQuestionAmount | setQuestionCategory | setQuestionType | setQuestionDifficulty | generateURL | resetStartPage;
+    setQuestionQuantity | setQuestionCategory | setQuestionType | setQuestionDifficulty | generateURL | resetStartPage;
 
 
 export type AllActions = QuizActions | StartPageActions;

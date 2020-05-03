@@ -22,7 +22,7 @@ interface IDispatchProps {
     init: () => void,
     generateURL: () => void,
     initQuiz: () => void,
-    setQuestionAmount: (value: number) => void,
+    setQuestionQuantity: (value: number) => void,
     setQuestionCategory: (value: Category) => void,
     setQuestionType: (value: string) => void,
     setQuestionDifficulty: (value: string) => void,
@@ -30,7 +30,7 @@ interface IDispatchProps {
 
 const StartPage: React.FC<IStateProps & IDispatchProps> = (props) => {
     const { init, settings, loading, generateURL, initQuiz, dataAvailable } = props;
-    const { setQuestionAmount, setQuestionCategory, setQuestionType, setQuestionDifficulty } = props;
+    const { setQuestionQuantity, setQuestionCategory, setQuestionType, setQuestionDifficulty } = props;
     const {amount, category, difficulty, type } = settings;
     const startPageRef = useRef<HTMLDivElement>(null);
 
@@ -40,7 +40,7 @@ const StartPage: React.FC<IStateProps & IDispatchProps> = (props) => {
 
     useEffect(() => {
         if (startPageRef?.current) {
-            startPageRef.current!.focus();
+            startPageRef.current.focus();
         }
     }, [startPageRef]);
 
@@ -50,9 +50,7 @@ const StartPage: React.FC<IStateProps & IDispatchProps> = (props) => {
     }
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-        console.log('e.key ',e.key );
         if(e.key === KEYS.ENTER) {
-            console.log('should start');
             handleStartButtonClick();
         }
     };
@@ -68,7 +66,7 @@ const StartPage: React.FC<IStateProps & IDispatchProps> = (props) => {
                 {loading ? <styled.Spinner><Spinner/></styled.Spinner>
                     : <SettingPanel 
                         amount={amount}
-                        onAmountChange={setQuestionAmount}
+                        onQuantityChange={setQuestionQuantity}
                         category={category}
                         onCategoryChange={setQuestionCategory}
                         difficulty={difficulty}
@@ -95,7 +93,7 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<AppState,null,StartPageActio
         init: () => dispatch(actions.init()),
         generateURL: () => dispatch(actions.generateURL()),
         initQuiz: () => dispatch(actions.initQuiz()),
-        setQuestionAmount: (newAmount) => dispatch(actions.setQuestionAmount(newAmount)),
+        setQuestionQuantity: (newAmount) => dispatch(actions.setQuestionQuantity(newAmount)),
         setQuestionCategory: (newCategory) => dispatch(actions.setQuestionCategory(newCategory)),
         setQuestionType: (newType) => dispatch(actions.setQuestionType(newType)),
         setQuestionDifficulty: (newDifficulty) => dispatch(actions.setQuestionDifficulty(newDifficulty)),

@@ -1,7 +1,6 @@
 import React from 'react';
 import Answer from '../';
 import { render, fireEvent } from '@testing-library/react';
-import { toMatchDiffSnapshot } from 'snapshot-diff';
 
 const onClick = jest.fn();
 const answer = "answer text";
