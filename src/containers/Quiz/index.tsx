@@ -142,7 +142,9 @@ const Quiz: React.FC<StateProps & DispatchProps> = props => {
     return (
         <styled.Quiz finished={finished} tabIndex={0} onKeyDown={handleKeyDown} ref={quizRef}>
             {getContent()}
-            <Button label={buttonLabel} onClick={handleButtonClick} />
+            <styled.ButtonContainer>
+                <Button label={buttonLabel} onClick={handleButtonClick} />
+            </styled.ButtonContainer>
             <NavBar
                 currentQuestionNumber={questionNumber}
                 questionsAmount={questionsAmount}

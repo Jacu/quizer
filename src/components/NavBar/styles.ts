@@ -13,6 +13,7 @@ export const NavBar = styled.div`
     width: 100%;
     bottom: 0;
     padding: 0 15px;
+    left: 0;
 `;
 
 export const Icon = styled(FontAwesomeIcon)`

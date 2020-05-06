@@ -7,70 +7,74 @@ exports[`Quiz should render with props 1`] = `
     tabindex="0"
   >
     <div
-      class="sc-AxirZ gNFYKu"
+      class="sc-AxiKw cvapgi"
     >
       <p
-        class="sc-AxhUy hRZGgP"
+        class="sc-AxgMl cqiLXF"
       >
         Category: mock
       </p>
       <h3
-        class="sc-AxhCb guNxVb"
+        class="sc-AxhUy yVvfC"
       >
         Is test passing?
       </h3>
       <div
-        class="sc-AxgMl ctyLnL"
+        class="sc-AxheI fFzjlp"
       >
         <div
-          class="sc-AxheI dcuVrD"
+          class="sc-Axmtr kbPAJs"
           data-testid="NS"
         >
           <div
-            class="sc-Axmtr dyFJz"
+            class="sc-AxmLO bTFxKa"
           />
           no
         </div>
         <div
-          class="sc-AxheI dcuVrD"
+          class="sc-Axmtr kbPAJs"
           data-testid="NS"
         >
           <div
-            class="sc-Axmtr dyFJz"
+            class="sc-AxmLO bTFxKa"
           />
           of course!
         </div>
         <div
-          class="sc-AxheI dcuVrD"
+          class="sc-Axmtr kbPAJs"
           data-testid="NS"
         >
           <div
-            class="sc-Axmtr dyFJz"
+            class="sc-AxmLO bTFxKa"
           />
           not yet
         </div>
       </div>
     </div>
     <div
-      class="sc-fznyAO dgPgtH"
-      size="1.25"
-    >
-      Check
-    </div>
-    <div
-      class="sc-fzozJi kfdOls"
+      class="sc-AxirZ fGKEvi"
     >
       <div
-        class="sc-fzpans jgULOI"
+        class="sc-fznKkj etFNJk"
+        size="1.25"
+      >
+        Check
+      </div>
+    </div>
+    <div
+      class="sc-fzoLsD ioAKZq"
+    >
+      <div
+        class="sc-fzplWN fKnvyl"
       >
         Question 1 of 2
       </div>
       <div
-        class="sc-fzplWN fKnvyl"
+        class="sc-fznyAO hrrMRl"
       >
         <svg
           aria-hidden="true"
-          class="svg-inline--fa fa-home fa-w-18 sc-fzoLsD hUNRtL"
+          class="svg-inline--fa fa-home fa-w-18 sc-fzpans dsUZsr"
           data-icon="home"
           data-prefix="fas"
           focusable="false"

@@ -2,13 +2,12 @@ import styled, { keyframes } from "styled-components";
 import { PRIMARY_THEME } from "~/utils/colors";
 
 export const StartPage = styled.div`
-    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     align-self: center;
-    height: 50%;
+    height: 100%;
     width: 100%;
     :focus {
         outline: none;

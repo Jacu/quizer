@@ -17,7 +17,6 @@ export const Button = styled.div<IButtonStyle>`
     font-size: ${props => `${props.size}rem`};
     font-weight: ${props => props.bold ? 'bold' : 'normal' };
     margin: 2rem;
-    margin-bottom: 90px;
     :hover {
         background: ${PRIMARY_THEME.DARK};
     }
