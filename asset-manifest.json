@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/quizer/static/js/main.6fdb1ec4.chunk.js",
-    "main.js.map": "/quizer/static/js/main.6fdb1ec4.chunk.js.map",
+    "main.js": "/quizer/static/js/main.312028ab.chunk.js",
+    "main.js.map": "/quizer/static/js/main.312028ab.chunk.js.map",
     "runtime~main.js": "/quizer/static/js/runtime~main.01864015.js",
     "runtime~main.js.map": "/quizer/static/js/runtime~main.01864015.js.map",
-    "static/js/2.6e8fe738.chunk.js": "/quizer/static/js/2.6e8fe738.chunk.js",
-    "static/js/2.6e8fe738.chunk.js.map": "/quizer/static/js/2.6e8fe738.chunk.js.map",
+    "static/js/2.a9018e80.chunk.js": "/quizer/static/js/2.a9018e80.chunk.js",
+    "static/js/2.a9018e80.chunk.js.map": "/quizer/static/js/2.a9018e80.chunk.js.map",
     "index.html": "/quizer/index.html",
-    "precache-manifest.bbd5332c755efb5d7041be246fa2f750.js": "/quizer/precache-manifest.bbd5332c755efb5d7041be246fa2f750.js",
+    "precache-manifest.b9778f835484948ad775d1082eb5319c.js": "/quizer/precache-manifest.b9778f835484948ad775d1082eb5319c.js",
     "service-worker.js": "/quizer/service-worker.js"
   }
 }
