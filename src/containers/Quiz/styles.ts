@@ -18,3 +18,7 @@ export const Quiz = styled.div<IQuizStyle>`
         outline: none;
     }
 `;
+
+export const ButtonContainer = styled.div`
+    padding-bottom: 60px;
+`;

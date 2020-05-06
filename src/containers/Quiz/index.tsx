@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import * as styled from './styles';
 import Question from '../../components/Question';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import * as actions from '../../store/actions/index';
@@ -51,10 +50,6 @@ const Quiz: React.FC<StateProps & DispatchProps> = props => {
         }
     }, [quizRef]);
 
-    if (!props.isDataAvailable) {
-        return <Redirect to="/" />
-    };
-
     if (question) {
         answers = [...question.incorrect_answers];
         answers.splice(correctAnswerId, 0, question.correct_answer);
@@ -89,9 +84,6 @@ const Quiz: React.FC<StateProps & DispatchProps> = props => {
     }
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-        const isBooleanQuestion = answers.length <= 2;
-        console.log(e.key);
-        
         if (!loading) {
             switch (e.key) {
                 case KEYS.ENTER:
@@ -101,47 +93,45 @@ const Quiz: React.FC<StateProps & DispatchProps> = props => {
                     props.quit();
                     break;
                 case KEYS.ARROW_UP:
-                    if (!inRevealMode && selectedId != null && selectedId > 0) {
-                        setSelectedId(selectedId - 1);
-                        break;
+                    if (!inRevealMode) {
+                        if (selectedId != null && selectedId > 0) {
+                            setSelectedId(selectedId - 1);
+                        } else {
+                            setSelectedId(answers.length - 1)
+                        }
                     }
-                    !inRevealMode &&setSelectedId(isBooleanQuestion ? 1 : 3);
                     break;
                 case KEYS.ARROW_DOWN:
-                    if (!inRevealMode &&selectedId != null && (isBooleanQuestion ? selectedId < 1 : selectedId < 3)) {
-                        setSelectedId(selectedId + 1);
-                        break;
+                    if (!inRevealMode) {
+                        if (selectedId != null && selectedId < answers.length - 1) {
+                            setSelectedId(selectedId + 1);
+                        } else {
+                            setSelectedId(0);
+                        }
                     }
-                    !inRevealMode && setSelectedId(0);
-                    break;
-                case KEYS.ONE:
-                    !inRevealMode && setSelectedId(0);
-                    break;
-                case KEYS.TWO:
-                    !inRevealMode && setSelectedId(1);
-                    break;
-                case KEYS.THREE:
-                    !isBooleanQuestion && !inRevealMode && setSelectedId(2);
-                    break;
-                case KEYS.FOUR:
-                    !isBooleanQuestion && !inRevealMode && setSelectedId(3);
                     break;
                 default:
+                    if(!inRevealMode && !isNaN(+e.key)){
+                        const selectedIdFromKeyDown = +e.key - 1;
+                        selectedIdFromKeyDown <= answers.length - 1 && setSelectedId(selectedIdFromKeyDown);
+                    }
                     break;
             }
         }
     };
 
-    const getContent = () => {
+    function getContent() {
         if (loading) {
             return <Spinner />
         } else if (finished) {
-            return <Summary 
-                score={score} 
-                questions={props.questions.map((q,i) => ({question: q.question, answer: q.correct_answer, isCorrect: correctAnswers[i]}))} />
+            return <Summary
+                score={score}
+                questions={props.questions.map((q, i) => ({ question: q.question, answer: q.correct_answer, isCorrect: correctAnswers[i] }))} />
         }
+        const currentQuestion = props.questions[questionId];
         return <Question
-            question={props.questions[questionId]}
+            question={currentQuestion.question}
+            category={currentQuestion.category}
             reveal={inRevealMode}
             answers={answers}
             correctId={correctAnswerId}
@@ -152,7 +142,9 @@ const Quiz: React.FC<StateProps & DispatchProps> = props => {
     return (
         <styled.Quiz finished={finished} tabIndex={0} onKeyDown={handleKeyDown} ref={quizRef}>
             {getContent()}
-            <Button label={buttonLabel} onClick={handleButtonClick} />
+            <styled.ButtonContainer>
+                <Button label={buttonLabel} onClick={handleButtonClick} />
+            </styled.ButtonContainer>
             <NavBar
                 currentQuestionNumber={questionNumber}
                 questionsAmount={questionsAmount}

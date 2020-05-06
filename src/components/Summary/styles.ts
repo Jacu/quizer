@@ -7,6 +7,8 @@ interface IAnswerContainerStyle {
 
 export const Summary = styled.div`
     color: ${PRIMARY_THEME.BASE};
+    display: flex;
+    flex-direction: column;
 `;
 
 export const ScoreContainer = styled.div`

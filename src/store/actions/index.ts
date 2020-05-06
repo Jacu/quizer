@@ -6,7 +6,7 @@ export {
 } from './quiz'
 export {
     init,
-    setQuestionAmount,
+    setQuestionQuantity,
     setQuestionCategory,
     setQuestionType,
     setQuestionDifficulty,

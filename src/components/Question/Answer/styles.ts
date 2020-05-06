@@ -1,44 +1,46 @@
 import styled from 'styled-components';
 import { CORRECT, WRONG, GRAY, PRIMARY_THEME } from '~/utils/colors';
+import { AnswerStates } from "./config";
 
 interface IAnswerProps {
-    isSelected: boolean,
+    selected: boolean,
     showAnswer: boolean,
-    isCorrect: boolean,
+    correct: boolean,
 }
 
-enum StyleState { CorrectSelected, IncorrectSelected, Selected, CorrectNotSelected, Notselected }
-
-const getState = (props: IAnswerProps): StyleState => {
-    const { isSelected, showAnswer, isCorrect} = props;
-    return isSelected 
-        ? showAnswer
-            ? isCorrect 
-                ? StyleState.CorrectSelected 
-                : StyleState.IncorrectSelected
-            : StyleState.Selected
-        : showAnswer && isCorrect 
-            ? StyleState.CorrectNotSelected
-            : StyleState.Notselected
+const getState = (props: IAnswerProps): AnswerStates => {
+    const { selected, showAnswer, correct } = props;
+    if (selected) {
+        if (showAnswer) {
+            if (correct) {
+                return AnswerStates.CorrectSelected;
+            } else {
+                return AnswerStates.IncorrectSelected;
+            }
+        } else {
+            return AnswerStates.Selected;
+        }
+    }
+    return AnswerStates.Notselected;
 };
 
 const answerBackgroundColor = {
-    [StyleState.CorrectSelected]: CORRECT.LIGHT,
-    [StyleState.IncorrectSelected]: WRONG.LIGHT,
-    [StyleState.Selected]: 'transparent',
-    [StyleState.CorrectNotSelected]: CORRECT.LIGHT,
-    [StyleState.Notselected]: 'transparent',
+    [AnswerStates.CorrectSelected]: CORRECT.LIGHT,
+    [AnswerStates.IncorrectSelected]: WRONG.LIGHT,
+    [AnswerStates.Selected]: 'transparent',
+    [AnswerStates.Notselected]: 'transparent',
 }
 
 const answerBorderColor = {
-    [StyleState.CorrectSelected]: CORRECT.BASE,
-    [StyleState.IncorrectSelected]: WRONG.BASE,
-    [StyleState.Selected]: GRAY.BASE,
-    [StyleState.CorrectNotSelected]: GRAY.BASE,
-    [StyleState.Notselected]: GRAY.BASE,
+    [AnswerStates.CorrectSelected]: CORRECT.BASE,
+    [AnswerStates.IncorrectSelected]: WRONG.BASE,
+    [AnswerStates.Selected]: GRAY.BASE,
+    [AnswerStates.Notselected]: GRAY.BASE,
 }
 
-export const Answer = styled.div<IAnswerProps>`
+export const Answer = styled.div.attrs<IAnswerProps>(props => ({
+    'data-testid': getState(props),
+})) <IAnswerProps>`
     display: flex;
     width: 100%;
     padding: 15px 0;
@@ -55,19 +57,17 @@ export const Answer = styled.div<IAnswerProps>`
 `;
 
 const checkboxBorderColor = {
-    [StyleState.CorrectSelected]: CORRECT.BASE,
-    [StyleState.IncorrectSelected]: WRONG.BASE,
-    [StyleState.Selected]: PRIMARY_THEME.BASE,
-    [StyleState.CorrectNotSelected]: CORRECT.BASE,
-    [StyleState.Notselected]: GRAY.BASE,
+    [AnswerStates.CorrectSelected]: CORRECT.BASE,
+    [AnswerStates.IncorrectSelected]: WRONG.BASE,
+    [AnswerStates.Selected]: PRIMARY_THEME.BASE,
+    [AnswerStates.Notselected]: GRAY.BASE,
 }
 
 const checkboxBorderWidth = {
-    [StyleState.CorrectSelected]: '10px',
-    [StyleState.IncorrectSelected]: '6px',
-    [StyleState.Selected]: '6px',
-    [StyleState.CorrectNotSelected]: '10px',
-    [StyleState.Notselected]: '1px',
+    [AnswerStates.CorrectSelected]: '10px',
+    [AnswerStates.IncorrectSelected]: '6px',
+    [AnswerStates.Selected]: '6px',
+    [AnswerStates.Notselected]: '1px',
 }
 
 export const Checkbox = styled.div<IAnswerProps>`

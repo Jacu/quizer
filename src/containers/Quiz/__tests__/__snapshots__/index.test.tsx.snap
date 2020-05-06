@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Quiz should render with props 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-AxjAm ejebrS"
+    tabindex="0"
+  >
+    <div
+      class="sc-AxiKw cvapgi"
+    >
+      <p
+        class="sc-AxgMl cqiLXF"
+      >
+        Category: mock
+      </p>
+      <h3
+        class="sc-AxhUy yVvfC"
+      >
+        Is test passing?
+      </h3>
+      <div
+        class="sc-AxheI fFzjlp"
+      >
+        <div
+          class="sc-Axmtr kbPAJs"
+          data-testid="NS"
+        >
+          <div
+            class="sc-AxmLO bTFxKa"
+          />
+          no
+        </div>
+        <div
+          class="sc-Axmtr kbPAJs"
+          data-testid="NS"
+        >
+          <div
+            class="sc-AxmLO bTFxKa"
+          />
+          of course!
+        </div>
+        <div
+          class="sc-Axmtr kbPAJs"
+          data-testid="NS"
+        >
+          <div
+            class="sc-AxmLO bTFxKa"
+          />
+          not yet
+        </div>
+      </div>
+    </div>
+    <div
+      class="sc-AxirZ fGKEvi"
+    >
+      <div
+        class="sc-fznKkj etFNJk"
+        size="1.25"
+      >
+        Check
+      </div>
+    </div>
+    <div
+      class="sc-fzoLsD ioAKZq"
+    >
+      <div
+        class="sc-fzplWN fKnvyl"
+      >
+        Question 1 of 2
+      </div>
+      <div
+        class="sc-fznyAO hrrMRl"
+      >
+        <svg
+          aria-hidden="true"
+          class="svg-inline--fa fa-home fa-w-18 sc-fzpans dsUZsr"
+          data-icon="home"
+          data-prefix="fas"
+          focusable="false"
+          role="img"
+          viewBox="0 0 576 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StartPage should render with props 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-AxjAm dymdYj"
+    tabindex="0"
+  >
+    <div
+      class="sc-AxiKw cHoWxU"
+    >
+      <h1
+        class="sc-AxhCb dQEwPj"
+      >
+        Quizer
+      </h1>
+      <div
+        class="sc-AxhUy cLpufN"
+      >
+        <p>
+          Quiz generator with use of Trivia API opentdb.com
+        </p>
+        <p>
+          created by Jacek Smetek
+        </p>
+      </div>
+      <div>
+        MOCKED SETTING PANEL
+      </div>
+    </div>
+    <div
+      class="sc-AxheI bYrzp"
+      size="2"
+    >
+      Start
+    </div>
+  </div>
+</DocumentFragment>
+`;

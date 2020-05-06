@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SettingPanel should render unselected answer 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-AxjAm Apjit"
+    data-testid="NS"
+  >
+    <div
+      class="sc-AxirZ gphSZZ"
+    />
+    answer text
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SettingPanel should render when selected 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-AxjAm Apjit"
+    data-testid="S"
+  >
+    <div
+      class="sc-AxirZ eKayzj"
+    />
+    answer text
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SettingPanel should render when selected and reveal and correct 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-AxjAm kcwPPb"
+    data-testid="CS"
+  >
+    <div
+      class="sc-AxirZ BHBvY"
+    />
+    answer text
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SettingPanel should render when selected and reveal and incorrect 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-AxjAm iLpmua"
+    data-testid="IS"
+  >
+    <div
+      class="sc-AxirZ eRsxqP"
+    />
+    answer text
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SettingPanel should render with default props 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-AxjAm Apjit"
+    data-testid="NS"
+  >
+    <div
+      class="sc-AxirZ gphSZZ"
+    />
+    answer text
+  </div>
+</DocumentFragment>
+`;

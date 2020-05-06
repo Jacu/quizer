@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SettingPanel should render with default props 1`] = `
+<styled.div>
+  <styled.p>
+    Category: Category
+  </styled.p>
+  <styled.h3>
+    Question
+  </styled.h3>
+  <styled.div>
+    <Answer
+      answer="a1"
+      correct={true}
+      key="0"
+      onClick={[Function]}
+      reveal={false}
+      selected={false}
+    />
+    <Answer
+      answer="a2"
+      correct={false}
+      key="1"
+      onClick={[Function]}
+      reveal={false}
+      selected={false}
+    />
+  </styled.div>
+</styled.div>
+`;

@@ -69,7 +69,7 @@ const fetchCategoriesFail = (state: StartPageState, action: actionTypes.fetchCat
     return { ...state, loading: false }
 }
 
-const setQuestionAmount = (state: StartPageState, action: actionTypes.setQuestionAmount): StartPageState => {
+const setQuestionQuantity = (state: StartPageState, action: actionTypes.setQuestionQuantity): StartPageState => {
     return {...state, settings: {
         ...state.settings,
         amount: {
@@ -114,12 +114,23 @@ const resetStartPage = (state: StartPageState, action: actionTypes.resetStartPag
 }
 
 const generateUrl = (state: StartPageState, action: actionTypes.generateURL): StartPageState => {
-    const { category, amount, difficulty, type } = state.settings;
+    const { amount, category, difficulty, type } = state.settings;
+    const difficultyUrlValueMap = {
+        'Easy': 'easy',
+        'Medium': 'medium',
+        'Hard': 'hard',
+        'Any': 0,
+    };
+    const typeUrlValueMap = {
+        'ABCD': 'multiple',
+        'True/False': 'boolean',
+        'Any': 0,
+    }
+    const questionsQuantity = amount.selected;
     const categoryID = category.values.filter(currCategory => currCategory.name === category.selected.name)[0].id;
-    const questionsAmount = amount.selected;
-    const selectedDifficulty = ["easy", "medium", "hard", "0"][difficulty.values.indexOf(difficulty.selected)];
-    const selectedType = ["multiple","boolean","0"][type.values.indexOf(type.selected)];
-    const apiURL = `https://opentdb.com/api.php?amount=${questionsAmount}&category=${categoryID}&type=${selectedType}&dificulty=${selectedDifficulty}`;
+    const selectedDifficulty = difficultyUrlValueMap[difficulty.selected];
+    const selectedType = typeUrlValueMap[type.selected];
+    const apiURL = `https://opentdb.com/api.php?amount=${questionsQuantity}&category=${categoryID}&type=${selectedType}&dificulty=${selectedDifficulty}`;
     return {...state, settings: {...state.settings, apiURL: apiURL}};
 }
 
@@ -128,7 +139,7 @@ const reducer = (state = initialState, action: actionTypes.StartPageActions): St
         case actionTypes.FETCH_CATEGORIES_START: return fetchCategoriesStart(state, action);
         case actionTypes.FETCH_CATEGORIES_SUCCESS: return fetchCategoriesSuccess(state, action);
         case actionTypes.FETCH_CATEGORIES_FAIL: return fetchCategoriesFail(state, action);
-        case actionTypes.SET_QUESTION_AMOUNT: return setQuestionAmount(state, action);
+        case actionTypes.SET_QUESTION_QUANTITY: return setQuestionQuantity(state, action);
         case actionTypes.SET_QUESTION_CATEGORY: return setQuestionCategory(state, action);
         case actionTypes.SET_QUESTION_TYPE: return setQuestionType(state, action);
         case actionTypes.SET_QUESTION_DIFFICULTY: return setQuestionDifficulty(state, action);

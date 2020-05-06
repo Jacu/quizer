@@ -64,7 +64,7 @@
     "postcss-preset-env": "6.6.0",
     "postcss-safe-parser": "4.0.1",
     "react": "^16.8.6",
-    "react-app-polyfill": "^1.0.1",
+    "react-app-polyfill": "^1.0.6",
     "react-axios": "^2.0.3",
     "react-dev-utils": "^9.0.1",
     "react-dom": "^16.8.6",
@@ -108,9 +108,9 @@
       "not op_mini all"
     ],
     "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
     ]
   },
   "devDependencies": {
@@ -123,6 +123,7 @@
     "css-loader": "^3.0.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
+    "redux-mock-store": "^1.5.4",
     "style-loader": "^0.23.1",
     "typings-for-css-modules-loader": "^1.7.0"
   },
@@ -134,7 +135,9 @@
     "setupFiles": [
       "react-app-polyfill/jsdom"
     ],
-    "setupFilesAfterEnv": ["<rootDir>/config/jest/setup.js"],
+    "setupFilesAfterEnv": [
+      "<rootDir>/config/jest/setup.js"
+    ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
       "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
