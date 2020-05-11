@@ -1,4 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
+import he from 'he';
 
 export interface IQuestion {
     category: string,
@@ -25,7 +26,7 @@ const initialState: QuizState = {
 const shuffleAnswers = (state: QuizState, action: actionTypes.shuffleAnswers): QuizState => {
     const { questions } = state;
     const questionsWithAnswerId: IQuestion[] = [...questions];
-    questions.forEach((question,i) => {
+    questions.forEach((question, i) => {
         let correctAnswerId = -1;
         const answersAmmount = question.incorrect_answers.length + 1;
         const isBoolType = answersAmmount === 2;
@@ -36,7 +37,7 @@ const shuffleAnswers = (state: QuizState, action: actionTypes.shuffleAnswers): Q
         }
         questionsWithAnswerId[i].correctAnswerId = correctAnswerId;
     });
-    return { ...state, questions: questionsWithAnswerId  }
+    return { ...state, questions: questionsWithAnswerId }
 }
 
 const fetchQuestionsStart = (state: QuizState, action: actionTypes.fetchQuestionsStart): QuizState => {
@@ -44,7 +45,16 @@ const fetchQuestionsStart = (state: QuizState, action: actionTypes.fetchQuestion
 }
 
 const fetchQuestionsSuccess = (state: QuizState, action: actionTypes.fetchQuestionsSuccess): QuizState => {
-    return { ...state, questions: action.questions, fetching: false };
+    const questions = action.questions.map(q => (
+        {
+            ...q,
+            category: he.decode(q.category),
+            question: he.decode(q.question),
+            correct_answer: he.decode(q.correct_answer),
+            incorrect_answers: q.incorrect_answers.map(incorrectAnswear => he.decode(incorrectAnswear)),
+        }
+    ));
+    return { ...state, questions, fetching: false };
 }
 
 const fetchQuestionsFail = (state: QuizState, action: actionTypes.fetchQuestionsFail<any>): QuizState => {
@@ -61,7 +71,7 @@ const quizEnded = (state: QuizState, action: actionTypes.endQuiz): QuizState => 
 }
 
 const quizQuit = (state: QuizState, action: actionTypes.quizQuit): QuizState => {
-    return { ...state, started: false}
+    return { ...state, started: false }
 }
 
 const reset = (state: QuizState, action: actionTypes.resetQuiz): QuizState => {
