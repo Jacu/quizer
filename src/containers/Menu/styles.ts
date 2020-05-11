@@ -43,7 +43,7 @@ const quizerIntro = keyframes`
 export const Title = styled.h1`
     margin: 20px 0;
     font-size: 6rem;
-    animation: ${quizerIntro} 0.4s 0.5s ease-out forwards;
+    animation: ${quizerIntro} 0.4s 0.4s ease-out forwards;
     background: none;
     color: ${PRIMARY_THEME.BASE};
     transform: scale(0, 0);

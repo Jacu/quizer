@@ -34,6 +34,7 @@ const Quiz: React.FC<StateProps & DispatchProps> = props => {
     const [selectedId, setSelectedId] = useState<number>();
     const question = props.questions[questionId];
     const quizRef = useRef<HTMLDivElement>(null);
+    const noQuestionsFound = Boolean(!props.questions.length);
 
     let answers: string[] = [];
     const questionsAmount = props.questions.length;
@@ -41,7 +42,7 @@ const Quiz: React.FC<StateProps & DispatchProps> = props => {
     const score = correctAnswers.reduce((prev, curr) => curr ? prev + 1 : prev, 0) / questionsAmount * 100;
 
     const [inRevealMode, setInRevealMode] = useState(false);
-    const buttonLabel = finished ? 'Try Again!' : inRevealMode ? "Next" : "Check";
+    const buttonLabel = noQuestionsFound ? 'Back' : finished ? 'Try Again!' : inRevealMode ? "Next" : "Check";
     const loading = !(props.quizStarted || finished) || props.dataLoading;
 
     useEffect(() => {
@@ -64,7 +65,9 @@ const Quiz: React.FC<StateProps & DispatchProps> = props => {
     }
 
     const handleButtonClick = () => {
-        if (finished) {
+        if (noQuestionsFound) {
+            props.end();
+        } else if (finished) {
             resetSettings();
         } else if (inRevealMode) {
             const isLastQuestion = questionNumber === props.questions.length;
@@ -111,7 +114,7 @@ const Quiz: React.FC<StateProps & DispatchProps> = props => {
                     }
                     break;
                 default:
-                    if(!inRevealMode && !isNaN(+e.key)){
+                    if (!inRevealMode && !isNaN(+e.key)) {
                         const selectedIdFromKeyDown = +e.key - 1;
                         selectedIdFromKeyDown <= answers.length - 1 && setSelectedId(selectedIdFromKeyDown);
                     }
@@ -123,6 +126,8 @@ const Quiz: React.FC<StateProps & DispatchProps> = props => {
     function getContent() {
         if (loading) {
             return <Spinner />
+        } else if (noQuestionsFound) {
+            return <div>No questions found, please change your criteria</div>
         } else if (finished) {
             return <Summary
                 score={score}

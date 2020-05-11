@@ -11,7 +11,14 @@ interface INavBarProps {
 };
 
 const NavBar: React.FC<INavBarProps> = ({ currentQuestionNumber, questionsAmount, loading, finished, onQuit }) => {
-    const counterLabel = finished ? null : loading ? 'Loading...' : `Question ${currentQuestionNumber} of ${questionsAmount}`
+    let counterLabel = '';
+    if(loading) {
+        counterLabel = 'Loading...';
+    } else {
+        if(questionsAmount){
+            counterLabel = `Question ${currentQuestionNumber} of ${questionsAmount}`;
+        }
+    }
     return (
         <styled.NavBar>
             <styled.QuestionCounter>{counterLabel}</styled.QuestionCounter>
