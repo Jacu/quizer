@@ -31,7 +31,7 @@ describe('quiz reducer', () => {
             difficulty: "easy",
             question: 'Is &#039;this&#039; decodable&#063;',
             correct_answer: '&quot;YES&quot;',
-            incorrect_answers: ['&tilde;&#033;','&#063;','&lt;&amp;&gt;','&euro;'],
+            incorrect_answers: ['&tilde;&#033;','&#063;','&lt;&amp;&gt;','&euro;','&Pi; &Sigma; &Omicron;'],
             correctAnswerId: 0,
         };
         const fetchedQuestions = [mockQuestion];
@@ -42,7 +42,7 @@ describe('quiz reducer', () => {
         expect(decodedQuestion.category).toEqual("Decode!");
         expect(decodedQuestion.question).toEqual("Is 'this' decodable?");
         expect(decodedQuestion.correct_answer).toEqual('"YES"');
-        expect(decodedQuestion.incorrect_answers).toEqual(['˜!','?','<&>','€']);
+        expect(decodedQuestion.incorrect_answers).toEqual(['˜!','?','<&>','€','Π Σ Ο']);
     });
 
     it('FETCH_QUESTIONS_FAIL action should set fetching prop to false', () => {
