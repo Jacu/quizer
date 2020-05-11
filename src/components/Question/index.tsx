@@ -1,7 +1,6 @@
 import React from 'react';
 import * as styled from './styles';
 import Answer from './Answer';
-import unescape from '@favware/unescape';
 
 interface QuestionProps {
     question: string,
@@ -13,18 +12,16 @@ interface QuestionProps {
     onAnswerPicked: (answerId: number) => void,
 }
 
-const Question: React.FunctionComponent<QuestionProps> = ({ question, category, answers, correctId, reveal, onAnswerPicked, selectedId }) => {
-    const categoryLabel = `Category: ${category}`;
-
-    return (
+const Question: React.FunctionComponent<QuestionProps> = ({ question, category, answers, correctId, reveal, onAnswerPicked, selectedId }) =>
+    (
         <styled.QuestionComponent>
-            <styled.CategoryLabel>{categoryLabel}</styled.CategoryLabel>
-            <styled.Question>{unescape(question)}</styled.Question>
+            <styled.CategoryLabel>{`Category: ${category}`}</styled.CategoryLabel>
+            <styled.Question>{question}</styled.Question>
             <styled.AnswersContainer>
                 {answers.map((answer, i) => (
                     <Answer
                         key={i}
-                        answer={unescape(answer)}
+                        answer={answer}
                         selected={(selectedId == null && reveal) || selectedId === i || (reveal && correctId === i)}
                         correct={correctId === i}
                         reveal={reveal}
@@ -33,6 +30,5 @@ const Question: React.FunctionComponent<QuestionProps> = ({ question, category, 
             </styled.AnswersContainer>
         </styled.QuestionComponent>
     );
-};
 
 export default Question;

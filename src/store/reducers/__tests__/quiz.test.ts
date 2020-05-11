@@ -24,11 +24,25 @@ describe('quiz reducer', () => {
         expect(quizReducer(undefined, actions.fetchQuestionsStart())).toEqual({ ...initialState, fetching: true });
     });
 
-    it('FETCH_QUESTIONS_SUCCESS action should set fetching prop to false and set questions', () => {
-        const fetchedQuestions = [];
+    it('FETCH_QUESTIONS_SUCCESS action should set fetching prop to false and set decoded questions', () => {
+        const mockQuestion: IQuestion = {
+            category: 'Decode&#033;',
+            type: "multiple",
+            difficulty: "easy",
+            question: 'Is &#039;this&#039; decodable&#063;',
+            correct_answer: '&quot;YES&quot;',
+            incorrect_answers: ['&tilde;&#033;','&#063;','&lt;&amp;&gt;','&euro;'],
+            correctAnswerId: 0,
+        };
+        const fetchedQuestions = [mockQuestion];
         const changedState = quizReducer(undefined, actions.fetchQuestionsSuccess(fetchedQuestions));
         expect(changedState.fetching).toBeFalsy();
-        expect(changedState.questions).toBe(fetchedQuestions);
+        expect(changedState.questions).toHaveLength(fetchedQuestions.length);
+        const decodedQuestion = changedState.questions[0];
+        expect(decodedQuestion.category).toEqual("Decode!");
+        expect(decodedQuestion.question).toEqual("Is 'this' decodable?");
+        expect(decodedQuestion.correct_answer).toEqual('"YES"');
+        expect(decodedQuestion.incorrect_answers).toEqual(['˜!','?','<&>','€']);
     });
 
     it('FETCH_QUESTIONS_FAIL action should set fetching prop to false', () => {
